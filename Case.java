@@ -1,8 +1,8 @@
 
 public class Case {
 	
-	private int x;
-	private int y;
+	public final int x;
+	public final int y;
 	private int content;
 	
 	public Case(int x, int y, int content){
@@ -12,5 +12,8 @@ public class Case {
 	}
 	
 	
+	public Case apply(Move m){
+		return this.Case(this.x+m.x,this.y+m.y);		
+	}
 	
 }
