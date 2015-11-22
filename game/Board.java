@@ -44,7 +44,7 @@ public abstract class Board {
     }
     
     // public boolean equals(Object o) {
-      // if(this.getClass()!=o.getClass())
+      // if(!this.getClass().equals(o.getClass()))
         // return false;
       // Board.Case c = (Board.Case) o;
       // returnthis.x==c.x && this.y==c.y && Board.this==Board.c;
