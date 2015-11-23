@@ -10,14 +10,15 @@ public class BoardSquare extends Board {
     this(6);
   }
   
-	protected int getContent(int x, int y) {
+  @Override
+	int getContent(int x, int y) {
     if (!( 0<=x && x<this.size && 0<=y && y<this.size )) // hors plateau
       return -1;
     if ( y==size-1 && (x==0 || x==size-1) ) // joueur 1
       return 1;
     if ( y==0 && (x==0 || x==size-1) ) // joueur 2
       return 2;
-    return 0;
+    return 0; // case praticable
   }
   
 }

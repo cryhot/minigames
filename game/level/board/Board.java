@@ -4,56 +4,12 @@ public abstract class Board {
   protected int[] limit; // [minX,minY,maxX,maxY]
   
 	public final Case getCase(int x, int y) {
-    return this.new Case(x,y);
+    return new Case(this,x,y);
   }
   
   // -1 : case hors plateau
   // 0 : case vide ( traversable )
   // n>0 : case de sortie du joueur (n-1)
-  protected abstract int getContent(int x,int y);
-  
-  public final class Case {
-    public final int x;
-    public final int y;
+  abstract int getContent(int x,int y);
     
-    public Case(int x, int y){
-      this.x=x;
-      this.y=y;
-    }
-    
-    private int getContent() {
-      return Board.this.getContent(this.x,this.y);
-    }
-    
-    public boolean isInside() {
-      return this.getContent()>=0;
-    }
-    
-    public boolean isEmpty() {
-      return this.getContent()==0;
-    }
-    
-    public boolean isEscape() {
-      return this.getContent()>0;
-    }
-    
-    public boolean isEscape(int player) {
-      if (!this.isEscape())
-        return false;
-      return this.getContent()==player+1;
-    }
-    
-    public boolean equals(Object o) {
-      if(!this.getClass().equals(o.getClass()))
-        return false;
-      Board.Case c = (Board.Case) o;
-      return this.x==c.x && this.y==c.y; // A AJOUTER : les Board doivent être les mêmes
-    }
-    
-    // public Board.Case apply(Move m) { // A SUPPRIMER : fonctionnalité de Move
-    //   return Board.this.getCase(this.x+m.x,this.y+m.y);
-    // }
-    
-  }
-  
 }
