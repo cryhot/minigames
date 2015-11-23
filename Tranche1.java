@@ -1,4 +1,5 @@
-import game.*;
+import game.level.*;
+import game.level.board.*;
 
 public class Tranche1 {
   

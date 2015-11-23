@@ -1,4 +1,4 @@
-package game;
+package game.level.board;
 
 public abstract class Board {
   protected int[] limit; // [minX,minY,maxX,maxY]
@@ -43,16 +43,16 @@ public abstract class Board {
       return this.getContent()==player+1;
     }
     
-    // public boolean equals(Object o) {
-      // if(!this.getClass().equals(o.getClass()))
-        // return false;
-      // Board.Case c = (Board.Case) o;
-      // returnthis.x==c.x && this.y==c.y && Board.this==Board.c;
-    // }
-    
-    public Board.Case apply(Move m) {
-      return Board.this.getCase(this.x+m.x,this.y+m.y);
+    public boolean equals(Object o) {
+      if(!this.getClass().equals(o.getClass()))
+        return false;
+      Board.Case c = (Board.Case) o;
+      return this.x==c.x && this.y==c.y; // A AJOUTER : les Board doivent être les mêmes
     }
+    
+    // public Board.Case apply(Move m) { // A SUPPRIMER : fonctionnalité de Move
+    //   return Board.this.getCase(this.x+m.x,this.y+m.y);
+    // }
     
   }
   

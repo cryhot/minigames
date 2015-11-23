@@ -1,4 +1,4 @@
-package game;
+package game.level.board;
 
 public class BoardSquare extends Board {
   private final int size;

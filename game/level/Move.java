@@ -1,4 +1,4 @@
-package game;
+package game.level;
 
 public class Move {
 	public final int x;
