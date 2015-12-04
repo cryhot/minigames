@@ -2,9 +2,14 @@
 
 package game.level;
 
+import game.level.board.Case;
+
 public class Pawn {
-	private static Move[] moves = {new Move(0,1), new Move(1,0), new Move(-1,0) , new Move(0,-1)};
+	
+	
 	private Case c;
+	public final Ghost g;// le pion possède un attribut ghost
+	
 	
 	public Case getCase(){
 		return this.c;
