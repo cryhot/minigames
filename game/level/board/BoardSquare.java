@@ -1,3 +1,4 @@
+//JR
 package game.level.board;
 
 public class BoardSquare extends Board {
