@@ -1,6 +1,7 @@
+//JR
 package game.level;
 
-import board.Case;
+import game.level.board.Case;
 
 final class Move implements Comparable<Move> {
 	public final int x;
@@ -10,7 +11,7 @@ final class Move implements Comparable<Move> {
 		this.x = x;
 		this.y = y;
 	}
-	public Move(Board.Case from, Board.Case to) {
+	public Move(Case from, Case to) {
 		this.x = to.x-from.x;
 		this.y = to.y-from.y;
 	}

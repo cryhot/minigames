@@ -1,3 +1,4 @@
+//JR
 package game.level.board;
 
 public final class Case implements Comparable<Case> {
