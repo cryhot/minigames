@@ -2,6 +2,7 @@
 
 package game.level;
 
+
 public class GoodSoul extends Soul{
 	
 	public GoodSoul(){
