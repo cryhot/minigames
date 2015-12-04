@@ -10,6 +10,7 @@ public class Tranche1 {
 		System.out.println(plateau.getCase(0,6).equals(plateau.getCase(0,6)));
 		Level l = new Level();
 		
+		
 	}
 	
 }
