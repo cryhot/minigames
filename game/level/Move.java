@@ -29,6 +29,11 @@ final class Move implements Comparable<Move> {
 	}
 	
 	@Override
+	public int hashCode() {
+		return this.x*11+this.y*13;
+	}
+	
+	@Override
 	public int compareTo(Move m) {
 		if (this.x!=m.x)
 			return this.x<m.x?-1:1;

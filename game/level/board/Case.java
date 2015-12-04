@@ -43,6 +43,11 @@ public final class Case implements Comparable<Case> {
 	}
 	
 	@Override
+	public int hashCode() {
+		return this.x*11+this.y*13;
+	}
+	
+	@Override
 	public int compareTo(Case c) {
 		int diff = this.board.hashCode()-c.board.hashCode();
 		if (diff!=0)
