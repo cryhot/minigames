@@ -13,7 +13,7 @@ public final class Case implements Comparable<Case> {
 	
 	/**
 	 * Construit une case d'un plateau en fonction de ses coordonnées.
-	 * @param board  le case auquel la case se réfère
+	 * @param board  le plateau auquel la case se réfère
 	 * @param x  la première coordonnée
 	 * @param y  la deuxième coordonnée
 	 * @throws NullPointerException  si le plateau fourni est <code>null</code>
