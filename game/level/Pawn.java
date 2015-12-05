@@ -4,15 +4,16 @@ package game.level;
 import game.level.board.Case;
 
 public final class Pawn {
-	private Case c;
-	public final Ghost ghost;// le pion possède un attribut ghost
 	
-	public Pawn() {
-		this.ghost = null; //!\\
+	public final Ghost ghost;// le pion possède un attribut ghost
+	private Case location;
+	
+	public Pawn() { //!\\ 
+		this.ghost = null;
 	}
 	
 	public Case getCase(){
-		return this.c;
+		return this.location;
 	}
 	
 	@Override
