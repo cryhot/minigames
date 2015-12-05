@@ -7,6 +7,7 @@ import game.level.board.Case;
  * Un <code>Move</code> est un vecteur correspondant à un déplacement.
  * Un vecteur de déplacement n'est pas lié à un plateau, il existe par lui même.
  * @see game.level.board.Board
+ * @see MoveTable
  */
 final class Move implements Comparable<Move> {
 	public final int x;
@@ -43,7 +44,7 @@ final class Move implements Comparable<Move> {
 	}
 	
 	/**
-	 * Teste l'égalité l'objet spécifié avec ce déplacement.
+	 * Teste l'égalité entre l'objet spécifié et ce déplacement.
 	 * Deux déplacements sont considérés comme égaux si ils décrivent le même déplacement ( ils ont les mêmes coordonnées  ).
 	 * @param o  l'objet à comparer par égalité avec ce déplacement
 	 * @return  <code>true</code> si l'objet spécifié est égal à ce déplacement

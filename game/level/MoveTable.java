@@ -5,10 +5,15 @@ import game.level.board.Case;
 
 /**
  * Un <code>MoveTable</code> est une carte de déplacement, décrivant des possibilités de déplacement.
- * @see game.level.Soul
- * @see game.level.Move
+ * @see Move
+ * @see Mobility
  */
 final class MoveTable implements Iterable<Move> {
+	/** La carte de déplacement nulle, infirmant tout déplacement. */
+	public static final MoveTable NO_MOVE = new MoveTable();
+	/** La carte de déplacement autorisant seulement du sur-place. */
+	public static final MoveTable STAY = new MoveTable( new Move(0,0) );
+	
 	private final java.util.Set<Move> moves;
 	
 	/**
@@ -43,12 +48,44 @@ final class MoveTable implements Iterable<Move> {
 	}
 	
 	/**
+	 * Renvoie l'ensemble des cases accessibles à partir de la case spécifiée, selon cette carte de déplacement.
+	 * @param c  la case de départ des déplacements
+	 * @return  l'ensemble des cases obtenues par translation de la case spécifiée par chacun des vecteurs de déplacement
+	 * @see Move#apply(Case)
+	 */
+	public java.util.Set<Case> apply(Case c) {
+		java.util.Set<Case> set = new java.util.TreeSet<Case>();
+		for (Move m:this.moves)
+			set.add(m.apply(c));
+		return set;
+	}
+	
+	/**
 	 * Itère sur tous les déplacements possibles de cette carte de déplacement
 	 * @return un itérateur sur les déplacements possibles.
 	 */
 	@Override
 	public java.util.Iterator<Move> iterator() {
 		return this.moves.iterator();
+	}
+	
+	/**
+	 * Teste l'égalité entre l'objet spécifié et cette carte de déplacement.
+	 * Deux cartes de déplacement sont considérées comme égales si elles autorisent exactement les mêmes déplacements.
+	 * @param o  l'objet à comparer par égalité avec ce déplacement
+	 * @return  <code>true</code> si l'objet spécifié est égal à cette carte de déplacement
+	 */
+	@Override
+	public boolean equals(Object o) {
+		if (!this.getClass().equals(o.getClass()))
+			return false;
+		MoveTable m = (MoveTable) o;
+		return this.moves.equals(m.moves);
+	}
+	
+	@Override
+	public int hashCode() {
+		return this.moves.hashCode();
 	}
 	
 }

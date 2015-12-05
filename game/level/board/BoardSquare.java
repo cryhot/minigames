@@ -4,7 +4,8 @@ package game.level.board;
 /**
  * Un <code>BoardSquare</code> est un plateau de jeu pour Ghost de forme carrée.
  * Les cases de sorties se trouvent dans les coins ( 2 pour chaque joueur ).
- * @see game.level.board.Board
+ * @see Board
+ * @see Paradigm#SQUARE
  */
 public class BoardSquare extends Board {
 	private final int size;
@@ -14,6 +15,7 @@ public class BoardSquare extends Board {
 	 * @param size  le nombre de cases en largeur et en hauteur
 	 */
 	public BoardSquare(int size) {
+		super(Paradigm.SQUARE);
 		this.size = size;
 	}
 	

@@ -2,8 +2,8 @@
 package game.level.board;
 
 /**
- * Une <code>Case</code> représente une case d'un {@link game.level.board.Board plateau}.
- * @see game.level.board.Board
+ * Une <code>Case</code> représente une case d'un {@link Board plateau}.
+ * @see Board
  */
 public final class Case implements Comparable<Case> {
 	/** Le plateau auquel se réfère cette case */
@@ -29,7 +29,7 @@ public final class Case implements Comparable<Case> {
 	/**
 	 * Renvoie un entier symbolisant le contenu de cette case.
 	 * @return  le contenu de la case
-	 * @see game.level.board.Board#getContent(int,int)
+	 * @see Board#getContent(int,int)
 	 */
 	private int getContent() {
 		return this.board.getContent(this.x,this.y);
@@ -39,7 +39,7 @@ public final class Case implements Comparable<Case> {
 	 * Renvoie <code>true</code> si cette case est dans le plateau.
 	 * Une case est considérée comme dans le plateau si elle n'est pas hors-plateau.
 	 * @return  <code>true</code> si le code de cette case est négatif
-	 * @see game.level.board.Board#getContent(int,int)
+	 * @see Board#getContent(int,int)
 	 */
 	public boolean isInside() {
 		return this.getContent()>=0;
@@ -49,7 +49,7 @@ public final class Case implements Comparable<Case> {
 	 * Renvoie <code>true</code> si cette case est une case praticable normale.
 	 * Une case est considérée comme praticable si elle est dans le plateau et qu'elle n'est pas une case de sortie.
 	 * @return  <code>true</code> si le code de cette case est <code>0</code>
-	 * @see game.level.board.Board#getContent(int,int)
+	 * @see Board#getContent(int,int)
 	 */
 	public boolean isEmpty() {
 		return this.getContent()==0;
@@ -59,7 +59,7 @@ public final class Case implements Comparable<Case> {
 	 * Renvoie <code>true</code> si cette case est une case de sortie.
 	 * Une case est considérée comme une sortie si elle permet la victoire au joueur arrivant à y placer un pion.
 	 * @return  <code>true</code> si le code de cette case est strictement positif
-	 * @see game.level.board.Board#getContent(int,int)
+	 * @see Board#getContent(int,int)
 	 */
 	public boolean isEscape() {
 		return this.getContent()>0;
@@ -73,7 +73,7 @@ public final class Case implements Comparable<Case> {
 	 * @param player  l'index du joueur spécifié
 	 * @return  <code>true</code> si le code de cette case est égal à l'index du joueur + <code>1</code>
 	 * 	ou si l'index spécifié n'est pas valide pour un index de joueur
-	 * @see game.level.board.Board#getContent(int,int)
+	 * @see Board#getContent(int,int)
 	 */
 	public boolean isEscape(int player) {
 		if (!this.isEscape())
@@ -82,7 +82,7 @@ public final class Case implements Comparable<Case> {
 	}
 	
 	/**
-	 * Teste l'égalité l'objet spécifié avec cette case.
+	 * Teste l'égalité entre l'objet spécifié et cette case.
 	 * Deux case sont considérées comme égales si elles appartiennent au même {@link #board plateau} et qu'elles ont les mêmes coordonnées.
 	 * @param o  l'objet à comparer par égalité avec cette case
 	 * @return  <code>true</code> si l'objet spécifié est égal à cette case

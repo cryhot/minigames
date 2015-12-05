@@ -4,11 +4,25 @@ package game.level.board;
 /**
  * Un <code>Board</code> est un plateau de jeu pour Ghost.
  * Il correspond à la partie statique du jeu ( basiquement, le plateau sur lequel les pions se meuvent ).
- * On s'y repère suivant un système à deux coordonnées, l'objet {@link game.level.board.Case} implémentant cette fonctionnalité.
- * @see game.level.board.Case
+ * On s'y repère suivant un système à deux coordonnées, au moyen de {@link Case cases}.
+ * Il y a plusieurs manières d'interpréter ces coordonnées : on parle de {@link Paradigm paradigme}.
+ * @see Case
+ * @see Paradigm
  */
 public abstract class Board {
+	public final Paradigm paradigm;
 	protected int[] limit; // [minX,minY,maxX,maxY]
+	
+	/**
+	 * Construit un plateau de paradigme donné.
+	 * @param p  le paradigme du plateau à créer
+	 * @throws NullPointerException  si le paradigme donné est <code>null</code>
+	 */
+	public Board(Paradigm p) {
+		if (p==null)
+			throw new NullPointerException();
+		this.paradigm = p;
+	}
 	
 	/**
 	 * Renvoie la case située aux coordonnées précisées.
@@ -29,9 +43,10 @@ public abstract class Board {
 	 * <ul>
 	 * 	<li>un entier négatif (<code>-1</code>) : case hors plateau</li>
 	 * 	<li><code>0</code> : case vide ( traversable )</li>
-	 * 	<li><code>n</code> un entier positif : case de sortie pour le {@link game.level.Player} <code>n-1</code></li>
+	 * 	<li><code>n</code> un entier positif : case de sortie pour le joueur <code>n-1</code></li>
 	 * </ul>
-	 * @see game.level.board.Case#getContent()
+	 * @see Case#getContent()
+	 * @see Case#isEscape(int)
 	 */
 	abstract int getContent(int x,int y);
 	
