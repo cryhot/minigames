@@ -1,10 +1,10 @@
 //Louis
 package game.level;
 
-public class Ghost {
+public final class Ghost {
 	
 	//Ghost est constitué d'une soul et d'un player
-	private final Soul soul;
+	protected final Soul soul;
 	public final Player player;
 	
 	public Ghost(Soul s,Player p){
