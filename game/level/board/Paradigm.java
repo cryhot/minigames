@@ -8,9 +8,11 @@ package game.level.board;
  * @see Board
  */
 public enum Paradigm {
-	/** Interprétation des coordonnées comme décrivant des cases carrées. */
+	/** Interprétation des coordonnées comme décrivant des cases carrées. <br>
+	 * <img src="./doc-files/Paradigm-1.png" alt="représentation des coordonnées" style="width:500px;"> */
 	SQUARE(),
-	/** Interprétation des coordonnées comme décrivant des cases hexagonales. */
+	/** Interprétation des coordonnées comme décrivant des cases hexagonales.<br>
+	 * <img src="./doc-files/Paradigm-2.png" alt="représentation des coordonnées" style="width:500px;"> */
 	HEXAGON();
 	
 	Paradigm() {

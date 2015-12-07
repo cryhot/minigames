@@ -102,7 +102,7 @@ public final class Case implements Comparable<Case> {
 	
 	/**
 	 * Compare l'objet spécifié avec cette case.
-	 * La comparaison se fait par ordre lexicographique, sur le {#board plateau}, sur les abscisses puis sur les ordonnées.
+	 * La comparaison se fait par ordre lexicographique, sur le {@link #board plateau}, sur les abscisses puis sur les ordonnées.
 	 * @return  un entier négatif, nul ou positif si cette case est respectivement plus petit, égal ou plus grand que l'objet spécifié
 	 */
 	@Override
