@@ -6,7 +6,8 @@ import board.Case;
 
 public class Level {
 	
-	private Set<Pawn> pawns;
+	private Set<Pawn> pawns;	
+	protected Set<Pawn> capturPawns;
 	
 	public Pawn getPawnAt(Case c){
 		

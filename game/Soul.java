@@ -9,6 +9,7 @@ import movement.Mobility;
  * C'est pourquoi tous les paramètres "cachés" d'un pion se situent ici.
  */
 public final class Soul {
+	
 	public static final Soul SOUL_GOOD = new Soul(null,true,false,true);
 	public static final Soul SOUL_BAD = new Soul(null,false,true,true);
 	public static final Soul SOUL_SGOOD = new Soul(null,true,false,true);
@@ -48,5 +49,6 @@ public final class Soul {
 		this.passivVictory = pV;
 		this.canEat = eat;
 	}
+	
 	
 }
