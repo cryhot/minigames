@@ -35,7 +35,8 @@ public abstract class Board {
 	}
 	
 	/**
-	 * Renvoie un entier symbolisant le contenu de la case. <br><br>
+	 * Renvoie un entier symbolisant le contenu de la case.
+	 * <br><br>
 	 * Le contenu d'une case doit rester constant au cours du temps, étant donné qu'un plateau reste fixe.
 	 * @param x  la première coordonnée
 	 * @param y  la deuxième coordonnée

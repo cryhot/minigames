@@ -27,7 +27,8 @@ public final class MoveTable implements Iterable<Move> {
 	}
 	
 	/**
-	 * Valide un déplacement. <br><br>
+	 * Valide un déplacement.
+	 * <br><br>
 	 * Un déplacement est considéré comme valide s'il appartient à la liste des déplacements possibles spécifiés par cette carte de déplacement.
 	 * @param move  le mouvement à valider
 	 * @return  <code>true</code> si le déplacement est valide
@@ -37,7 +38,8 @@ public final class MoveTable implements Iterable<Move> {
 	}
 	
 	/**
-	 * Valide le déplacement d'une case à une autre. <br><br>
+	 * Valide le déplacement d'une case à une autre.
+	 * <br><br>
 	 * Un déplacement d'une case à une autre est considéré comme valide s'il appartient à la liste des déplacements possibles spécifiés par cette carte de déplacement.
 	 * @param from  la case de départ du déplacement
 	 * @param to  la case d'arrivée du déplacement
