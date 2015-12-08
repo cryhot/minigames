@@ -67,7 +67,8 @@ public final class Case implements Comparable<Case> {
 	
 	/**
 	 * Renvoie <code>true</code> si cette case est une case de sortie pour le joueur d'index précisé.
-	 * Une case est considérée comme une sortie pour ce joueur si elle permet la victoire à celui-ci si il parvient à y placer un de ses pions. <br><br>
+	 * Une case est considérée comme une sortie pour ce joueur si elle permet la victoire à celui-ci si il parvient à y placer un de ses pions.
+	 * <br><br>
 	 * Attention, les index de joueur commencent à <code>0</code>, alors que les index des cases de sorties sont numérotées à partir de <code>1</code>.
 	 * Cette fonction gère le décalage d'index entre joueur et case de sortie.
 	 * @param player  l'index du joueur spécifié
