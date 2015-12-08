@@ -1,5 +1,5 @@
 //JR
-package game.level.board;
+package board;
 
 /**
  * Un <code>Board</code> est un plateau de jeu pour Ghost.

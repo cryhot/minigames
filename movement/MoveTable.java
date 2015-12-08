@@ -1,14 +1,14 @@
 //JR
-package game.level;
+package movement;
 
-import game.level.board.Case;
+import board.Case;
 
 /**
  * Un <code>MoveTable</code> est une carte de déplacement, décrivant des possibilités de déplacement.
  * @see Move
  * @see Mobility
  */
-final class MoveTable implements Iterable<Move> {
+public final class MoveTable implements Iterable<Move> {
 	/** La carte de déplacement nulle, infirmant tout déplacement. */
 	public static final MoveTable NO_MOVE = new MoveTable();
 	/** La carte de déplacement autorisant seulement du sur-place. */

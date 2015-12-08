@@ -1,9 +1,11 @@
 //Louis & JR
-package game.level;
+package game;
+
+import movement.Mobility;
 
 /** 
- * Une <code>Soul</code> correspond au comportement d'un {@link game.level.Ghost pion} ( que l'on nomme âme ).
- * Le comportement d'un pion ne doit pas être visible par les adversaires du {@link game.level.Player joueur} possédant ce pion.
+ * Une <code>Soul</code> correspond au comportement d'un {@link Ghost pion} ( que l'on nomme âme ).
+ * Le comportement d'un pion ne doit pas être visible par les adversaires du {@link Player joueur} possédant ce pion.
  * C'est pourquoi tous les paramètres "cachés" d'un pion se situent ici.
  */
 public final class Soul {
@@ -18,8 +20,8 @@ public final class Soul {
 	 */
 	public final Mobility mobility;
 	/** 
-	 * <code>true</code> si la victoire peut être remportée par un joueur en plaçant un pion de ce type sur une {@link game.level.board.Case case} de sortie
-	 * @see game.level.board.Case#isEscape(int)
+	 * <code>true</code> si la victoire peut être remportée par un joueur en plaçant un pion de ce type sur une {@link board.Case case} de sortie
+	 * @see board.Case#isEscape(int)
 	 */
 	public final boolean activVictory;
 	

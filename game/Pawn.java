@@ -1,7 +1,7 @@
 //Louis
-package game.level;
+package game;
 
-import game.level.board.Case;
+import board.Case;
 
 public final class Pawn {
 	

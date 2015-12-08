@@ -1,6 +1,5 @@
-package game.level;
-
 //Louis
+package game;
 
 public class Player {
 	

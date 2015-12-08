@@ -1,5 +1,5 @@
 //Louis
-package game.level;
+package game;
 
 public final class Ghost {
 	

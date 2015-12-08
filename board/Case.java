@@ -1,5 +1,5 @@
 //JR
-package game.level.board;
+package board;
 
 /**
  * Une <code>Case</code> représente une case d'un {@link Board plateau}.

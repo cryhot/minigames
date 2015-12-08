@@ -1,15 +1,15 @@
 //JR
-package game.level;
+package movement;
 
-import game.level.board.Case;
+import board.Case;
 
 /**
  * Un <code>Move</code> est un vecteur correspondant à un déplacement.
  * Un vecteur de déplacement n'est pas lié à un plateau, il existe par lui même.
- * @see game.level.board.Board
+ * @see board.Board
  * @see MoveTable
  */
-final class Move implements Comparable<Move> {
+public final class Move implements Comparable<Move> {
 	public final int x;
 	public final int y;
 	

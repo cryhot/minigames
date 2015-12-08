@@ -1,14 +1,14 @@
 //JR
-package game.level;
+package movement;
 
-import game.level.board.Paradigm;
+import board.Paradigm;
 
 /**
  * Une <code>Mobility</code> est une carte de mobilité, qui associe une carte de déplacement à chaque paradigme.
  * @see MoveTable
  * @see Paradigm
  */
-final class Mobility {
+public final class Mobility {
 	/** Une mobilité sur les cases adjacentes. */
 	public static final Mobility ADJACENT = new Mobility()
 		.setMoveTable( Paradigm.SQUARE, new MoveTable(

@@ -1,5 +1,5 @@
 //JR
-package game.level.board;
+package board;
 
 /**
  * Un <code>Paradigm</code> est une manière d'interpréter des coordonnées.

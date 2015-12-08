@@ -1,5 +1,5 @@
 //JR
-package game.level.board;
+package board;
 
 /**
  * Un <code>BoardSquare</code> est un plateau de jeu pour Ghost de forme carrée.

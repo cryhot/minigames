@@ -1,8 +1,8 @@
 //Louis
-package game.level;
+package game;
 
 import java.util.*;
-import game.level.board.Case;
+import board.Case;
 
 public class Level {
 	

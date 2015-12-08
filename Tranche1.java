@@ -1,6 +1,7 @@
 //Louis && JR
-import game.level.*;
-import game.level.board.*;
+import game.*;
+import board.*;
+import movement.*;
 
 public class Tranche1 {
 	
