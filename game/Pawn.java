@@ -1,6 +1,7 @@
 //Louis
 package game;
 
+
 import board.Case;
 
 public final class Pawn {
@@ -9,7 +10,7 @@ public final class Pawn {
 	Case location;
 	private Level level;
 	
-	public Pawn() { //!\\ 
+	private Pawn() { //!\\ A MODIFIER ! CONSTRUCTEUR POUR LES TESTS
 		this.ghost = null;
 	}
 	
@@ -20,6 +21,45 @@ public final class Pawn {
 	public Level getLevel(){
 		return this.level;
 	}
+	
+	private boolean validateMove(Case c){
+		return this.ghost.soul.mobility.getMoveTable( this.level.board.paradigm ).validate( this.location,c );
+	}
+	
+	boolean canMove(Case c) { 
+		if(!c.isInside()) // destination hors plateau
+			return false;
+		
+		if(level.getPawnAt(c)!=null && this.ghost.player.equals(level.getPawnAt(c).ghost.player)) // le pion essaie de capturer un allié
+			return false;
+		
+		if(level.getPawnAt(c)!=null && !this.ghost.soul.canEat) // le pion ne peut pas capturer d'autre pion
+			return false;
+		
+		if(!validateMove(c)) // mouvement invalide
+			return false;
+		
+		
+		return true;
+	}
+	
+	void capture(){ 
+		this.location = null;
+	}
+	
+	void move(Case c) {
+		
+		if(!canMove(c))
+			throw(new RuntimeException ("La case n'est pas accessible par ce pion !"));
+		
+		Pawn prev = level.getPawnAt(c);
+		if(prev!=null)
+			prev.capture();
+		
+		this.location = c;
+		}
+	}	
+	
 	
 	@Override
 	public boolean equals(Object o) {
@@ -32,37 +72,5 @@ public final class Pawn {
 	public int hashCode() {
 		return this.ghost.hashCode();
 	}
-	
-	boolean canMove(Case c){
-		
-		if(!c.isInside()){return false;}
-		if(!c.isEmpty() && this.ghost.player.equals(level.getPawnAt(c).ghost.player)){return false;}
-		if(!c.isEmpty() && !this.ghost.soul.canEat){return false;}
-		if(!this.ghost.soul.mobility.getMoveTable(this.level.board.paradigm ).validate( this.location,c)){return false;}
-		if(c.isEscape && !this.ghost.soul.activVictory){return false;}
-		return true;
-	}
-	
-	public void captur(Case c){
-		
-		level.getPawnAt(c).location = null;
-		level.capturPawns.add(level.getPawnAt(c));
-		
-	}
-		
-	
-	void move(Pawn p, Case c){
-	
-		if(!canMove){
-			throw(new Exception ("La case n'est pas accessible par ce pion !"));
-		}
-		else{
-				if(this.ghost.player.equals(level.getPawnAt(c).ghost.player)){
-					captur(c);
-				}
-				this.location=c;
-		}
-	}	
-			
 }
 

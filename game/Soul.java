@@ -36,6 +36,7 @@ public final class Soul {
 	 */
 	public final boolean canEat;
 	
+	
 	/** 
 	 * Construit une âme de paramètres donnés.
 	 * @param mob  la carte de mobilité utilisée
