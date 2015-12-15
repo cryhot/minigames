@@ -8,6 +8,25 @@ public class Player {
 	public final int index;
 	// FAIRE UN CONSTRUCTEUR
 	private Player(Error nimportequoi){this.level=null;this.index=-1;} // CONSTRUCTEUR BIDON POUR QUE LE PROGRAMME COMPILE !
+	
+	
+	
+	
+	public Set<Pawn> getPawnsOfThisPlayer(){ //renvoie tous les pions de ce joueur
+		
+		Set<Pawn> pawnsOfThisPlayer = new Set<Pawn> ();
+		
+		for(Pawn p : this.level.getPawns()){
+			if(this.equals(p.ghost.player){
+				pawnsOfThisPlayer.add(p);
+			}
+		}
+		
+		return pawnsOfThisPlayer;
+	}
+	
+	
+	
 	/**
 	Soit je mets un attribut et une méthode :   --> EVITE DE METTRE UN AUTRE ATTRIBUT
 	private Set<Pawn> pawnsOfThisPlayer;

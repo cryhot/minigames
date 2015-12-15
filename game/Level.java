@@ -15,6 +15,12 @@ public class Level {
 		this.board=null;
 	}
 	
+	public Set<Pawn> getPawns(){ //renvoie tous les pions
+		return pawns;
+	}
+	
+	
+	
 	public Pawn getPawnAt(Case c) {
 		for(Pawn p:this.pawns){
 			if(p.getCase().equals(c))
