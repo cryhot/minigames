@@ -4,6 +4,8 @@ package game;
 import board.Case;
 import board.Board;
 
+import exceptions.*;
+
 public final class Pawn {
 	public final Ghost ghost;
 	Case location;
@@ -42,30 +44,32 @@ public final class Pawn {
 	/**
 	 * Procède au traitement des erreurs dûes à un mauvais positionnement.
 	 * @param c  la case où positionner le pion
-	 * @throws RuntimeException  si le pion est déjà positionné ou éliminé
-	 * @throws RuntimeException  si la case est interdite ou occupée
+	 * @throws PawnStateException  si le pion est déjà positionné ou éliminé
+	 * @throws OutOfBoardException  si la case est interdite
+	 * @throws ObstructedLocationException  si la case est occupée
 	 * @see #place(Case)
 	 */
-	private void attemptPlacement(Case c) {
+	private void attemptPlacement(Case c) throws ActionException {
 		if (this.captured)
-			throw new RuntimeException ("action interdite : pion éliminé");
+			throw new PawnStateException("pion éliminé");
 		if (this.location!=null)
-			throw new RuntimeException ("action interdite : pion déjà en jeu");
+			throw new PawnStateException("pion déjà en jeu");
 		if (!this.validatePlacement(c))
-			throw new RuntimeException ("case interdite");
+			throw new OutOfBoardException();
 		if (this.getLevel().getPawnAt(c)!=null)
-			throw new RuntimeException ("case interdite");
+			throw new ObstructedLocationException("case déjà occupée");
 	}
 	
 	/**
 	 * Effectue le positionnement de ce pion sur la case indiquée.
 	 * Cette méthode est notemment utilisée pour placer les pions initialement.
 	 * @param c  la case où positionner le pion
-	 * @throws RuntimeException  si le pion est déjà positionné ou éliminé
-	 * @throws RuntimeException  si la case est interdite ou occupée
+	 * @throws PawnStateException  si le pion est déjà positionné ou éliminé
+	 * @throws OutOfBoardException  si la case est interdite
+	 * @throws ObstructedLocationException  si la case est occupée
 	 * @see #attemptPlacement(Case)
 	 */
-	void place(Case c) {
+	void place(Case c) throws ActionException {
 		this.attemptPlacement(c);
 		this.location = c;
 	}
@@ -79,7 +83,7 @@ public final class Pawn {
 	boolean canPlace(Case c) { 
 		try {
 			this.attemptPlacement(c);
-		} catch (RuntimeException e) {
+		} catch (ActionException e) {
 			return false;
 		}
 		return true;
@@ -88,36 +92,36 @@ public final class Pawn {
 	/**
 	 * Procède au traitement des erreurs dûes à un mauvais déplacement.
 	 * @param c  la case de destination du mouvement
-	 * @throws RuntimeException  si le pion est éliminé ou pas encore placé
-	 * @throws RuntimeException  si la case est interdite
-	 * @throws RuntimeException  si le déplacement est interdit
-	 * @throws RuntimeException  si la capture de pion est interdite
+	 * @throws PawnStateException  si le pion est éliminé ou pas encore placé
+	 * @throws OutOfBoardException  si la case est interdite
+	 * @throws MoveException  si le déplacement est interdit
+	 * @throws PawnCaptureException  si la capture de pion est interdite et qu'un pion va être capturé
 	 * @see #move(Case)
 	 */
-	private void attemptMove(Case c) {
+	private void attemptMove(Case c) throws ActionException {
 		if (this.captured)
-			throw new RuntimeException ("action interdite : pion éliminé");
+			throw new PawnStateException("pion éliminé");
 		if (this.location==null)
-			throw new RuntimeException ("action interdite : pion non placé");
+			throw new PawnStateException("pion non placé");
 		if (!this.validatePlacement(c))
-			throw new RuntimeException ("case interdite");
+			throw new OutOfBoardException();
 		if (!this.validateMove(c))
-			throw new RuntimeException ("déplacement interdit");
+			throw new MoveException();
 		if (!this.validateTarget(c))
-			throw new RuntimeException ("capture interdite");
+			throw new PawnCaptureException();
 	}
 	
 	/**
 	 * Effectue le déplacement de ce pion vers la case indiquée.
 	 * Si un autre pion est déjà présent sur cette case, celui-ci est capturé.
 	 * @param c  la case de destination du mouvement
-	 * @throws RuntimeException  si le pion est éliminé ou pas encore placé
-	 * @throws RuntimeException  si la case est interdite
-	 * @throws RuntimeException  si le déplacement est interdit
-	 * @throws RuntimeException  si la capture de pion est interdite
+	 * @throws PawnStateException  si le pion est éliminé ou pas encore placé
+	 * @throws OutOfBoardException  si la case est interdite
+	 * @throws MoveException  si le déplacement est interdit
+	 * @throws PawnCaptureException  si la capture de pion est interdite et qu'un pion va être capturé
 	 * @see #attemptMove(Case)
 	 */
-	void move(Case c) {
+	void move(Case c) throws ActionException {
 		this.attemptMove(c);
 		capture(this.getLevel().getPawnAt(c));
 		this.location = c;
@@ -132,7 +136,7 @@ public final class Pawn {
 	boolean canMove(Case c) { 
 		try {
 			this.attemptMove(c);
-		} catch (RuntimeException e) {
+		} catch (ActionException e) {
 			return false;
 		}
 		return true;
