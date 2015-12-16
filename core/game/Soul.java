@@ -1,7 +1,7 @@
-//Louis & JR
-package game;
+package core.game;
 
-import movement.Mobility;
+import core.movement.Mobility;
+import core.board.Case; // javadoc only
 
 /** 
  * Une <code>Soul</code> correspond au comportement d'un {@link Ghost pion} ( que l'on nomme âme ).
@@ -21,8 +21,8 @@ public final class Soul {
 	 */
 	public final Mobility mobility;
 	/** 
-	 * <code>true</code> si la victoire peut être remportée par un joueur en plaçant un pion de ce type sur une {@link board.Case case} de sortie
-	 * @see board.Case#isEscape(int)
+	 * <code>true</code> si la victoire peut être remportée par un joueur en plaçant un pion de ce type sur une {@link Case case} de sortie
+	 * @see Case#isEscape(int)
 	 */
 	public final boolean activVictory;
 	

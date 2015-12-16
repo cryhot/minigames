@@ -1,5 +1,4 @@
-//Louis
-package game;
+package core.game;
 
 public final class Ghost {
 	final Soul soul;

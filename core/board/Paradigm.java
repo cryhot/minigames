@@ -1,5 +1,4 @@
-//JR
-package board;
+package core.board;
 
 /**
  * Un <code>Paradigm</code> est une manière d'interpréter des coordonnées.

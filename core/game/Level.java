@@ -1,9 +1,10 @@
-//Louis
-package game;
+package core.game;
 
-import java.util.*;
-import board.Case;
-import board.Board;
+import java.util.Set;
+import java.util.HashSet;
+
+import core.board.Case;
+import core.board.Board;
 
 public class Level {
 	public final Board board;

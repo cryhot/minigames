@@ -1,7 +1,6 @@
-//JR
-package movement;
+package core.movement;
 
-import board.Paradigm;
+import core.board.Paradigm;
 
 /**
  * Une <code>Mobility</code> est une carte de mobilité, qui associe une carte de déplacement à chaque paradigme.

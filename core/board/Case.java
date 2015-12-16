@@ -1,5 +1,4 @@
-//JR
-package board;
+package core.board;
 
 /**
  * Une <code>Case</code> représente une case d'un {@link Board plateau}.

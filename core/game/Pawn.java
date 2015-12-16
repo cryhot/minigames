@@ -1,10 +1,9 @@
-//Louis
-package game;
+package core.game;
 
-import board.Case;
-import board.Board;
+import core.board.Case;
+import core.board.Board;
 
-import exceptions.*;
+import core.exceptions.*;
 
 public final class Pawn {
 	public final Ghost ghost;

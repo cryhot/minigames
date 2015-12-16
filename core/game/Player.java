@@ -1,7 +1,7 @@
-//Louis
-package game;
+package core.game;
 
-import java.util.*;
+import java.util.Set;
+import java.util.HashSet;
 
 public class Player {
 	final Level level;

@@ -1,12 +1,12 @@
-//JR
-package movement;
+package core.movement;
 
-import board.Case;
+import core.board.Case;
+import core.board.Board; // javadoc only
 
 /**
  * Un <code>Move</code> est un vecteur correspondant à un déplacement.
  * Un vecteur de déplacement n'est pas lié à un plateau, il existe par lui même.
- * @see board.Board
+ * @see Board
  * @see MoveTable
  */
 public final class Move implements Comparable<Move> {

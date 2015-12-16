@@ -1,7 +1,9 @@
-package exceptions;
+package core.exceptions;
+
+import core.board.Case; // javadoc only
 
 /** Cette exception est levée lorsqu'une action fait référence à une case hors plateau.
- * @see board.Case#isInside()
+ * @see Case#isInside()
  */
 public class OutOfBoardException extends ObstructedLocationException {
 	public OutOfBoardException() {

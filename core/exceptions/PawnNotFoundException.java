@@ -1,4 +1,4 @@
-package exceptions;
+package core.exceptions;
 
 /** Cette exception est levée lors d'une référence à un pion invalide.
  */

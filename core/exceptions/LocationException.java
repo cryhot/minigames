@@ -1,7 +1,9 @@
-package exceptions;
+package core.exceptions;
+
+import core.board.Case; // javadoc only
 
 /** Cette exception est levée lorsqu'une action se déroule sur une case interdite.
- * @see board.Case
+ * @see Case
  */
 public class LocationException extends ActionException {
 	public LocationException() {

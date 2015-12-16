@@ -1,7 +1,7 @@
 //Louis && JR
-import game.*;
-import board.*;
-import movement.*;
+import core.game.*;
+import core.board.*;
+import core.movement.*;
 
 public class Tranche1 {
 	

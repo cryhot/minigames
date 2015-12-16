@@ -1,4 +1,4 @@
-package exceptions;
+package core.exceptions;
 
 /** Cette exception est levée lorsqu'une erreur apparait dans le jeu.
  */

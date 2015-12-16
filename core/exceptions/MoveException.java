@@ -1,7 +1,9 @@
-package exceptions;
+package core.exceptions;
+
+import core.movement.Move; // javadoc only
 
 /** Cette exception est levée lorsqu'un déplacement interdit vers une case est effectué.
- * @see movement.Move
+ * @see Move
  */
 public class MoveException extends LocationException {
 	public MoveException() {

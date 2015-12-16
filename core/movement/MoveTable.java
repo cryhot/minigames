@@ -1,7 +1,6 @@
-//JR
-package movement;
+package core.movement;
 
-import board.Case;
+import core.board.Case;
 
 /**
  * Un <code>MoveTable</code> est une carte de déplacement, décrivant des possibilités de déplacement.
