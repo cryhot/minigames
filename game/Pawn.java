@@ -1,65 +1,183 @@
 //Louis
 package game;
 
-
 import board.Case;
+import board.Board;
 
 public final class Pawn {
-	
 	public final Ghost ghost;
 	Case location;
-	private Level level;
+	private boolean captured;
 	
-	private Pawn() { //!\\ A MODIFIER ! CONSTRUCTEUR POUR LES TESTS
-		this.ghost = null;
+	Pawn(Ghost g) {
+		if (g==null)
+			throw new NullPointerException();
+		this.ghost = g;
+		this.location = null;
+		this.captured = false;
 	}
 	
-	public Case getCase(){
-		return this.location;
+	private boolean validatePlacement(Case c) { // valide une position
+		return c!=null && c.isInside();
 	}
 	
-	public Level getLevel(){
-		return this.level;
+	private boolean validateMove(Case c) { // valide un déplacement
+		return this.ghost.soul.mobility.getMoveTable( this.getLevel().board.paradigm ).validate( this.location,c );
 	}
 	
-	private boolean validateMove(Case c){
-		return this.ghost.soul.mobility.getMoveTable( this.level.board.paradigm ).validate( this.location,c );
+	private boolean validateTarget(Case c) { // valide la capture d'un pion
+		return this.validateTarget(this.getLevel().getPawnAt(c));
 	}
 	
-	boolean canMove(Case c) { 
-		if(!c.isInside()) // destination hors plateau
-			return false;
-		
-		if(level.getPawnAt(c)!=null && this.ghost.player.equals(level.getPawnAt(c).ghost.player)) // le pion essaie de capturer un allié
-			return false;
-		
-		if(level.getPawnAt(c)!=null && !this.ghost.soul.canEat) // le pion ne peut pas capturer d'autre pion
-			return false;
-		
-		if(!validateMove(c)) // mouvement invalide
-			return false;
-		
-		
+	private boolean validateTarget(Pawn p) { // valide la capture d'un pion
+		if (p==null)
+			return true; // aucun pion à capturer
+		if(!this.ghost.soul.canEat)
+			return false; // ne peut pas capturer d'autre pion
+		if (this.getOwner().equals(p.getOwner()))
+			return false; // ne peut pas capturer un allié
 		return true;
 	}
 	
-	void capture(){ 
-		this.location = null;
+	/**
+	 * Procède au traitement des erreurs dûes à un mauvais positionnement.
+	 * @param c  la case où positionner le pion
+	 * @throws RuntimeException  si le pion est déjà positionné ou éliminé
+	 * @throws RuntimeException  si la case est interdite ou occupée
+	 * @see #place(Case)
+	 */
+	private void attemptPlacement(Case c) {
+		if (this.captured)
+			throw new RuntimeException ("action interdite : pion éliminé");
+		if (this.location!=null)
+			throw new RuntimeException ("action interdite : pion déjà en jeu");
+		if (!this.validatePlacement(c))
+			throw new RuntimeException ("case interdite");
+		if (this.getLevel().getPawnAt(c)!=null)
+			throw new RuntimeException ("case interdite");
 	}
 	
-	void move(Case c) {
-		
-		if(!canMove(c))
-			throw(new RuntimeException ("La case n'est pas accessible par ce pion !"));
-		
-		Pawn prev = level.getPawnAt(c);
-		if(prev!=null)
-			prev.capture();
-		
+	/**
+	 * Effectue le positionnement de ce pion sur la case indiquée.
+	 * Cette méthode est notemment utilisée pour placer les pions initialement.
+	 * @param c  la case où positionner le pion
+	 * @throws RuntimeException  si le pion est déjà positionné ou éliminé
+	 * @throws RuntimeException  si la case est interdite ou occupée
+	 * @see #attemptPlacement(Case)
+	 */
+	void place(Case c) {
+		this.attemptPlacement(c);
 		this.location = c;
-		}
-	}	
+	}
 	
+	/**
+	 * Vérifie un positionnement de ce pion sur une case indiquée.
+	 * @param c  la case où positionner le pion
+	 * @return  <code>true</code> si la position est valide
+	 * @see #attemptPlacement(Case)
+	 */
+	boolean canPlace(Case c) { 
+		try {
+			this.attemptPlacement(c);
+		} catch (RuntimeException e) {
+			return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * Procède au traitement des erreurs dûes à un mauvais déplacement.
+	 * @param c  la case de destination du mouvement
+	 * @throws RuntimeException  si le pion est éliminé ou pas encore placé
+	 * @throws RuntimeException  si la case est interdite
+	 * @throws RuntimeException  si le déplacement est interdit
+	 * @throws RuntimeException  si la capture de pion est interdite
+	 * @see #move(Case)
+	 */
+	private void attemptMove(Case c) {
+		if (this.captured)
+			throw new RuntimeException ("action interdite : pion éliminé");
+		if (this.location==null)
+			throw new RuntimeException ("action interdite : pion non placé");
+		if (!this.validatePlacement(c))
+			throw new RuntimeException ("case interdite");
+		if (!this.validateMove(c))
+			throw new RuntimeException ("déplacement interdit");
+		if (!this.validateTarget(c))
+			throw new RuntimeException ("capture interdite");
+	}
+	
+	/**
+	 * Effectue le déplacement de ce pion vers la case indiquée.
+	 * Si un autre pion est déjà présent sur cette case, celui-ci est capturé.
+	 * @param c  la case de destination du mouvement
+	 * @throws RuntimeException  si le pion est éliminé ou pas encore placé
+	 * @throws RuntimeException  si la case est interdite
+	 * @throws RuntimeException  si le déplacement est interdit
+	 * @throws RuntimeException  si la capture de pion est interdite
+	 * @see #attemptMove(Case)
+	 */
+	void move(Case c) {
+		this.attemptMove(c);
+		capture(this.getLevel().getPawnAt(c));
+		this.location = c;
+	}
+	
+	/**
+	 * Vérifie un déplacement de ce pion vers une case indiquée.
+	 * @param c  la case de destination du mouvement
+	 * @return  <code>true</code> si le déplacement est valide
+	 * @see #attemptMove(Case)
+	 */
+	boolean canMove(Case c) { 
+		try {
+			this.attemptMove(c);
+		} catch (RuntimeException e) {
+			return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * Elimine ce pion du plateau de jeu.
+	 */
+	void capture() { 
+		this.location = null;
+		this.captured = true;
+	}
+	
+	static void capture(Pawn p) {
+		if (p!=null)
+			p.capture();
+	}
+	
+	public boolean isCaptured() {
+		return this.captured;
+	}
+	
+	public boolean isPlaced() {
+		return !this.captured && this.location!=null;
+	}
+	
+	public boolean isNotYetPlaced() {
+		return !this.captured && this.location==null;
+	}
+	
+	public Case getCase() {
+		return this.location;
+	}
+	
+	public Player getOwner() {
+		return this.ghost.getOwner();
+	}
+	
+	Level getLevel(){
+		return this.ghost.getLevel();
+	}
+	
+	public Board getBoard() {
+		return this.getLevel().board;
+	}
 	
 	@Override
 	public boolean equals(Object o) {
