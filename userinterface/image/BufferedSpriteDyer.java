@@ -3,7 +3,7 @@ package userinterface.image;
 import java.awt.image.BufferedImage;
 import java.awt.Color;
 
-import userinterface.util.BufferedTransformation;
+import util.BufferedTransformation;
 
 public final class BufferedSpriteDyer<Img,Tint> extends BufferedTransformation<Img,Tint> {
 	private static final int BUFFERED_IMAGE = 0;
