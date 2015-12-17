@@ -40,8 +40,7 @@ public final class Pawn {
 		return true;
 	}
 	
-	/**
-	 * Procède au traitement des erreurs dûes à un mauvais positionnement.
+	/** Procède au traitement des erreurs dûes à un mauvais positionnement.
 	 * @param c  la case où positionner le pion
 	 * @throws PawnStateException  si le pion est déjà positionné ou éliminé
 	 * @throws OutOfBoardException  si la case est interdite
@@ -59,8 +58,7 @@ public final class Pawn {
 			throw new ObstructedLocationException("case déjà occupée");
 	}
 	
-	/**
-	 * Effectue le positionnement de ce pion sur la case indiquée.
+	/** Effectue le positionnement de ce pion sur la case indiquée.
 	 * Cette méthode est notemment utilisée pour placer les pions initialement.
 	 * @param c  la case où positionner le pion
 	 * @throws PawnStateException  si le pion est déjà positionné ou éliminé
@@ -73,8 +71,7 @@ public final class Pawn {
 		this.location = c;
 	}
 	
-	/**
-	 * Vérifie un positionnement de ce pion sur une case indiquée.
+	/** Vérifie un positionnement de ce pion sur une case indiquée.
 	 * @param c  la case où positionner le pion
 	 * @return  <code>true</code> si la position est valide
 	 * @see #attemptPlacement(Case)
@@ -88,8 +85,7 @@ public final class Pawn {
 		return true;
 	}
 	
-	/**
-	 * Procède au traitement des erreurs dûes à un mauvais déplacement.
+	/** Procède au traitement des erreurs dûes à un mauvais déplacement.
 	 * @param c  la case de destination du mouvement
 	 * @throws PawnStateException  si le pion est éliminé ou pas encore placé
 	 * @throws OutOfBoardException  si la case est interdite
@@ -110,8 +106,7 @@ public final class Pawn {
 			throw new PawnCaptureException();
 	}
 	
-	/**
-	 * Effectue le déplacement de ce pion vers la case indiquée.
+	/** Effectue le déplacement de ce pion vers la case indiquée.
 	 * Si un autre pion est déjà présent sur cette case, celui-ci est capturé.
 	 * @param c  la case de destination du mouvement
 	 * @throws PawnStateException  si le pion est éliminé ou pas encore placé
@@ -126,8 +121,7 @@ public final class Pawn {
 		this.location = c;
 	}
 	
-	/**
-	 * Vérifie un déplacement de ce pion vers une case indiquée.
+	/** Vérifie un déplacement de ce pion vers une case indiquée.
 	 * @param c  la case de destination du mouvement
 	 * @return  <code>true</code> si le déplacement est valide
 	 * @see #attemptMove(Case)
@@ -141,8 +135,7 @@ public final class Pawn {
 		return true;
 	}
 	
-	/**
-	 * Elimine ce pion du plateau de jeu.
+	/** Elimine ce pion du plateau de jeu.
 	 */
 	void capture() { 
 		this.location = null;

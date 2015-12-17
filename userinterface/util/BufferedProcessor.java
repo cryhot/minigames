@@ -8,11 +8,11 @@ import java.util.Hashtable;
 
 /** Une classe utilitaire permettant de stocker en mémoire les résultats d'opérations coûteuses en temps.
  * <br><br>
- * La méthode {@link #process(Input)} doit être définie de telle sorte qu'elle renvoie le résultat du calcul avec l'objet argument.
+ * La méthode {@link #process(Object)} doit être définie de telle sorte qu'elle renvoie le résultat du calcul avec l'objet argument.
  * <br><br>
  * Voici un exemple de son utilisation :
  * <br><pre><code>
- * BufferedProcessor<String,Boolean> urlValidator = new BufferedProcessor<String,Boolean> {
+ * BufferedProcessor<String,Boolean> urlValidator = new BufferedProcessor<String,Boolean>() {
  * 	public Boolean process(String url) {
  * 		return url.matches( "<\\b(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]>" );
  * 	}
@@ -32,7 +32,7 @@ public abstract class BufferedProcessor<Input,Output> {
 	 * Cette méthode doit impérativement renvoyer des résultats égaux ( selon la méthode {@link Object#equals(Object)} ) pour des arguments égaux.
 	 * De plus, il est nécessaire que l'objet renvoyé ne soit pas <code>null</code>.
 	 * <br>
-	 * Cette méthode est appelée de manière automatique dans {@link #get(Input)} ; l'argument en entrée ne vaudra jamais <code>null</code>.
+	 * Cette méthode est appelée de manière automatique dans {@link #get(Object)} ; l'argument en entrée ne vaudra jamais <code>null</code>.
 	 * @param arg  l'objet fourni en entrée pour le calcul
 	 * @return  le résultat du calcul
 	 */
@@ -44,7 +44,7 @@ public abstract class BufferedProcessor<Input,Output> {
 	 * @param arg  l'objet fourni en entrée
 	 * @return  le résultat du calcul
 	 * @throws NullPointerException  si l'argument fourni en entrée vaut <code>null</code>
-	 * @see #process(Input)
+	 * @see #process(Object)
 	 */
 	public Output get(Input arg) {
 		if (arg==null)
@@ -61,7 +61,7 @@ public abstract class BufferedProcessor<Input,Output> {
 	 * Cela permet de gagner du temps de calcul pour les requêtes ultérieures pour ces entrées.
 	 * @param args  la collection des entrées à traiter
 	 * @throws NullPointerException  si la collection ou un de ces éléments est <code>null</code>
-	 * @see #get(Input)
+	 * @see #get(Object)
 	 */
 	public void preload(Collection<? extends Input> args) {
 		if (args==null)
@@ -77,7 +77,7 @@ public abstract class BufferedProcessor<Input,Output> {
 	 * Cela permet de gagner du temps de calcul pour les requêtes ultérieures pour ces entrées.
 	 * @param args  le tableau des entrées à traiter
 	 * @throws NullPointerException  si le tableau d'entrées ou un de ces éléments est <code>null</code>
-	 * @see #get(Input)
+	 * @see #get(Object)
 	 */
 	@SafeVarargs
 	public final void preload(Input... args) {

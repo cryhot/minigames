@@ -14,22 +14,30 @@ public class Level {
 		this.board=null;
 	}
 	
-	/*
-	public Set<Pawn> getPawns(Property<Pawns> p){ //renvoie tous les pions vérifiant une certaine propriété
-		...
-	}
-	//*/
-	
-	public Set<Pawn> getPawns(){ //renvoie tous les pions
-		return pawns;
+	/** Renvoie tous les pions du jeu.
+	 * @return  l'ensemble des pions du jeu
+	 */
+	public Set<Pawn> getPawns(){
+		return new HashSet<Pawn>(this.pawns);
 	}
 	
+	/** Renvoie tous les pions du jeu vérifiant une certaine propriété.
+	 * @param p  la propriété utilisée
+	 * @return  l'ensemble des pions du jeu vérifiant la propriété
+	 */
+	public Set<Pawn> getPawns(Property<Pawns> p){ //renvoie tous les pions 
+		return p.select(this.pawn);
+	}
+	
+	/** Renvoie tous les pions du jeu.
+	 * @return  l'ensemble des pions du jeu
+	 */
 	public Pawn getPawnAt(Case c) {
-		for(Pawn p:this.pawns){
-			if(p.getCase().equals(c))
-				return p;
-		}
-		return null;
+		return new Property<Pawn>(c) {
+			private Case c;
+			public Property(Case c) { this.c = c; }
+			protected boolean validate(Pawn p) { return p.getCase().equals(this.c); }
+		}.find(this.pawn);
 	}
 	
 	public Pawn placeGhost(Ghost g,Case c) {

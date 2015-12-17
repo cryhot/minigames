@@ -11,15 +11,14 @@ public class Player {
 	
 	/**
 	 * Renvoie tous les pions de ce joueur.
-	 * @return  l'ensemble de tous les pions appartenant à joueur
+	 * @return  l'ensemble de tous les pions appartenant à ce joueur
 	 */
-	public Set<Pawn> getPawns(){
-		Set<Pawn> pawns = new HashSet<Pawn>();
-		for (Pawn p:this.level.getPawns()) {
-			if (this.equals(p.ghost.player))
-				pawns.add(p);
-		}
-		return pawns;
+	public Set<Pawn> getPawns() {
+		return this.level.getPawns( new Property<Pawn>(this) {
+			private Player p;
+			public Property(Player p) { this.p = p; }
+			protected boolean validate(Pawn p) { return p.getOwner().equals(this.p); }
+		} );
 	}
 	
 	Level getLevel() {
