@@ -14,10 +14,9 @@ public class Player {
 	 * @return  l'ensemble de tous les pions appartenant à ce joueur
 	 */
 	public Set<Pawn> getPawns() {
-		return this.level.getPawns( new Property<Pawn>(this) {
-			private Player p;
-			public Property(Player p) { this.p = p; }
-			protected boolean validate(Pawn p) { return p.getOwner().equals(this.p); }
+		final Player player = this;
+		return this.level.getPawns( new Property<Pawn>() {
+			protected boolean validate(Pawn p) { return p.getOwner().equals(player); }
 		} );
 	}
 	
