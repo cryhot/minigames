@@ -29,8 +29,9 @@ public class Level {
 		return p.select(this.pawns);
 	}
 	
-	/** Renvoie tous les pions du jeu.
-	 * @return  l'ensemble des pions du jeu
+	/** Renvoie le pion situé sur une case.
+	 * @param c  la case de recherche
+	 * @return  le pion s'il existe, ou <code>null</code> sinon
 	 */
 	public Pawn getPawnAt(final Case c) {
 		return new Property<Pawn>() {

@@ -2,8 +2,7 @@ package core.movement;
 
 import core.board.Paradigm;
 
-/**
- * Une <code>Mobility</code> est une carte de mobilité, qui associe une carte de déplacement à chaque paradigme.
+/** Une <code>Mobility</code> est une carte de mobilité, qui associe une carte de déplacement à chaque paradigme.
  * @see MoveTable
  * @see Paradigm
  */
@@ -82,16 +81,14 @@ public final class Mobility {
 	
 	private final java.util.Map<Paradigm,MoveTable> moveTables;
 	
-	/**
-	 * Construit une carte de mobilité vide.
+	/** Construit une carte de mobilité vide.
 	 * La carte de mobilité vide associe à chaque paradigme la {@link MoveTable#NO_MOVE carte de déplacement nulle}.
 	 */
 	public Mobility() {
 		this.moveTables = new java.util.EnumMap<Paradigm,MoveTable>(Paradigm.class);
 	}
 	
-	/**
-	 * Attribue une carte de déplacement à un paradigme.
+	/** Attribue une carte de déplacement à un paradigme.
 	 * Si la carte de déplacement associée est nulle, cette carte de mobilité réagira comme si c'était la {@link MoveTable#NO_MOVE carte de déplacement nulle}.
 	 * @param p  le paradigme auquel est associé la carte de déplacement
 	 * @param mvT  la carte de déplacement associée
@@ -106,8 +103,7 @@ public final class Mobility {
 		return this;
 	}
 	
-	/**
-	 * Renvoie la carte de déplacement associé à un paradigme.
+	/** Renvoie la carte de déplacement associé à un paradigme.
 	 * @param p  le paradigme utilisé
 	 * @return  la carte de déplacement associée
 	 * @throws NullPointerException  si le paradigme utilisé est <code>null</code>

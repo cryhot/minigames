@@ -1,7 +1,6 @@
 package core.board;
 
-/**
- * Un <code>Board</code> est un plateau de jeu pour Ghost.
+/** Un <code>Board</code> est un plateau de jeu pour Ghost.
  * Il correspond à la partie statique du jeu ( basiquement, le plateau sur lequel les pions se meuvent ).
  * On s'y repère suivant un système à deux coordonnées, au moyen de {@link Case cases}.
  * Il y a plusieurs manières d'interpréter ces coordonnées : on parle de {@link Paradigm paradigme}.
@@ -12,8 +11,7 @@ public abstract class Board {
 	public final Paradigm paradigm;
 	protected int[] limit; // [minX,minY,maxX,maxY]
 	
-	/**
-	 * Construit un plateau de paradigme donné.
+	/** Construit un plateau de paradigme donné.
 	 * @param p  le paradigme du plateau à créer
 	 * @throws NullPointerException  si le paradigme donné est <code>null</code>
 	 */
@@ -23,8 +21,7 @@ public abstract class Board {
 		this.paradigm = p;
 	}
 	
-	/**
-	 * Renvoie la case située aux coordonnées précisées.
+	/** Renvoie la case située aux coordonnées précisées.
 	 * @param x  la première coordonnée
 	 * @param y  la deuxième coordonnée
 	 * @return  une case de coordonnées <code>x</code>, <code>y</code>
@@ -33,8 +30,7 @@ public abstract class Board {
 		return new Case(this,x,y);
 	}
 	
-	/**
-	 * Renvoie un entier symbolisant le contenu de la case.
+	/** Renvoie un entier symbolisant le contenu de la case.
 	 * <br><br>
 	 * Le contenu d'une case doit rester constant au cours du temps, étant donné qu'un plateau reste fixe.
 	 * @param x  la première coordonnée

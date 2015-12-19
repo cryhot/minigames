@@ -2,8 +2,7 @@ package core.movement;
 
 import core.board.Case;
 
-/**
- * Un <code>MoveTable</code> est une carte de déplacement, décrivant des possibilités de déplacement.
+/** Un <code>MoveTable</code> est une carte de déplacement, décrivant des possibilités de déplacement.
  * @see Move
  * @see Mobility
  */
@@ -15,8 +14,7 @@ public final class MoveTable implements Iterable<Move> {
 	
 	private final java.util.Set<Move> moves;
 	
-	/**
-	 * Construit une carte de déplacement à partir d'une table de déplacement.
+	/** Construit une carte de déplacement à partir d'une table de déplacement.
 	 * @param moves la liste des déplacements à inclure dans cette carte de déplacement. 
 	 */
 	public MoveTable(Move... moves) {
@@ -25,8 +23,7 @@ public final class MoveTable implements Iterable<Move> {
 			this.moves.add(m);
 	}
 	
-	/**
-	 * Valide un déplacement.
+	/** Valide un déplacement.
 	 * <br><br>
 	 * Un déplacement est considéré comme valide s'il appartient à la liste des déplacements possibles spécifiés par cette carte de déplacement.
 	 * @param move  le mouvement à valider
@@ -36,8 +33,7 @@ public final class MoveTable implements Iterable<Move> {
 		return this.moves.contains(move);
 	}
 	
-	/**
-	 * Valide le déplacement d'une case à une autre.
+	/** Valide le déplacement d'une case à une autre.
 	 * <br><br>
 	 * Un déplacement d'une case à une autre est considéré comme valide s'il appartient à la liste des déplacements possibles spécifiés par cette carte de déplacement.
 	 * @param from  la case de départ du déplacement
@@ -48,8 +44,7 @@ public final class MoveTable implements Iterable<Move> {
 		return this.moves.contains(new Move(from,to));
 	}
 	
-	/**
-	 * Renvoie l'ensemble des cases accessibles à partir de la case spécifiée, selon cette carte de déplacement.
+	/** Renvoie l'ensemble des cases accessibles à partir de la case spécifiée, selon cette carte de déplacement.
 	 * @param c  la case de départ des déplacements
 	 * @return  l'ensemble des cases obtenues par translation de la case spécifiée par chacun des vecteurs de déplacement
 	 * @see Move#apply(Case)
@@ -61,8 +56,7 @@ public final class MoveTable implements Iterable<Move> {
 		return set;
 	}
 	
-	/**
-	 * Itère sur tous les déplacements possibles de cette carte de déplacement
+	/** Itère sur tous les déplacements possibles de cette carte de déplacement
 	 * @return un itérateur sur les déplacements possibles.
 	 */
 	@Override
@@ -70,8 +64,7 @@ public final class MoveTable implements Iterable<Move> {
 		return this.moves.iterator();
 	}
 	
-	/**
-	 * Teste l'égalité entre l'objet spécifié et cette carte de déplacement.
+	/** Teste l'égalité entre l'objet spécifié et cette carte de déplacement.
 	 * Deux cartes de déplacement sont considérées comme égales si elles autorisent exactement les mêmes déplacements.
 	 * @param o  l'objet à comparer par égalité avec ce déplacement
 	 * @return  <code>true</code> si l'objet spécifié est égal à cette carte de déplacement

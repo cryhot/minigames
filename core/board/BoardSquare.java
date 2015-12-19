@@ -1,7 +1,6 @@
 package core.board;
 
-/**
- * Un <code>BoardSquare</code> est un plateau de jeu pour Ghost de forme carrée.
+/** Un <code>BoardSquare</code> est un plateau de jeu pour Ghost de forme carrée.
  * Les cases de sorties se trouvent dans les coins ( 2 pour chaque joueur ).
  * @see Board
  * @see Paradigm#SQUARE
@@ -9,8 +8,7 @@ package core.board;
 public class BoardSquare extends Board {
 	private final int size;
 	
-	/**
-	 * Construit un plateau de taille spécifiée.
+	/** Construit un plateau de taille spécifiée.
 	 * @param size  le nombre de cases en largeur et en hauteur
 	 */
 	public BoardSquare(int size) {
@@ -18,8 +16,7 @@ public class BoardSquare extends Board {
 		this.size = size;
 	}
 	
-	/**
-	 * Construit un plateau correspondant à un plateau classique de Ghost.
+	/** Construit un plateau correspondant à un plateau classique de Ghost.
 	 * Un plateau classique fait 6 cases de largeur et de hauteur.
 	 */
 	public BoardSquare() {
