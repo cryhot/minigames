@@ -17,7 +17,7 @@ public class Game {
 		return this.level;
 	}
 	
-	public subscribe(Player p){
+	public void subscribe(Player p){
 		
 		if(this.started){
 			throw new RuntimeException();
@@ -25,10 +25,10 @@ public class Game {
 		this.level.players.add(p);
 	}
 	
-	private void initialise(Player p){
+	private void initialise(){
 		
 		for(Player p : this.level.players){
-			p.placePawns;		
+			p.placePawns();		
 		}
 	}
 	
@@ -71,8 +71,8 @@ public class Game {
 		player.playTurn();
 			
 		return null;
+		}	
 	}
-	
 	
 	
 	
@@ -96,7 +96,7 @@ public class Game {
 			throw new RuntimeException();
 		}
 		this.started = true;
-		this.initialise();
+		initialise();
 		return turns();
 		
 	}
