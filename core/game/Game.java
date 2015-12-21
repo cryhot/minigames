@@ -32,7 +32,24 @@ public class Game {
 		}
 	}
 	
-	
+	public Player checkDefeat(){
+		
+		Player winner = null;
+		for(Player p : this.level.players){
+				if(!p.checkDefeat()){
+					
+					if(winner==null){
+						winner = p;
+					}
+					else {
+						return null;
+					}
+				}
+		}
+		
+		return winner;
+		
+	}
 	
 	
 	private Player playTurn(Player player){
@@ -45,10 +62,17 @@ public class Game {
 		if(player.checkActiveVictory()){
 			return player;
 		}
+		
+		Player winnerByDefeat = checkDefeat();
+		if(winnerByDeafeat!=null){
+			return winnerByDeafeat;
+		}
+			
 		player.playTurn();
 			
 		return null;
 	}
+	
 	
 	
 	
