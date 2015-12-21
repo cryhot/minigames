@@ -13,8 +13,8 @@ public abstract class Property<E>{
 	/** Méthode à redéfinir, exprimant le critère de séléction d'un élément.
 	 * Cette méthode doit être :
 	 * <ul>
-	 * 	<li>Constante : divers appels à cette fonction sur un même élément doit renvoyer un résultat unique.</li>
-	 * 	<li>Transitive par rapport à la méthode {@link Object#equals(Object)}, c'est à dire que deux éléments dits égaux doivent renvoyer le même résultat.</li>
+	 * 	<li>Constante : divers appels à cette fonction sur un même élément doivent renvoyer un résultat unique.</li>
+	 * 	<li>Transitive par rapport à la méthode {@link Object#equals(Object)} : des appels sur deux éléments dits égaux doivent renvoyer le même résultat.</li>
 	 * @param element  l'élément à étudier
 	 * @return  <code>true</code> si l'élément valide le crière, <code>false</code> sinon
 	 */
