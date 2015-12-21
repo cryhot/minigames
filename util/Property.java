@@ -55,4 +55,15 @@ public abstract class Property<E>{
 		return n;
 	}
 	
+	/** Cherche si la collection contient un élément qui vérifie cette propriété.
+	 * @param c  la collection d'éléments sur laquelle porte la requête
+	 * @return  <code>true</code> si un élément est trouvé, <code>false</code> sinon
+	 */
+	public final boolean exists(Collection<E> c) {
+		for(E e : c)
+			if(this.validate(e))
+				return true;
+		return false;
+	}
+	
 }

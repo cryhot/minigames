@@ -9,7 +9,7 @@ public class Tranche1 {
 		
 		Board plateau = new BoardSquare(6);
 		System.out.println(plateau.getCase(0,6).equals(plateau.getCase(0,6)));
-		Level l = new Level();
+		//Level l = new Level();
 		
 		
 	}

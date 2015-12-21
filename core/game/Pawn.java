@@ -147,6 +147,18 @@ public final class Pawn {
 			p.capture();
 	}
 	
+	boolean induceVictory() {
+		return this.ghost.soul.activeVictory && this.getCase().isEscape(this.getOwner().getIndex());
+	}
+	
+	boolean inhibitVictory() {
+		return this.ghost.soul.passiveVictory && !this.captured;
+	}
+	
+	boolean inhibitDefeat() {
+		return this.ghost.soul.activeVictory && !this.captured;
+	}
+	
 	public boolean isCaptured() {
 		return this.captured;
 	}
