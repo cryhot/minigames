@@ -3,6 +3,8 @@ package core.game;
 import java.util.Set;
 import java.util.HashSet;
 
+import util.Property;
+
 public class Player {
 	final Level level;
 	public final int index;

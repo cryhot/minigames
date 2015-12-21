@@ -5,6 +5,7 @@ import java.util.HashSet;
 
 import core.board.Case;
 import core.board.Board;
+import util.Property;
 
 public class Level {
 	public final Board board;

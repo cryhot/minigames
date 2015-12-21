@@ -1,4 +1,4 @@
-package core.game;
+package util;
 
 import java.util.Collection;
 import java.util.HashSet;
