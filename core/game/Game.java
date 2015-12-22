@@ -11,7 +11,7 @@ public class Game {
 		this.level = l;
 	}
 	
-	public void subscribe(Player p) {
+	public void subscribe(Player p) { // DEL ?
 		if(this.started)
 			throw new GameStateException("le jeu à déjà commencé");
 		if(p==null)
@@ -21,6 +21,9 @@ public class Game {
 		this.level.players.add(p);
 	}
 	
+	/** lance la partie de Ghost.
+	 * @return  le joueur gagnant la partie, ou <code>null</code> s'il y a match nul
+	 */
 	public Player play() {
 		if(this.started)
 			throw new GameStateException("le jeu a déjà commencé");
@@ -29,31 +32,43 @@ public class Game {
 		return playTurns();
 	}
 	
+	/** Avertit tous les joueurs pour placer leurs pions.
+	 * @see #play()
+	 */
 	private void initialize() {
 		// for(Player p : this.level.players)
 			// p.placePawns(); // à compléter en temps voulu
 	}
 	
+	/** Exécute la boucle de jeu, tour par tour.
+	 * @return  le joueur gagnant la partie, ou <code>null</code> s'il y a match nul
+	 * @see #play()
+	 */
 	private Player playTurns() {
 		Player winner = null;
 		while (true)
 			for (Player p: this.level.players) {
-				winner = this.playTurn(p);
-				if (winner!=null)
-					return winner;
+				try {
+					winner = this.playTurn(p);
+					if (winner!=null)
+						return winner;
+				} catch (DrawException e) {
+					return null;
+				}
 			}
 	}
 	
-	private Player playTurn(Player player) {
-		
-		try {
-			Player winnerByDefeat = this.checkDefeat();
-			if (winnerByDefeat!=null)
-				return winnerByDefeat;
-		} catch (DrawException e) {
-			return null;
-		}
-		
+	/** Exécute le tour d'un joueur.
+	 * Vérifie les conditions de victoire avant.
+	 * @return  le joueur gagnant au début de ce tour s'il existe, <code>null</code> sinon
+	 * @throws DrawException  s'il y a match nul.
+	 * @see #play()
+	 */
+	private Player playTurn(Player player) throws DrawException {
+		Player winnerByDefeat = this.checkDefeat();
+		if (winnerByDefeat!=null)
+			return winnerByDefeat;
+				
 		for(Player p : this.level.players)
 			if(p.checkPassiveVictory())
 				return p;
@@ -66,6 +81,12 @@ public class Game {
 		return null;
 	}
 	
+	/** Vérifie la condition de victoire par élimination des adversaires.
+	 * Celle-ci est validée s'il ne reste plus qu'un seul joueur n'ayant pas perdu.
+	 * @return  le joueur n'ayant pas encore perdu, s'il est unique, <code>null</code> sinon
+	 * @throws DrawException  si tous les joueurs ont perdu
+	 * @see #play()
+	 */
 	private Player checkDefeat() throws DrawException {
 		Player winner = null;
 		for(Player p : this.level.players)

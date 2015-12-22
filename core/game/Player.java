@@ -6,7 +6,7 @@ import java.util.HashSet;
 import core.board.Case;
 import util.Property;
 
-public abstract class Player {
+public class Player {
 	final Level level;
 	
 	public Player(Game g) {
