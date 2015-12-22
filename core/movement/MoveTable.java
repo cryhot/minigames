@@ -1,5 +1,9 @@
 package core.movement;
 
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.Iterator;
+
 import core.board.Case;
 
 /** Un <code>MoveTable</code> est une carte de déplacement, décrivant des possibilités de déplacement.
@@ -12,13 +16,13 @@ public final class MoveTable implements Iterable<Move> {
 	/** La carte de déplacement autorisant seulement du sur-place. */
 	public static final MoveTable STAY = new MoveTable( new Move(0,0) );
 	
-	private final java.util.Set<Move> moves;
+	private final Set<Move> moves;
 	
 	/** Construit une carte de déplacement à partir d'une table de déplacement.
 	 * @param moves la liste des déplacements à inclure dans cette carte de déplacement. 
 	 */
 	public MoveTable(Move... moves) {
-		this.moves = new java.util.TreeSet<Move>();
+		this.moves = new TreeSet<Move>();
 		for (Move m:moves)
 			this.moves.add(m);
 	}
@@ -49,8 +53,8 @@ public final class MoveTable implements Iterable<Move> {
 	 * @return  l'ensemble des cases obtenues par translation de la case spécifiée par chacun des vecteurs de déplacement
 	 * @see Move#apply(Case)
 	 */
-	public java.util.Set<Case> apply(Case c) {
-		java.util.Set<Case> set = new java.util.TreeSet<Case>();
+	public Set<Case> apply(Case c) {
+		Set<Case> set = new TreeSet<Case>();
 		for (Move m:this.moves)
 			set.add(m.apply(c));
 		return set;
@@ -60,7 +64,7 @@ public final class MoveTable implements Iterable<Move> {
 	 * @return un itérateur sur les déplacements possibles.
 	 */
 	@Override
-	public java.util.Iterator<Move> iterator() {
+	public Iterator<Move> iterator() {
 		return this.moves.iterator();
 	}
 	

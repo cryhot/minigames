@@ -44,6 +44,6 @@ public abstract class Board {
 	 * @see Case#getContent()
 	 * @see Case#isEscape(int)
 	 */
-	abstract int getContent(int x,int y);
+	protected abstract int getContent(int x,int y);
 	
 }
