@@ -6,7 +6,7 @@ public class Game {
 	private Level level;
 	private boolean started;
 	
-	public Game(Level l) {
+	protected Game(Level l) {
 		this.started = false;
 		this.level = l;
 	}
