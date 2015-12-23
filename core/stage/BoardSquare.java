@@ -51,8 +51,8 @@ public class BoardSquare extends StageBoard {
 		if (player<0||player>=2)
 			throw new IndexOutOfBoundsException(Integer.toString(player));
 		Set<Case> cases = new TreeSet<Case>();
-		for (int y=player*(size-2);y<=player*(size-2)+1;y++)
-			for (int x=1;x<size-1;x++)
+		for (int y=player*(this.size-2);y<=player*(this.size-2)+1;y++)
+			for (int x=1;x<this.size-1;x++)
 				cases.add(this.getCase(x,y));
 		return cases;
 	}
@@ -61,7 +61,12 @@ public class BoardSquare extends StageBoard {
 	protected List<Soul> initialSouls(int player) {
 		if (player<0||player>=2)
 			throw new IndexOutOfBoundsException(Integer.toString(player));
-		return null;
+		List<Soul> souls = new ArrayList<Soul>();
+		for (int i=2;i<this.size;i++)
+			souls.add(Soul.SOUL_GOOD);
+		for (int i=2;i<this.size;i++)
+			souls.add(Soul.SOUL_BAD);
+		return souls;
 	}
 	
 }

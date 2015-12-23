@@ -9,27 +9,8 @@ import util.Property;
 public class Player {
 	final Level level;
 	
-	public Player(Game g) {
+	Player(Game g) {
 		this.level = g.getLevel();
-		g.subscribe(this);
-	}
-	
-	/** Renvoie tous les pions de ce joueur.
-	 * @return  l'ensemble de tous les pions appartenant à ce joueur
-	 */
-	public Set<Pawn> getPawns() {
-		final Player this_ = this;
-		return this.level.getPawns( new Property<Pawn>() {
-			protected boolean validate(Pawn p) { return p.getOwner().equals(this_); }
-		} );
-	}
-	
-	Level getLevel() {
-		return this.level;
-	}
-	
-	public int getIndex() {
-		return this.level.getIndex(this);
 	}
 	
 	/** Méthode appelée par la mécanique du jeu, initialisant le placement des pions.
@@ -77,6 +58,24 @@ public class Player {
 		return !( new Property<Pawn>() {
 			protected boolean validate(Pawn p) { return p.getOwner().equals(this_) && p.inhibitDefeat(); }
 		}.exists(this.getLevel().pawns) );
+	}
+	
+	/** Renvoie tous les pions de ce joueur.
+	 * @return  l'ensemble de tous les pions appartenant à ce joueur
+	 */
+	public Set<Pawn> getPawns() {
+		final Player this_ = this;
+		return this.level.getPawns( new Property<Pawn>() {
+			protected boolean validate(Pawn p) { return p.getOwner().equals(this_); }
+		} );
+	}
+	
+	Level getLevel() {
+		return this.level;
+	}
+	
+	public int getIndex() {
+		return this.level.getIndex(this);
 	}
 	
 }

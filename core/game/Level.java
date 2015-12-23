@@ -3,7 +3,6 @@ package core.game;
 import java.util.Set;
 import java.util.HashSet;
 import java.util.List;
-import java.util.ArrayList;
 
 import core.board.Case;
 import core.board.Board;
@@ -11,13 +10,15 @@ import util.Property;
 
 class Level {
 	final Board board;
-	final Set<Pawn> pawns;
 	final List<Player> players;
+	final Set<Pawn> pawns;
 	
-	public Level(){ //!\\ A MODIFIER
-		this.board=null;
-		this.pawns=null;
-		this.players=null;
+	Level(Board b,List<Player> pl,Set<Pawn> paw) {
+		if (b==null || pl==null || paw==null)
+			throw new NullPointerException();
+		this.board = b;
+		this.players = pl;
+		this.pawns = paw;
 	}
 	
 	/** Renvoie tous les pions du jeu.
@@ -31,7 +32,7 @@ class Level {
 	 * @param p  la propriété utilisée
 	 * @return  l'ensemble des pions du jeu vérifiant la propriété
 	 */
-	public Set<Pawn> getPawns(Property<Pawn> p){ //renvoie tous les pions 
+	public Set<Pawn> getPawns(Property<Pawn> p){
 		return p.select(this.pawns);
 	}
 	

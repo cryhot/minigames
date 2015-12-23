@@ -1,24 +1,32 @@
 package core.game;
 
+import java.util.Set;
+import java.util.HashSet;
+import java.util.List;
+import java.util.ArrayList;
+
 import core.exceptions.*;
 
 public class Game {
 	private Level level;
 	private boolean started;
 	
-	protected Game(Level l) {
-		this.started = false;
-		this.level = l;
-	}
-	
-	public void subscribe(Player p) { // DEL ?
-		if(this.started)
-			throw new GameStateException("le jeu à déjà commencé");
-		if(p==null)
+	public Game(StageBoard board) {
+		if (board==null)
 			throw new NullPointerException();
-		if(this.level.players.contains(p))
-			throw new IllegalArgumentException("joueur déjà inscrit");
-		this.level.players.add(p);
+		
+		this.started = false;
+		
+		List<Player> players = new ArrayList<Player>(board.players);
+		Set<Pawn> pawns = new HashSet<Pawn>();
+		for (int p=0;p<board.players;p++) {
+			Player player = new Player(this);
+			players.add(player);
+			for (Soul s:board.initialSouls(p))
+				pawns.add( new Ghost(s,player).invokePawn() );
+		}
+		
+		this.level = new Level(board,players,pawns);
 	}
 	
 	/** lance la partie de Ghost.

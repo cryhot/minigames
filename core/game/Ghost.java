@@ -9,6 +9,10 @@ public final class Ghost {
 		this.player = p;
 	}
 	
+	Pawn invokePawn() {
+		return new Pawn(this);
+	}
+	
 	public Player getOwner() {
 		return this.player;
 	}
