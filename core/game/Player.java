@@ -78,4 +78,22 @@ public class Player {
 		return this.level.getIndex(this);
 	}
 	
+	public Pawn placePawn(Pawn p,Case c) {
+		if(p.ghost.player.equals(this){
+			p.place(c);
+		}
+		else{
+			throw new OwnerException();
+		}	
+	}
+	
+	public void movePawn(Pawn p,Case c) { //DEL
+		if(p.ghost.player.equals(this){
+			p.move(c);
+		}
+		else{
+			throw new OwnerException();
+		}
+	}
+	
 }
