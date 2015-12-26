@@ -2,7 +2,7 @@ package core.game;
 
 import java.util.Set;
 import java.util.HashSet;
-
+import core.exceptions.*;
 import core.board.Case;
 import util.Property;
 
@@ -78,22 +78,19 @@ public class Player {
 		return this.level.getIndex(this);
 	}
 	
-	public Pawn placePawn(Pawn p,Case c) {
-		if(p.ghost.player.equals(this){
-			p.place(c);
-		}
-		else{
+	public void placePawn(Pawn p,Case c) {
+		if(!p.ghost.player.equals(this)){
 			throw new OwnerException();
-		}	
-	}
+		}
+		p.place(c);
+	}		
 	
-	public void movePawn(Pawn p,Case c) { //DEL
-		if(p.ghost.player.equals(this){
-			p.move(c);
-		}
-		else{
+	
+	public void movePawn(Pawn p,Case c) {
+		if(!p.ghost.player.equals(this)){
 			throw new OwnerException();
 		}
+		p.move(c);
 	}
 	
 }
