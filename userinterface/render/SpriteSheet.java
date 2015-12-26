@@ -33,6 +33,7 @@ public final class SpriteSheet {
 	private BufferedSpriteDyer<OneTimeAnimatedSprite,Color> GHOST_FALLING;
 	private BufferedSpriteDyer<OneTimeAnimatedSprite,Color> GHOST_RAISING;
 	
+	public AnimatedSprite SOUL_UNKNOWN;
 	public AnimatedSprite SOUL_GOOD;
 	public AnimatedSprite SOUL_BAD;
 	public AnimatedSprite SOUL_SGOOD;
@@ -90,31 +91,41 @@ public final class SpriteSheet {
 		return new File(this.source,filename);
 	}
 	
-	private <T> T loadIncrement(T loadedObj) {
+	private void loadIncrement(Object loadedObj) {
 		this.loaded++;
 		if (loadedObj==null)
 			this.failed++;
-		return loadedObj;
 	}
 	
+	private BufferedImage reloadBufferedImage(String filename,BufferedImage defaultImg) {
+		BufferedImage img = ImageCrafter.read(this.localFile(filename));
+		loadIncrement(img);
+		return img!=null?img:defaultImg;
+	}
 	private BufferedImage reloadBufferedImage(String filename) {
-		return loadIncrement(
-			ImageCrafter.read(this.localFile(filename))
-		);
+		return this.reloadBufferedImage(filename,null);
 	}
 	
-	private AnimatedSprite reloadAnimatedSprite(String filename) {
+	private AnimatedSprite reloadAnimatedSprite(String filename,AnimatedSprite defaultSprite) {
 		AnimatedSprite sprite = new AnimatedSprite(this.localFile(filename));
 		if (sprite.frames()<=0)
 			sprite = null;
-		return loadIncrement(sprite);
+		loadIncrement(sprite);
+		return sprite!=null?sprite:defaultSprite;
+	}
+	private AnimatedSprite reloadAnimatedSprite(String filename) {
+		return this.reloadAnimatedSprite(filename,null);
 	}
 	
-	private OneTimeAnimatedSprite reloadOneTimeAnimatedSprite(String filename) {
+	private OneTimeAnimatedSprite reloadOneTimeAnimatedSprite(String filename,OneTimeAnimatedSprite defaultSprite) {
 		OneTimeAnimatedSprite sprite = new OneTimeAnimatedSprite(this.localFile(filename));
 		if (sprite.frames()<=0)
 			sprite = null;
-		return loadIncrement(sprite);
+		loadIncrement(sprite);
+		return sprite!=null?sprite:defaultSprite;
+	}
+	private OneTimeAnimatedSprite reloadOneTimeAnimatedSprite(String filename) {
+		return this.reloadOneTimeAnimatedSprite(filename,null);
 	}
 	
 	/**
@@ -137,12 +148,13 @@ public final class SpriteSheet {
 		GHOST_FALLING = new BufferedSpriteDyer<OneTimeAnimatedSprite,Color>( this.reloadOneTimeAnimatedSprite("Ghost_falling.gif") );  step++;
 		GHOST_RAISING = new BufferedSpriteDyer<OneTimeAnimatedSprite,Color>( ImageCrafter.reverse(GHOST_FALLING.getSource())       );  step++;
 		
-		SOUL_GOOD     = this.reloadAnimatedSprite("Soul_good.gif");    step++;
-		SOUL_BAD      = this.reloadAnimatedSprite("Soul_bad.gif");     step++;
-		SOUL_SGOOD    = this.reloadAnimatedSprite("Soul_Sgood.gif");   step++;
-		SOUL_SBAD     = this.reloadAnimatedSprite("Soul_Sbad.gif");    step++;
-		SOUL_KNIGHT   = this.reloadAnimatedSprite("Soul_knight.gif");  step++;
-		SOUL_JOKER    = this.reloadAnimatedSprite("Soul_joker.gif");   step++;
+		SOUL_UNKNOWN  = this.reloadAnimatedSprite("Soul_unknown.gif"            );  step++;
+		SOUL_GOOD     = this.reloadAnimatedSprite("Soul_good.gif"  ,SOUL_UNKNOWN);  step++;
+		SOUL_BAD      = this.reloadAnimatedSprite("Soul_bad.gif"   ,SOUL_UNKNOWN);  step++;
+		SOUL_SGOOD    = this.reloadAnimatedSprite("Soul_Sgood.gif" ,SOUL_GOOD   );  step++;
+		SOUL_SBAD     = this.reloadAnimatedSprite("Soul_Sbad.gif"  ,SOUL_BAD    );  step++;
+		SOUL_KNIGHT   = this.reloadAnimatedSprite("Soul_knight.gif",SOUL_UNKNOWN);  step++;
+		SOUL_JOKER    = this.reloadAnimatedSprite("Soul_joker.gif" ,SOUL_UNKNOWN);  step++;
 		
 		GHOST_EYES = new BufferedSpriteDyer<AnimatedSprite,Object>( this.reloadAnimatedSprite("Ghost_eyes.gif") );  step++;
 		GHOST_EYES.preload(SOUL_GOOD,SOUL_BAD,SOUL_SGOOD,SOUL_SBAD,SOUL_KNIGHT,SOUL_JOKER);  step+=6;
