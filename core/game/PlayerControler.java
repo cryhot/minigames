@@ -47,11 +47,11 @@ public abstract class PlayerControler extends PlayerViewer {
 	protected abstract Pawn selectPawn();
 	protected abstract Case selectCase();
 	
-	public final List<Pawn> getInitialPawns() {
+	public List<Pawn> getInitialPawns() {
 		return this.player.getInitialPawns();
 	}
 	
-	public final Set<Case> getInitialCases() {
+	public Set<Case> getInitialCases() {
 		return this.player.getInitialCases();
 	}
 	
