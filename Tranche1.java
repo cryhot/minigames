@@ -10,6 +10,11 @@ public class Tranche1 {
 		
 		StageBoard plateau = new BoardSquare(6);
 		Game game = new Game(plateau);
+		PlayerControler j1 = new userinterface.textualInterface.Interface();
+		PlayerControler j2 = new userinterface.textualInterface.Interface();
+		game.subscribe(j1,1);
+		game.subscribe(j2,2);
+		game.start();
 		
 	}
 	

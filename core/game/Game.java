@@ -37,7 +37,7 @@ public class Game {
 	/** lance la partie de Ghost.
 	 * @return  le joueur gagnant la partie, ou <code>null</code> s'il y a match nul
 	 */
-	public Player play() {
+	public Player start() {
 		if(this.started)
 			throw new GameStateException("le jeu a déjà commencé");
 		this.started = true;
