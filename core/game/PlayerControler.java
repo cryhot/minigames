@@ -24,6 +24,7 @@ public abstract class PlayerControler extends PlayerViewer {
 					this.player.placePawn(p,c.next());
 				}
 				return;
+			} catch (NullPointerException e) {
 			} catch (ActionException e) {
 			}
 		}
@@ -35,6 +36,7 @@ public abstract class PlayerControler extends PlayerViewer {
 			try {
 				this.player.movePawn(this.selectPawn(),this.selectCase());
 				return;
+			} catch (NullPointerException e) {
 			} catch (ActionException e) {
 			}
 		}
@@ -45,11 +47,11 @@ public abstract class PlayerControler extends PlayerViewer {
 	protected abstract Pawn selectPawn();
 	protected abstract Case selectCase();
 	
-	protected final List<Pawn> getInitialPawns() {
+	public final List<Pawn> getInitialPawns() {
 		return this.player.getInitialPawns();
 	}
 	
-	protected final Set<Case> getInitialCases() {
+	public final Set<Case> getInitialCases() {
 		return this.player.getInitialCases();
 	}
 	

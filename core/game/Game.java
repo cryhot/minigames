@@ -30,6 +30,10 @@ public class Game {
 		this.level = new Level(board,players,new HashSet<Pawn>(pawns));
 	}
 	
+	public void subscribe(PlayerControler pc,int player) {
+		this.level.players.get(player).setControler(pc);
+	}
+	
 	/** lance la partie de Ghost.
 	 * @return  le joueur gagnant la partie, ou <code>null</code> s'il y a match nul
 	 */
