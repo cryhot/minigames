@@ -18,15 +18,16 @@ public class Game {
 		this.started = false;
 		
 		List<Player> players = new ArrayList<Player>(board.players);
-		Set<Pawn> pawns = new HashSet<Pawn>();
+		List<Pawn> pawns = new ArrayList<Pawn>();
 		for (int p=0;p<board.players;p++) {
 			Player player = new Player(this);
 			players.add(player);
 			for (Soul s:board.initialSouls(p))
 				pawns.add( new Ghost(s,player).invokePawn() );
+			player.setInitialConfig(pawns,board.initialCases(p));
 		}
 		
-		this.level = new Level(board,players,pawns);
+		this.level = new Level(board,players,new HashSet<Pawn>(pawns));
 	}
 	
 	/** lance la partie de Ghost.
@@ -44,8 +45,8 @@ public class Game {
 	 * @see #play()
 	 */
 	private void initialize() {
-		// for(Player p : this.level.players)
-			// p.placePawns(); // à compléter en temps voulu
+		for(Player p : this.level.players)
+			p.placePawns();
 	}
 	
 	/** Exécute la boucle de jeu, tour par tour.

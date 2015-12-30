@@ -1,30 +1,55 @@
 package core.game;
 
 import java.util.Set;
-import java.util.HashSet;
+import java.util.TreeSet;
+import java.util.List;
+import java.util.ArrayList;
 import core.exceptions.*;
 import core.board.Case;
 import util.Property;
 
 public class Player {
 	final Level level;
+	PlayerControler controler;
+	private List<Pawn> initPawns;
+	private Set<Case> initCases;
 	
 	Player(Game g) {
 		this.level = g.getLevel();
+		this.controler = null;
+	}
+	
+	void setControler(PlayerControler c) {
+		this.controler = c;
+		this.controler.setPlayer(this);
+		this.initPawns = null;
+		this.initCases = null;
+	}
+	
+	/** Méthode appelée par la mécanique du jeu, déclarant la configuration initiale pour le joueur.
+	 * @param pawns  les pions à placer, dans l'ordre
+	 * @param cases  les cases où placer les pions;
+	 */
+	void setInitialConfig(List<Pawn> pawns,Set<Case> cases) {
+		this.initPawns = pawns;
+		this.initCases = cases;
 	}
 	
 	/** Méthode appelée par la mécanique du jeu, initialisant le placement des pions.
-	 * @param cases  les cases où placer les pions;
-	 * @param pawns  les pions à placer
+	 * Ne peut être appelée qu'une fois.
 	 */
-	void placePawns(Set<Case> cases,Set<Pawn> pawns) {
-		
+	void placePawns() {
+		if (initPawns==null||this.initCases==null)
+			throw new RuntimeException("Erreur inattendue :p");
+		this.controler.placePawns();
+		this.initPawns = null;
+		this.initCases = null;
 	}
 	
 	/** Méthode appelée par la mécanique du jeu, déroulant un tour de jeu.
 	 */
 	void playTurn() {
-		
+		this.controler.playTurn();
 	}
 	
 	/** Méthode appelée par la mécanique du jeu, vérifiant une victoire active de ce joueur.
@@ -91,6 +116,14 @@ public class Player {
 			throw new OwnerException();
 		}
 		p.move(c);
+	}
+	
+	List<Pawn> getInitialPawns() {
+		return new ArrayList<Pawn>(this.initPawns);
+	}
+	
+	Set<Case> getInitialCases() {
+		return new TreeSet<Case>(this.initCases);
 	}
 	
 }
