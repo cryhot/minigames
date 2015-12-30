@@ -179,6 +179,10 @@ public final class Pawn {
 		return this.ghost.getOwner();
 	}
 	
+	Soul getSoul() {
+		return this.ghost.soul;
+	}
+	
 	Level getLevel(){
 		return this.ghost.getLevel();
 	}

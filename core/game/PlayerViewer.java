@@ -9,4 +9,11 @@ public class PlayerViewer extends GlobalViewer {
 		this.player = p;
 	}
 	
+	@Override
+	public Soul getSoul(Pawn p) {
+		if (!p.getOwner().equals(this.player))
+			throw new UnsupportedOperationException("tricheur !!!");
+		return super.getSoul(p);
+	}
+	
 }

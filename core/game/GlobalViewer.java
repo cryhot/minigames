@@ -15,6 +15,10 @@ public class GlobalViewer {
 		return this.level.getPawnAt(c);
 	}
 	
+	public Soul getSoul(Pawn p) {
+		return p.getSoul();
+	}
+	
 	public Board getBoard() {
 		return this.level.board;
 	}

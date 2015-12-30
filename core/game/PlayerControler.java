@@ -1,9 +1,8 @@
 package core.game;
 
 import java.util.Set;
-import java.util.HashSet;
+import java.util.TreeSet;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Iterator;
 
 import core.exceptions.ActionException;
@@ -14,13 +13,14 @@ public abstract class PlayerControler extends PlayerViewer {
 	// place les pions
 	final void placePawns() {
 		Set<Case> initCases = this.getInitialCases();
+		List<Pawn> initPawns = this.getInitialPawns();
 		while (true) {
 			List<Case> cases = this.initialCases();
-			if (cases.size()!=initCases.size() || !initCases.containsAll(cases))
+			if (cases.size()!=initPawns.size() || new TreeSet<Case>(cases).size()!=cases.size() || !initCases.containsAll(cases))
 				continue;
 			try {
 				Iterator<Case> c = cases.iterator();
-				for (Pawn p:this.getInitialPawns()) {
+				for (Pawn p:initPawns) {
 					this.player.placePawn(p,c.next());
 				}
 				return;
