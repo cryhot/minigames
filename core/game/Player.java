@@ -17,13 +17,13 @@ public class Player {
 	Player(Game g) {
 		this.level = g.getLevel();
 		this.controler = null;
+		this.initPawns = null;
+		this.initCases = null;
 	}
 	
 	void setControler(PlayerControler c) {
 		this.controler = c;
 		this.controler.setPlayer(this);
-		this.initPawns = null;
-		this.initCases = null;
 	}
 	
 	/** Méthode appelée par la mécanique du jeu, déclarant la configuration initiale pour le joueur.
@@ -39,7 +39,7 @@ public class Player {
 	 * Ne peut être appelée qu'une fois.
 	 */
 	void placePawns() {
-		if (initPawns==null||this.initCases==null)
+		if (this.initPawns==null||this.initCases==null)
 			throw new RuntimeException("Erreur inattendue :p");
 		this.controler.placePawns();
 		this.initPawns = null;

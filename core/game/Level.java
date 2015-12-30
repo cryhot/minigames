@@ -3,6 +3,7 @@ package core.game;
 import java.util.Set;
 import java.util.HashSet;
 import java.util.List;
+import java.util.ArrayList;
 
 import core.board.Case;
 import core.board.Board;
@@ -13,12 +14,12 @@ class Level {
 	final List<Player> players;
 	final Set<Pawn> pawns;
 	
-	Level(Board b,List<Player> pl,Set<Pawn> paw) {
-		if (b==null || pl==null || paw==null)
+	Level(Board b) {
+		if (b==null)
 			throw new NullPointerException();
 		this.board = b;
-		this.players = pl;
-		this.pawns = paw;
+		this.players = new ArrayList<Player>(2);
+		this.pawns = new HashSet<Pawn>();
 	}
 	
 	/** Renvoie tous les pions du jeu.

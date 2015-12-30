@@ -16,18 +16,17 @@ public class Game {
 			throw new NullPointerException();
 		
 		this.started = false;
+		this.level = new Level(board);
 		
-		List<Player> players = new ArrayList<Player>(board.players);
 		List<Pawn> pawns = new ArrayList<Pawn>();
 		for (int p=0;p<board.players;p++) {
 			Player player = new Player(this);
-			players.add(player);
+			this.level.players.add(player);
 			for (Soul s:board.initialSouls(p))
 				pawns.add( new Ghost(s,player).invokePawn() );
 			player.setInitialConfig(pawns,board.initialCases(p));
 		}
-		
-		this.level = new Level(board,players,new HashSet<Pawn>(pawns));
+		this.level.pawns.addAll(pawns);
 	}
 	
 	public void subscribe(PlayerControler pc,int player) {

@@ -1,7 +1,12 @@
 package userinterface.textualInterface;
 
-import java.util.scanner;
+import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Set;
+
 import core.game.*;
+import core.board.Case;
 
 
 public class Interface extends PlayerControler{
@@ -9,8 +14,8 @@ public class Interface extends PlayerControler{
 	
 	protected List<Case> initialCases(){
 		
-		ArrayList<Pawn> pawns = this.getInitialPawns();
-		ArrayList<Case> cases = new ArrayList<Case>;
+		List<Pawn> pawns = this.getInitialPawns();
+		List<Case> cases = new ArrayList<Case>();
 		Set<Case> initCases = this.getInitialCases();
 		for(Pawn p : pawns){
 			Case c;
@@ -46,7 +51,6 @@ public class Interface extends PlayerControler{
 	
 	protected Pawn selectPawn(){
 		
-		ArrayList<Case> cases = this.getInitialCases();
 		System.out.println("Entrez les coordonnées du pion que vous voulez bouger (ex : 1/4) :\n");
 		Scanner sc = new Scanner(System.in);
 		String s = sc.nextLine();
