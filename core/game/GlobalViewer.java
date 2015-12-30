@@ -1,9 +1,10 @@
 package core.game;
 
 import core.board.Case;
+import core.board.Board;
 
 public class GlobalViewer {
-	protected Level level;
+	Level level;
 	
 	/** Appelé par Game. */
 	final void setLevel(Level l) {
@@ -12,6 +13,10 @@ public class GlobalViewer {
 	
 	public Pawn getPawnAt(Case c) {
 		return this.level.getPawnAt(c);
+	}
+	
+	public Board getBoard() {
+		return this.level.board;
 	}
 	
 }

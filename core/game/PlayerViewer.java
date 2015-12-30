@@ -1,7 +1,7 @@
 package core.game;
 
 public class PlayerViewer extends GlobalViewer {
-	protected Player player;
+	Player player;
 	
 	/** Appelé par Game. */
 	final void setPlayer(Player p) {
