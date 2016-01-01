@@ -67,5 +67,71 @@ public class Interface extends PlayerControler{
 		
 	}
 	
+	public static void printGame(GlobalViewer g){
+		
+		for(int y=g.getBoard().getYMin();y<g.getBoard().getYMax();y++){
+			for(int x=g.getBoard().getXMin();y<g.getBoard().getXMax();x++){
+				
+				Pawn p = g.getPawnAt(g.getBoard().getCase(x,y));
+				if(p!=null){
+				System.out.println("[" + printSoul(p,g) + "]");
+				}
+				else{
+					if(g.getBoard().getCase(x,y).isInside())
+						System.out.println(" ");
+					if(g.getBoard().getCase(x,y).isEmpty())
+						System.out.println("[-]");
+					if(g.getBoard().getCase(x,y).isEscape())
+						System.out.println("[¤]");
+				}
+			}
+			System.out.println("\n+--+--+--+--+\n");
+			
+		}
+	}
+	
+	
+	
+	private static String printSoul(Pawn p, GlobalViewer g){
+				
+		try{
+			g.getSoul(p);
+		}
+		catch(Exception E){
+			System.out.println("P");
+		}		
+		Soul s = g.getSoul(p);
+		if(s.equals(s.SOUL_GOOD)) 
+			return "G";
+		if(s.equals(s.SOUL_SGOOD))
+			return "G";
+		if(s.equals(s.SOUL_BAD))
+			return "B";
+		if(s.equals(s.SOUL_SBAD))
+			return "B";
+		if(s.equals(s.SOUL_KNIGHT))
+			return "K";
+		return "?";						
+		
+					
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }
