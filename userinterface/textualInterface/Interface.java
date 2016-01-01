@@ -20,7 +20,8 @@ public class Interface extends PlayerControler{
 		for(Pawn p : pawns){
 			Case c;
 			while(true){
-				System.out.println("Veuillez placer votre pion (donner une coordonnées de la forme nombre/nombre\n correspondant respectivement à la ligne et à la colonne; ex : 1/4) :\n");
+				printGame(this);
+				System.out.println(printSoul(p,this)) + " Veuillez placer votre pion (donner une coordonnées de la forme nombre/nombre\n correspondant respectivement à la ligne et à la colonne; ex : 1/4) :\n");
 				Scanner sc = new Scanner(System.in);
 				String s = sc.nextLine();
 				c = coordonnates(s);
@@ -98,7 +99,7 @@ public class Interface extends PlayerControler{
 			g.getSoul(p);
 		}
 		catch(Exception E){
-			System.out.println("P");
+			System.out.println("O");
 		}		
 		Soul s = g.getSoul(p);
 		if(s.equals(s.SOUL_GOOD)) 
