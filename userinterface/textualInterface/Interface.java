@@ -17,12 +17,12 @@ public class Interface extends PlayerControler{
 		List<Pawn> pawns = this.getInitialPawns();
 		List<Case> cases = new ArrayList<Case>();
 		Set<Case> initCases = this.getInitialCases();
+		Scanner sc = new Scanner(System.in);
 		for(Pawn p : pawns){
 			Case c;
 			while(true){
 				printGame(this);
-				System.out.println(printSoul(p,this)) + " Veuillez placer votre pion (donner une coordonnées de la forme nombre/nombre\n correspondant respectivement à la ligne et à la colonne; ex : 1/4) :\n");
-				Scanner sc = new Scanner(System.in);
+				System.out.println(printSoul(p,this) + " Veuillez placer votre pion (donner une coordonnées de la forme nombre/nombre\n correspondant respectivement à la ligne et à la colonne; ex : 1/4) :\n");
 				String s = sc.nextLine();
 				c = coordonnates(s);
 				if(!initCases.contains(c)){
@@ -38,6 +38,7 @@ public class Interface extends PlayerControler{
 			cases.add(c);	
 			
 		}
+		sc.close();
 		return cases;
 	}
 	
