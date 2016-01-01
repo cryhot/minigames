@@ -9,7 +9,7 @@ package core.board;
  */
 public abstract class Board {
 	public final Paradigm paradigm;
-	protected int[] limit; // [minX,minY,maxX,maxY]
+	protected int[] limit; // [minX,minY,maxX,maxY] // pour l'affichage
 	
 	/** Construit un plateau de paradigme donné.
 	 * @param p  le paradigme du plateau à créer
@@ -19,6 +19,7 @@ public abstract class Board {
 		if (p==null)
 			throw new NullPointerException();
 		this.paradigm = p;
+		this.limit = new int[4];
 	}
 	
 	/** Renvoie la case située aux coordonnées précisées.
@@ -45,5 +46,33 @@ public abstract class Board {
 	 * @see Case#isEscape(int)
 	 */
 	protected abstract int getContent(int x,int y);
+	
+	/** Renvoie l'abscisse de la marge verticale gauche du plateau (pour une ordonnée nulle par convention).
+	 * Cette marge est inclue dans le plateau.
+	 */
+	public final int getXMin() {
+		return this.limit[0];
+	}
+	
+	/** Renvoie l'ordonnée de la marge horizontale basse du plateau (pour une abscisse nulle par convention).
+	 * Cette marge est inclue dans le plateau.
+	 */
+	public final int getYMin() {
+		return this.limit[1];
+	}
+	
+	/** Renvoie l'abscisse de la marge verticale droite du plateau (pour une ordonnée nulle par convention).
+	 * Cette marge est inclue dans le plateau.
+	 */
+	public final int getXMax() {
+		return this.limit[2];
+	}
+	
+	/** Renvoie l'ordonnée de la marge horizontale haute du plateau (pour une abscisse nulle par convention).
+	 * Cette marge est inclue dans le plateau.
+	 */
+	public final int getYMax() {
+		return this.limit[3];
+	}
 	
 }

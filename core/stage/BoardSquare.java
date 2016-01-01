@@ -26,6 +26,10 @@ public class BoardSquare extends StageBoard {
 		if (size<4)
 			throw new IllegalArgumentException(Integer.toString(size));
 		this.size = size;
+		this.limit[0] = 0;
+		this.limit[1] = 0;
+		this.limit[2] = size-1;
+		this.limit[3] = size-1;
 	}
 	
 	/** Construit un plateau correspondant à un plateau classique de Ghost.
