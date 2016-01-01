@@ -81,7 +81,7 @@ public final class Case implements Comparable<Case> {
 	 */
 	@Override
 	public boolean equals(Object o) {
-		if(!this.getClass().equals(o.getClass()))
+		if(o==null||!this.getClass().equals(o.getClass()))
 			return false;
 		Case c = (Case) o;
 		return this.x==c.x && this.y==c.y && this.board==c.board;

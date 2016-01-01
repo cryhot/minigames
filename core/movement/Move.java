@@ -46,7 +46,7 @@ public final class Move implements Comparable<Move> {
 	 */
 	@Override
 	public boolean equals(Object o) {
-		if (!this.getClass().equals(o.getClass()))
+		if (o==null||!this.getClass().equals(o.getClass()))
 			return false;
 		Move m = (Move) o;
 		return this.x==m.x && this.y==m.y;

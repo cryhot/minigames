@@ -43,7 +43,7 @@ class Level {
 	 */
 	public Pawn getPawnAt(final Case c) {
 		return new Property<Pawn>() {
-			protected boolean validate(Pawn p) { return p.getCase().equals(c); }
+			protected boolean validate(Pawn p) { return c.equals(p.getCase()); }
 		}.find(this.pawns);
 	}
 	

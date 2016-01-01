@@ -75,7 +75,7 @@ public final class MoveTable implements Iterable<Move> {
 	 */
 	@Override
 	public boolean equals(Object o) {
-		if (!this.getClass().equals(o.getClass()))
+		if (o==null||!this.getClass().equals(o.getClass()))
 			return false;
 		MoveTable m = (MoveTable) o;
 		return this.moves.equals(m.moves);

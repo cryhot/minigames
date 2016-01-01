@@ -191,11 +191,9 @@ public final class Pawn {
 		return this.getLevel().board;
 	}
 	
-	
-	
 	@Override
 	public boolean equals(Object o) {
-		if (!this.getClass().equals(o.getClass()))
+		if (o==null||!this.getClass().equals(o.getClass()))
 			return false;
 		return this.ghost.equals(((Pawn)o).ghost);
 	}
