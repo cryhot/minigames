@@ -22,7 +22,8 @@ public class Interface extends PlayerControler{
 			Case c;
 			while(true){
 				printGame(this);
-				System.out.println(printSoul(p,this) + " Veuillez placer votre pion (donner une coordonnées de la forme nombre/nombre\n correspondant respectivement à la ligne et à la colonne; ex : 1/4) :\n");
+				System.out.println("["+printSoul(p,this)+"] Ou placer ce pion ? (ex : 1/4)");
+				System.out.print(">>> ");
 				String s = sc.nextLine();
 				c = coordonnates(s);
 				if(!initCases.contains(c)){
@@ -51,22 +52,22 @@ public class Interface extends PlayerControler{
 		return this.getBoard().getCase(x,y);
 	}
 	
-	protected Pawn selectPawn(){
-		
-		System.out.println("Entrez les coordonnées du pion que vous voulez bouger (ex : 1/4) :\n");
+	protected Pawn selectPawn() {
+		System.out.println("Quel pion bouger ? (ex : 1/4)");
+		System.out.print(">>> ");
 		Scanner sc = new Scanner(System.in);
 		String s = sc.nextLine();
+		sc.close();
 		return this.getPawnAt(coordonnates(s));
-		
 	}
 	
-	protected Case selectCase(){
-		
-		System.out.println("Entrez les coordonnées de la case sur laquelle vous voulez bouger votre pion (ex : 1/4) :\n");
+	protected Case selectCase() {
+		System.out.println("Ou le bouger ? (ex : 1/4)");
+		System.out.print(">>> ");
 		Scanner sc = new Scanner(System.in);
 		String s = sc.nextLine();
+		sc.close();
 		return coordonnates(s);
-		
 	}
 	
 	public static void printGame(GlobalViewer g){
