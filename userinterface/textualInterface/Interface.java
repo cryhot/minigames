@@ -22,7 +22,7 @@ public class Interface extends PlayerControler{
 			Case c;
 			while(true){
 				printGame(this);
-				System.out.println("["+printSoul(p,this)+"] Ou placer ce pion ? (ex : 1/4)");
+				System.out.println("["+pawnToChar(p,this)+"] Ou placer ce pion ? (ex : 1/4)");
 				System.out.print(">>> ");
 				String s = sc.nextLine();
 				c = coordonnates(s);
@@ -70,58 +70,95 @@ public class Interface extends PlayerControler{
 		return coordonnates(s);
 	}
 	
-	public static void printGame(GlobalViewer g){
-		
-		for(int y=g.getBoard().getYMin();y<=g.getBoard().getYMax();y++){
-			for(int x=g.getBoard().getXMin();x<=g.getBoard().getXMax();x++){
-				
-				Pawn p = g.getPawnAt(g.getBoard().getCase(x,y));
-				if(p!=null){
-				System.out.print("[" + printSoul(p,g) + "]");
-				}
-				else{
-					if(g.getBoard().getCase(x,y).isInside())
-						System.out.print(" ");
-					if(g.getBoard().getCase(x,y).isEmpty())
-						System.out.print("[-]");
-					if(g.getBoard().getCase(x,y).isEscape())
-						System.out.print("[x]");
-				}
+	public static void printGame(GlobalViewer g) {
+		System.out.println();
+		int minX = g.getBoard().getXMin();
+		int minY = g.getBoard().getYMin();
+		int maxX = g.getBoard().getXMax();
+		int maxY = g.getBoard().getYMax();
+		char[] marginC = new char[Integer.toString(maxY).length()+1];
+		for (int i=0;i<marginC.length;i++)
+			marginC[i]=' ';
+		String margin = new String(marginC);
+		for(int y=maxY;y>=minY;y--) {
+			String row = Integer.toString(y-minY+1);
+			System.out.print(margin.concat(row).substring(row.length()));
+				System.out.print(" ");
+			for(int x=minX;x<=maxX;x++) {
+				Case c = g.getBoard().getCase(x,y);
+				boolean inside = c.isInside();
+				System.out.print(" ");
+				System.out.print(inside?'[':' ');
+				Pawn p = g.getPawnAt(c);
+				if (p!=null)
+					System.out.print(pawnToChar(p,g));
+				else if (c.isEscape())
+					System.out.print('x');
+				else
+					System.out.print(' ');
+				System.out.print(inside?']':' ');
 			}
-			System.out.print("\n+--+--+--+--+\n");
-			
+			System.out.println("\n");
 		}
+		System.out.print(margin);
+		System.out.print(" ");
+		for(int x=1;x<=maxX-minX+1;x++) {
+			System.out.print(" ");
+			String col = intToAlpha(x);
+			switch (col.length()) {
+				case 0:
+					col = " - "; break;
+				case 1:
+					col = " "+col+" "; break;
+				case 2:
+					col = " "+col; break;
+				case 3:
+					break;
+				default:
+					col = "-"+col.charAt(col.length()-2)+col.charAt(col.length()-1);
+			}
+			System.out.print(col);
+		}
+		System.out.println("\n");
 	}
 	
-	
-	
-	private static String printSoul(Pawn p, GlobalViewer g){
-				
-		try{
-			g.getSoul(p);
+	private static char pawnToChar(Pawn p,GlobalViewer g) {
+		Soul s;
+		try {
+			s = g.getSoul(p);
+		} catch(UnsupportedOperationException e) {
+			return 'O';
 		}
-		catch(Exception E){
-			System.out.println("O");
-		}		
-		Soul s = g.getSoul(p);
 		if(s.equals(s.SOUL_GOOD)) 
-			return "G";
+			return 'G';
 		if(s.equals(s.SOUL_SGOOD))
-			return "G";
+			return 'G';
 		if(s.equals(s.SOUL_BAD))
-			return "B";
+			return 'B';
 		if(s.equals(s.SOUL_SBAD))
-			return "B";
+			return 'B';
 		if(s.equals(s.SOUL_KNIGHT))
-			return "K";
-		return "?";						
-		
-					
-		
+			return 'K';
+		return '?';
 	}
 	
-	
-	
+	private static String intToAlpha(int n) {
+    if (n<=0)
+      throw new IndexOutOfBoundsException(String.valueOf(n));
+    int length = 0;
+    long w = 1;
+    while (n>=w) {
+      n -= w;
+      w *= 26;
+      length++;
+    }
+    char[] letters = new char[length];
+    for (int l=length-1;l>=0;l--) {
+      letters[l] = (char)('a'+n%26);
+      n /= 26;
+    }
+		return new String(letters);
+  }
 	
 	
 	
