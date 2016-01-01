@@ -72,22 +72,22 @@ public class Interface extends PlayerControler{
 	public static void printGame(GlobalViewer g){
 		
 		for(int y=g.getBoard().getYMin();y<g.getBoard().getYMax();y++){
-			for(int x=g.getBoard().getXMin();y<g.getBoard().getXMax();x++){
+			for(int x=g.getBoard().getXMin();x<g.getBoard().getXMax();x++){
 				
 				Pawn p = g.getPawnAt(g.getBoard().getCase(x,y));
 				if(p!=null){
-				System.out.println("[" + printSoul(p,g) + "]");
+				System.out.print("[" + printSoul(p,g) + "]");
 				}
 				else{
 					if(g.getBoard().getCase(x,y).isInside())
-						System.out.println(" ");
+						System.out.print(" ");
 					if(g.getBoard().getCase(x,y).isEmpty())
-						System.out.println("[-]");
+						System.out.print("[-]");
 					if(g.getBoard().getCase(x,y).isEscape())
-						System.out.println("[¤]");
+						System.out.print("[x]");
 				}
 			}
-			System.out.println("\n+--+--+--+--+\n");
+			System.out.print("\n+--+--+--+--+\n");
 			
 		}
 	}
