@@ -25,7 +25,9 @@ public class Interface extends PlayerControler{
 				System.out.println("["+pawnToChar(p,this)+"] Ou placer ce pion ? (ex : 1/4)");
 				System.out.print(">>> ");
 				String s = sc.nextLine();
-				c = coordonnates(s);
+				do{
+					c = coordonnates(s);
+				}while(c==null);
 				if(!initCases.contains(c)){
 					System.out.println("Votre Case est invalide veuillez recommencer");
 				}
@@ -44,13 +46,42 @@ public class Interface extends PlayerControler{
 	}
 	
 	
+
 	private Case coordonnates(String s){
-		int x,y;
-		String[] str = s.split("/");
-		x = Integer.parseInt(str[0]);
-		y = Integer.parseInt(str[1]);
-		return this.getBoard().getCase(x,y);
+		int x = 0;
+		int y = 0;
+		int hash1 = 1;
+		int hash2 = 0;
+		boolean figureFound = false;
+		for (int i=0;i<s.length();i++) {
+			char c = s.charAt(i);
+			if (c>='A' && c<='Z')
+				c += 'a'-'A';
+			if (c>='a' && c<='z' && !figureFound){
+				hash1 *= 26;
+				hash2 *= 26;
+				hash2 += c-'a';				
+			}
+			else if (c>='0' && c<='9'){
+				y= 10*y + (int)(c);
+				figureFound = true;
+				
+			}
+			else{
+				return null;
+			}
+		}
+		if(x == 0 || y == 0){
+			return null;
+		}
+		hash1 = (hash1-1)/(25);
+		x = hash1+hash2;
+		return this.getBoard().getCase(this.getBoard().getXMin()+x-1,this.getBoard().getYMin()+y-1);
+		
 	}
+	
+	
+
 	
 	protected Pawn selectPawn() {
 		System.out.println("Quel pion bouger ? (ex : 1/4)");
