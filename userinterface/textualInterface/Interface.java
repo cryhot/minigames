@@ -22,11 +22,13 @@ public class Interface extends PlayerControler{
 			Case c;
 			while(true){
 				printGame(this);
-				System.out.println("["+pawnToChar(p,this)+"] Ou placer ce pion ? (ex : 1/4)");
+				do{
+				System.out.println("["+pawnToChar(p,this)+"] Ou placer ce pion ? (ex : a2)");
 				System.out.print(">>> ");
 				String s = sc.nextLine();
-				do{
-					c = coordonnates(s);
+				c = coordonnates(s);
+				if(c==null)
+					System.out.println("Votre format de coordonnees est incorrect ");
 				}while(c==null);
 				if(!initCases.contains(c)){
 					System.out.println("Votre Case est invalide veuillez recommencer");
@@ -84,7 +86,7 @@ public class Interface extends PlayerControler{
 
 	
 	protected Pawn selectPawn() {
-		System.out.println("Quel pion bouger ? (ex : 1/4)");
+		System.out.println("Quel pion bouger ? (ex : a2)");
 		System.out.print(">>> ");
 		Scanner sc = new Scanner(System.in);
 		String s = sc.nextLine();
@@ -93,7 +95,7 @@ public class Interface extends PlayerControler{
 	}
 	
 	protected Case selectCase() {
-		System.out.println("Ou le bouger ? (ex : 1/4)");
+		System.out.println("Ou le bouger ? (ex : a2)");
 		System.out.print(">>> ");
 		Scanner sc = new Scanner(System.in);
 		String s = sc.nextLine();
