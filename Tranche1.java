@@ -14,7 +14,7 @@ public class Tranche1 {
 		PlayerControler j2 = new userinterface.textualInterface.Interface();
 		game.subscribe(j1,0);
 		game.subscribe(j2,1);
-		game.start();
+		game.play();
 		
 	}
 	

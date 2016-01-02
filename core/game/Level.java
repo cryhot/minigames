@@ -9,11 +9,24 @@ import core.board.Case;
 import core.board.Board;
 import util.Property;
 
+/** <code>Level</code> est un niveau de jeu, qui se définit simplement en la liste des éléments d'une partie.
+ * Cette liste est composée de :
+ * <ul>
+ * 	<li>le {@link Board plateau de jeu} du niveau</li>
+ * 	<li>les {@link Player joueurs} participant à la partie</li>
+ * 	<li>l'ensemble des {@link Pawn pions} du jeu</li>
+ * </ul>
+ * @see Game
+ */
 class Level {
 	final Board board;
 	final List<Player> players;
 	final Set<Pawn> pawns;
 	
+	/** Construit un nouveau niveau vierge.
+	 * Les joueurs, les pions... etc doivent être créés de manière correcte par le {@link Game jeu} lors de sa construction.
+	 * @param b  le plateau de jeu utilisé dans ce niveau
+	 */
 	Level(Board b) {
 		if (b==null)
 			throw new NullPointerException();
@@ -47,7 +60,10 @@ class Level {
 		}.find(this.pawns);
 	}
 	
-		
+	/** Renvoie l'ordre de passage d'un joueur.
+	 * @param p  le joueur dont est demmandé l'ordre de passage
+	 * @return  l'ordre de passage, qui est numéroté à partir de 0
+	 */
 	public int getIndex(Player p) {
 		return this.players.indexOf(p);
 	}

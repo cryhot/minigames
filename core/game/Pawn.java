@@ -5,17 +5,43 @@ import core.board.Board;
 
 import core.exceptions.*;
 
+/** Un <code>Pawn</code> représente un pion placé sur un plateau de Ghost.
+ * Cette description du pion est dynamique (par exemple le pion évolue sur le plateau au cours de la partie).
+ * Il est possible que plusieurs pions décrivent le même fantôme, cette possibilité étant utilisée à des fins de description de jeu à des moments donnés (ie captures).
+ * <br><br>
+ * Un pion a, à tout moment donné, un des 3 états suivants :
+ * <ul>
+ * 	<li>non placé sur le plateau (au début du jeu notemment)</li>
+ * 	<li>placé sur une des cases du plateau</li>
+ * 	<li>éliminé du jeu</li>
+ * </ul>
+ * @see Ghost
+ */
 public final class Pawn {
 	public final Ghost ghost;
 	Case location;
 	private boolean captured;
 	
+	/** Construit un nouveau pion, non placé sur le plateau.
+	 * @param g  le fantôme que décrit le pion
+	 * @see Ghost#invokePawn()
+	 */
 	Pawn(Ghost g) {
 		if (g==null)
 			throw new NullPointerException();
 		this.ghost = g;
 		this.location = null;
 		this.captured = false;
+	}
+	
+	/** Crée une copie d'un pion.
+	 * Les deux copies sont dissociées à la création, mais représentent néanmoins le même pion.
+	 * @param p  le pion copié
+	 */
+	Pawn(Pawn p) {
+		this.ghost = p.ghost;
+		this.location = p.location;
+		this.captured = p.captured;
 	}
 	
 	private boolean validatePlacement(Case c) { // valide une position
@@ -142,51 +168,91 @@ public final class Pawn {
 		this.captured = true;
 	}
 	
+	/** Elimine cet éventuel pion du plateau de jeu.
+	 * @param p  le pion capturé - s'il est <code>null</code> aucun pion de sera capturé
+	 * @see #capture()
+	 */
 	static void capture(Pawn p) {
 		if (p!=null)
 			p.capture();
 	}
 	
+	/** Renvoie <code>true</code> si ce pion provoque une victoire active en l'état actuel.
+	 * @return  <code>true</code> si ce pion provoque une victoire active
+	 * @see Player#checkActiveVictory()
+	 */
 	boolean induceVictory() {
 		return this.ghost.soul.activeVictory && this.getCase().isEscape(this.getOwner().getIndex());
 	}
 	
+	/** Renvoie <code>true</code> si ce pion empèche une victoire passive en l'état actuel.
+	 * @return  <code>true</code> si ce pion empèche une victoire passive
+	 * @see Player#checkPassiveVictory()
+	 */
 	boolean inhibitVictory() {
 		return this.ghost.soul.passiveVictory && !this.captured;
 	}
 	
+	/** Renvoie <code>true</code> si ce pion empèche une défaite en l'état actuel.
+	 * @return  <code>true</code> si ce pion empèche une défaite
+	 * @see Player#checkDefeat()
+	 */
 	boolean inhibitDefeat() {
 		return this.ghost.soul.activeVictory && !this.captured;
 	}
 	
+	/** Renvoie <code>true</code> si ce pion est capturé en l'état actuel.
+	 * @return  <code>true</code> si ce pion est capturé
+	 */
 	public boolean isCaptured() {
 		return this.captured;
 	}
 	
+	/** Renvoie <code>true</code> si ce pion est placé sur le plateau en l'état actuel.
+	 * @return  <code>true</code> si ce pion est placé sur le plateau
+	 */
 	public boolean isPlaced() {
 		return !this.captured && this.location!=null;
 	}
 	
+	/** Renvoie <code>true</code> si ce pion n'est pas placé sur le plateau en l'état actuel, mais pas capturé non plus.
+	 * @return  <code>true</code> si ce pion n'est pas placé sur le plateau mais pas capturé non plus
+	 */
 	public boolean isNotYetPlaced() {
 		return !this.captured && this.location==null;
 	}
 	
+	/** Renvoie la case sur laquelle se situe ce pion.
+	 * @return  la position de ce pion s'il est placé, <code>null</code> sinon
+	 */
 	public Case getCase() {
 		return this.location;
 	}
 	
+	/** Renvoie le joueur qui possède ce pion.
+	 * @return  le joueur en possession du fantôme représenté par ce pion
+	 */
 	public Player getOwner() {
 		return this.ghost.getOwner();
 	}
 	
+	/** Renvoie l'âme de ce pion.
+	 * @return  l'âme du fantôme représenté par ce pion
+	 */
 	Soul getSoul() {
 		return this.ghost.soul;
 	}
 	
+	/** Renvoie le niveau auquel apparient le pion.
+	 * @return  le niveau du fantôme représenté par ce pion
+	 */
 	Level getLevel(){
 		return this.ghost.getLevel();
 	}
 	
+	/** Renvoie le plateau sur lequel joue ce pion.
+	 * @return  le plateau relatif à ce pion
+	 */
 	public Board getBoard() {
 		return this.getLevel().board;
 	}

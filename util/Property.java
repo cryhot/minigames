@@ -15,6 +15,7 @@ public abstract class Property<E>{
 	 * <ul>
 	 * 	<li>Constante : divers appels à cette fonction sur un même élément doivent renvoyer un résultat unique.</li>
 	 * 	<li>Transitive par rapport à la méthode {@link Object#equals(Object)} : des appels sur deux éléments dits égaux doivent renvoyer le même résultat.</li>
+	 * </ul>
 	 * @param element  l'élément à étudier
 	 * @return  <code>true</code> si l'élément valide le crière, <code>false</code> sinon
 	 */

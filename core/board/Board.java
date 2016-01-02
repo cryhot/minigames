@@ -49,6 +49,7 @@ public abstract class Board {
 	
 	/** Renvoie l'abscisse de la marge verticale gauche du plateau (pour une ordonnée nulle par convention).
 	 * Cette marge est inclue dans le plateau.
+	 * @return  la marge verticale gauche
 	 */
 	public final int getXMin() {
 		return this.limit[0];
@@ -56,6 +57,7 @@ public abstract class Board {
 	
 	/** Renvoie l'ordonnée de la marge horizontale basse du plateau (pour une abscisse nulle par convention).
 	 * Cette marge est inclue dans le plateau.
+	 * @return  la marge horizontale basse
 	 */
 	public final int getYMin() {
 		return this.limit[1];
@@ -63,6 +65,7 @@ public abstract class Board {
 	
 	/** Renvoie l'abscisse de la marge verticale droite du plateau (pour une ordonnée nulle par convention).
 	 * Cette marge est inclue dans le plateau.
+	 * @return  la marge verticale droite
 	 */
 	public final int getXMax() {
 		return this.limit[2];
@@ -70,6 +73,7 @@ public abstract class Board {
 	
 	/** Renvoie l'ordonnée de la marge horizontale haute du plateau (pour une abscisse nulle par convention).
 	 * Cette marge est inclue dans le plateau.
+	 * @return  la marge horizontale haute
 	 */
 	public final int getYMax() {
 		return this.limit[3];

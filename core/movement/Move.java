@@ -25,8 +25,11 @@ public final class Move implements Comparable<Move> {
 	/** Construit un déplacement correspondant au mouvement d'une case vers une autre.
 	 * @param from  la case de départ du déplacement
 	 * @param to  la case d'arrivée du déplacement
+	 * @throws UnsupportedOperationException  si la case de départ et la case d'arrivée n'appartiennent pas au même plateau
 	 */
 	public Move(Case from, Case to) {
+		if (!from.board.equals(to.board))
+			throw new UnsupportedOperationException("les cases doivent appartenir au même plateau");
 		this.x = to.x-from.x;
 		this.y = to.y-from.y;
 	}

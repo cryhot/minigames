@@ -7,10 +7,19 @@ import java.util.ArrayList;
 
 import core.exceptions.*;
 
+/** <code>Game</code> est une partie de jeu de Ghost à part entière.
+ * Cette classe gère essentiellement le déroulement du jeu.
+ * @see Level
+ * @see GlobalViewer
+ * @see PlayerControler
+ */
 public class Game {
 	private Level level;
 	private boolean started;
 	
+	/** Crée une nouvelle partie de Ghost à partir d'un "terrain de jeu".
+	 * @param board  le plateau et ses conditions de jeu
+	 */
 	public Game(StageBoard board) {
 		if (board==null)
 			throw new NullPointerException();
@@ -36,7 +45,7 @@ public class Game {
 	/** lance la partie de Ghost.
 	 * @return  le joueur gagnant la partie, ou <code>null</code> s'il y a match nul
 	 */
-	public Player start() {
+	public Player play() {
 		if(this.started)
 			throw new GameStateException("le jeu a déjà commencé");
 		this.started = true;
@@ -72,6 +81,7 @@ public class Game {
 	
 	/** Exécute le tour d'un joueur.
 	 * Vérifie les conditions de victoire avant.
+	 * @param player  le joueur dont est exécuté le tour
 	 * @return  le joueur gagnant au début de ce tour s'il existe, <code>null</code> sinon
 	 * @throws DrawException  s'il y a match nul.
 	 * @see #play()
@@ -113,6 +123,9 @@ public class Game {
 		return winner; // un seul joueur encore en jeu
 	}
 	
+	/** Renvoie le niveau utilisé dans cette partie de Ghost.
+	 * @return  le niveau utilisé dans cette partie
+	 */
 	Level getLevel() {
 		return this.level;
 	}
