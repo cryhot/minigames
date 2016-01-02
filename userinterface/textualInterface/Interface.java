@@ -65,19 +65,18 @@ public class Interface extends PlayerControler{
 				hash2 += c-'a';				
 			}
 			else if (c>='0' && c<='9'){
-				y= 10*y + (int)(c);
-				figureFound = true;
-				
+				y= 10*y + (int)(c - '0');
+				figureFound = true;				
 			}
 			else{
 				return null;
 			}
 		}
+		hash1 = (hash1-1)/(25);
+		x = hash1+hash2;
 		if(x == 0 || y == 0){
 			return null;
 		}
-		hash1 = (hash1-1)/(25);
-		x = hash1+hash2;
 		return this.getBoard().getCase(this.getBoard().getXMin()+x-1,this.getBoard().getYMin()+y-1);
 		
 	}
