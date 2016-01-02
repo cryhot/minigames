@@ -16,6 +16,7 @@ import core.exceptions.*;
 public class Game {
 	private Level level;
 	private boolean started;
+	private int turn;
 	
 	/** Crée une nouvelle partie de Ghost à partir d'un "terrain de jeu".
 	 * @param board  le plateau et ses conditions de jeu
@@ -25,6 +26,7 @@ public class Game {
 			throw new NullPointerException();
 		
 		this.started = false;
+		this.turn = -1;
 		this.level = new Level(board);
 		
 		List<Pawn> pawns = new ArrayList<Pawn>();
@@ -67,8 +69,9 @@ public class Game {
 	 */
 	private Player playTurns() {
 		Player winner = null;
-		while (true)
+		while (true) {
 			for (Player p: this.level.players) {
+				this.turn++;
 				try {
 					winner = this.playTurn(p);
 					if (winner!=null)
@@ -77,6 +80,8 @@ public class Game {
 					return null;
 				}
 			}
+			this.turn = -1;
+		}
 	}
 	
 	/** Exécute le tour d'un joueur.
@@ -128,6 +133,20 @@ public class Game {
 	 */
 	Level getLevel() {
 		return this.level;
+	}
+	
+	/** Renvoie <code>true</code> si le jeu a commencé.
+	 * @return  <code>true</code> si le jeu a commencé
+	 */
+	public boolean started() {
+		return this.started;
+	}
+	
+	/** Renvoie l'ordre passage du joueur dont c'est le tour actuellement.
+	 * @return  le joueur dont le tour est en train d'être joué, ou <code>-1</code> si le placement des pions n'est pas terminé.
+	 */
+	public int getTurn() {
+		return this.turn;
 	}
 	
 }

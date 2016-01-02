@@ -268,5 +268,5 @@ public final class Pawn {
 	public int hashCode() {
 		return this.ghost.hashCode();
 	}
+	
 }
-
