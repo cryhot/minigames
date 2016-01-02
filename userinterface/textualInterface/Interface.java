@@ -65,7 +65,7 @@ public class Interface extends PlayerControler{
 				hash2 += c-'a';				
 			}
 			else if (c>='0' && c<='9'){
-				y= 10*y + (int)(c);
+				y= 10*y + (int)(c - '0');
 				figureFound = true;				
 			}
 			else{
