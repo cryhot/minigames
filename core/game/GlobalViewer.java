@@ -32,9 +32,30 @@ public class GlobalViewer {
 	/** Renvoie l'âme d'un pion.
 	 * @param p  le pion observée
 	 * @return  l'âme de ce pion
+	 * @see Pawn#getSoul()
 	 */
 	public Soul getSoul(Pawn p) {
 		return p.getSoul();
+	}
+	
+	/** Vérifie un positionnement de ce pion sur une case indiquée.
+	 * @param p  le pion à placer
+	 * @param c  la case où positionner le pion
+	 * @return  <code>true</code> si la position est valide
+	 * @see Pawn#canPlace(Case)
+	 */
+	public boolean canPlace(Pawn p,Case c) {
+		return p.canPlace(c);
+	}
+	
+	/** Vérifie un déplacement d'un pion vers une case indiquée.
+	 * @param p  le pion à déplacer
+	 * @param c  la case de destination du mouvement
+	 * @return  <code>true</code> si le déplacement est valide
+	 * @see Pawn#canMove(Case)
+	 */
+	public boolean canMove(Pawn p,Case c) {
+		return p.canMove(c);
 	}
 	
 	/** Renvoie le plateau de jeu utilisé dans cette partie.

@@ -10,9 +10,9 @@ import core.game.*;
 import core.board.Case;
 
 
-public class Interface extends PlayerControler{
+public class Interface extends PlayerControler {
 	
-	protected List<Case> initialCases(){
+	protected List<Case> initialCases() {
 		List<Pawn> pawns = this.getInitialPawns();
 		List<Case> cases = new ArrayList<Case>();
 		Set<Case> initCases = this.getInitialCases();

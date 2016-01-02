@@ -1,5 +1,7 @@
 package core.game;
 
+import core.board.Case;
+
 /** Observateur prenant le point de vue d'un joueur dans une {@link Game partie de Ghost}.
  * Un observateur de joueur établit une restriction des fonctionnalités par rapport à un {@link GlobalViewer observateur} de manière générale.
  * <br><br>
@@ -18,16 +20,33 @@ public class PlayerViewer extends GlobalViewer {
 		this.player = p;
 	}
 	
-	/** Renvoie l'âme d'un pion.
-	 * @param p  le pion observée
-	 * @return  l'âme de ce pion
-	 * @throws UnsupportedOperationException  si le pion que l'on observe n'appartient pas au joueur
-	 */
 	@Override
 	public Soul getSoul(Pawn p) {
+		if (!p.isCaptured())
+			this.checkOwner(p);
+		return super.getSoul(p);
+	}
+	
+	@Override
+	public boolean canPlace(Pawn p,Case c) {
+		this.checkOwner(p);
+		return super.canPlace(p,c);
+	}
+	
+	@Override
+	public boolean canMove(Pawn p,Case c) {
+		this.checkOwner(p);
+		return super.canMove(p,c);
+	}
+	
+	/** Procède au traitement des erreurs dûes à une violation du point de vue.
+	 * Le point de vue est violé lorsque le pion n'appartient pas au joueur.
+	 * @param p  le pion à vérifier
+	 * @throws UnsupportedOperationException  si le pion n'appartient pas au joueur
+	 */
+	private void checkOwner(Pawn p) {
 		if (!p.getOwner().equals(this.player))
 			throw new UnsupportedOperationException("tricheur !!!");
-		return super.getSoul(p);
 	}
 	
 }
