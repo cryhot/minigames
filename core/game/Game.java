@@ -29,15 +29,15 @@ public class Game {
 		this.turn = -1;
 		this.level = new Level(board);
 		
-		List<Pawn> pawns = new ArrayList<Pawn>();
 		for (int p=0;p<board.players;p++) {
+			List<Pawn> pawns = new ArrayList<Pawn>();
 			Player player = new Player(this);
 			this.level.players.add(player);
 			for (Soul s:board.initialSouls(p))
 				pawns.add( new Ghost(s,player).invokePawn() );
 			player.setInitialConfig(pawns,board.initialCases(p));
+			this.level.pawns.addAll(pawns);
 		}
-		this.level.pawns.addAll(pawns);
 	}
 	
 	public void subscribe(PlayerControler pc,int player) {
