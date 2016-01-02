@@ -182,7 +182,7 @@ public final class Pawn {
 	 * @see Player#checkActiveVictory()
 	 */
 	boolean induceVictory() {
-		return this.ghost.soul.activeVictory && this.getCase().isEscape(this.getOwner().getIndex());
+		return this.ghost.soul.activeVictory && !this.captured && this.getCase().isEscape(this.getOwner().getIndex());
 	}
 	
 	/** Renvoie <code>true</code> si ce pion empèche une victoire passive en l'état actuel.
