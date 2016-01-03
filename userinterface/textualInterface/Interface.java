@@ -9,6 +9,7 @@ import java.util.NoSuchElementException;
 import core.game.*;
 import core.board.Case;
 import core.board.Paradigm;
+import util.Property;
 
 public class Interface extends PlayerControler {
 	private Case destination;
@@ -60,12 +61,12 @@ public class Interface extends PlayerControler {
 			}
 			Case c = ss.length<1?null:coordonnates(ss[0]);
 			this.destination = ss.length<2?null:coordonnates(ss[1]);
-			Pawn p = this.getPawnAt(c);
+			Pawn p = this.getLevel().getPawnAt(c);
 			if (c==null || ss.length>2 || (ss.length>=2&&this.destination==null))
 				errorCode = "Votre format de coordonnees est incorrect.";
 			else if (p==null)
 				errorCode = "Il n'y a pas de pion sur cette case.";
-			else if (!this.belong(p))
+			else if (!this.getPlayer().equals(p.getOwner()))
 				errorCode = "Ce pion ne vous appartient pas, veuillez en selectionner un autre.";
 			else {
 				if (this.destination==null) {
@@ -92,6 +93,9 @@ public class Interface extends PlayerControler {
 	 * @return  la réponse de l'utilisateur
 	 */
 	private String printAndAsk(String desc) {
+		System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+		System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+		System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 		printGame(this);
 		System.out.print("\n ");
 		System.out.println(desc);
@@ -106,9 +110,23 @@ public class Interface extends PlayerControler {
 	}
 	
 	/** Affiche le jeu dans la console.
+	 * Affiche les pions éliminés pour chaque joueur puis le plateau en lui-même.
 	 * @param g  la vue utilisée
 	 */
 	private static void printGame(GlobalViewer g) {
+		for (Player player:g.getLevel().getPlayers()) {
+			System.out.print(" J"+(player.getIndex()+1)+": ");
+			final Player pl = player;
+			Set<Pawn> eliminated = g.getLevel().getPawns( new Property<Pawn>() {
+				protected boolean validate(Pawn p) { return p.getOwner().equals(pl) && p.isCaptured(); }
+			} );
+			if (eliminated.size()<=0)
+				System.out.print("-aucun-");
+			for (Pawn p:eliminated)
+				System.out.print(pawnToChar(g,p));
+			System.out.println();
+		}
+		System.out.println();
 		if (g.getBoard().paradigm==Paradigm.SQUARE)
 			printGameSquare(g);
 	}
@@ -172,7 +190,7 @@ public class Interface extends PlayerControler {
 		Case c = g.getBoard().getCase(x,y);
 		boolean inside = c.isInside();
 		str.append(inside?'[':' ');
-		Pawn p = g.getPawnAt(c);
+		Pawn p = g.getLevel().getPawnAt(c);
 		if (p!=null)
 			str.append(pawnToChar(g,p));
 		else if (c.isEscape())

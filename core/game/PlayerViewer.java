@@ -44,15 +44,19 @@ public class PlayerViewer extends GlobalViewer {
 	 * @param p  le pion observée
 	 * @return  <code>true</code> si le pion appartient au joueur.
 	 */
-	public boolean belong(Pawn p) {
-		return this.player.equals(p.getOwner());
-	}
+	// public boolean belong(Pawn p) {
+		// return this.player.equals(p.getOwner());
+	// }
 	
 	@Override
 	public Soul getSoul(Pawn p) {
-		if (!p.isCaptured())
-			this.checkOwner(p);
-		return super.getSoul(p);
+		for (Pawn p2:this.getOriginalLevel().pawns)
+			if (p2.equals(p)) {
+				if (!p2.isCaptured())
+					this.checkOwner(p);
+				return super.getSoul(p);
+			}
+		throw new UnsupportedOperationException("pion non reconnu");
 	}
 	
 	@Override
@@ -75,6 +79,13 @@ public class PlayerViewer extends GlobalViewer {
 	private void checkOwner(Pawn p) {
 		if (!p.getOwner().equals(this.player))
 			throw new UnsupportedOperationException("tricheur !!!");
+	}
+	
+	/** Renvoie le joueur observé par cet observateur de joueur.
+	 * @return  le joueur observé
+	 */
+	public Player getPlayer() {
+		return this.player;
 	}
 	
 }

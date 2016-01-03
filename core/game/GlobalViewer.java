@@ -1,5 +1,8 @@
 package core.game;
 
+import java.util.List;
+import java.util.ArrayList;
+
 import core.board.Case;
 import core.board.Board;
 
@@ -45,18 +48,27 @@ public class GlobalViewer {
 	 * @param c  la case observée
 	 * @return  le pion situé sur cette case
 	 */
-	public Pawn getPawnAt(Case c) {
-		return this.getLevel().getPawnAt(c);
-	}
+	// public Pawn getPawnAt(Case c) {
+		// return this.getLevel().getPawnAt(c);
+	// }
 	
 	/** Renvoie le joueur possédant ce pion.
 	 * @param p  le pion observée
-	 * @return  l'ordre de passage du joueur en possession du pion
+	 * @return  le joueur en possession du pion
 	 * @see Player#getIndex()
 	 */
-	public int getPlayerIndex(Pawn p) {
-		return p.getOwner().getIndex();
-	}
+	// public Player getPlayer(Pawn p) {
+		// return p.getOwner();
+	// }
+	
+	/** Renvoie le joueur possédant ce pion.
+	 * @param p  le pion observée
+	 * @return  le joueur en possession du pion
+	 * @see Player#getIndex()
+	 */
+	// public List<Player> getPlayers() {
+		// return new ArrayList<Player>(this.getLevel().players);
+	// }
 	
 	/** Renvoie l'âme d'un pion.
 	 * @param p  le pion observée
@@ -90,8 +102,15 @@ public class GlobalViewer {
 	/** Renvoie le niveau actuellement observé par cet observateur de jeu.
 	 * @return  le niveau observé
 	 */
-	Level getLevel() {
+	public Level getLevel() {
 		return this.level;
+	}
+	
+	/** Renvoie le niveau observé par défaut par cet observateur de jeu.
+	 * @return  le niveau observé par défaut
+	 */
+	Level getOriginalLevel() {
+		return this.game.getLevel();
 	}
 	
 	/** Renvoie le plateau de jeu utilisé dans cette partie.

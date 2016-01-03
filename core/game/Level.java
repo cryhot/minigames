@@ -60,6 +60,13 @@ public class Level {
 		}.find(this.pawns);
 	}
 	
+	/** Renvoie tous les joueurs du jeu.
+	 * @return  la liste ordonnée des joueurs du jeu
+	 */
+	public List<Player> getPlayers() {
+		return new ArrayList<Player>(this.players);
+	}
+	
 	/** Renvoie l'ordre de passage d'un joueur.
 	 * @param p  le joueur dont est demmandé l'ordre de passage
 	 * @return  l'ordre de passage, qui est numéroté à partir de 0
