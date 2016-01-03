@@ -4,6 +4,7 @@ import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
+import java.util.SortedSet;
 import java.util.NoSuchElementException;
 
 import core.game.*;
@@ -19,7 +20,7 @@ public class Interface extends PlayerControler {
 		GameCapture view = this.simulatePlacement();
 		List<Pawn> pawns = this.getInitialPawns();
 		List<Case> cases = new ArrayList<Case>();
-		Set<Case> initCases = this.getInitialCases();
+		SortedSet<Case> initCases = this.getInitialCases();
 		Scanner sc = new Scanner(System.in);
 		for(Pawn p : pawns){
 			String errorCode = "";
