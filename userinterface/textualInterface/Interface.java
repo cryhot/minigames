@@ -24,7 +24,7 @@ public class Interface extends PlayerControler {
 			String errorCode = "";
 			Case c;
 			while(true) {
-				String s = this.printAndAsk(errorCode+"\n\n["+pawnToChar(p,this)+"] Veuillez placer ce pion ("+pawnToString(p,this)+") (ex : a2)");
+				String s = this.printAndAsk(errorCode+"\n\n["+pawnToChar(this,p)+"] Veuillez placer ce pion ("+pawnToString(this,p)+") (ex : a2)");
 				c = coordonnates(s.trim());
 				if (c==null)
 					errorCode = "Votre format de coordonnees est incorrect.";
@@ -69,7 +69,7 @@ public class Interface extends PlayerControler {
 				errorCode = "Ce pion ne vous appartient pas, veuillez en selectionner un autre.";
 			else {
 				if (this.destination==null) {
-					s = printAndAsk("\n\n["+pawnToChar(p,this)+"] Selectionnez une destination pour ce "+pawnToString(p,this)+" (ex : a2)");
+					s = printAndAsk("\n\n["+pawnToChar(this,p)+"] Selectionnez une destination pour ce "+pawnToString(this,p)+" (ex : a2)");
 					this.destination = coordonnates(s.trim());
 				}
 				if (this.destination==null)
@@ -87,6 +87,10 @@ public class Interface extends PlayerControler {
 		return this.destination;
 	}
 	
+	/** Affiche le jeu dans la console et demande une entrée textuelle à l'utilisateur.
+	 * @param desc  le message de la question
+	 * @return  la réponse de l'utilisateur
+	 */
 	private String printAndAsk(String desc) {
 		printGame(this);
 		System.out.print("\n ");
@@ -101,11 +105,19 @@ public class Interface extends PlayerControler {
 		return null;
 	}
 	
+	/** Affiche le jeu dans la console.
+	 * @param g  la vue utilisée
+	 */
 	private static void printGame(GlobalViewer g) {
 		if (g.getBoard().paradigm==Paradigm.SQUARE)
 			printGameSquare(g);
 	}
 	
+	/** Affiche le jeu dans la console, comme un jeu de cases carrées.
+	 * @param g  la vue utilisée
+	 * @see #printGame(GlobalViewer)
+	 * @see Paradigm#SQUARE
+	 */
 	private static void printGameSquare(GlobalViewer g) {
 		System.out.println();
 		int minX = g.getBoard().getXMin();
@@ -148,6 +160,13 @@ public class Interface extends PlayerControler {
 		System.out.println("\n");
 	}
 	
+	/** Renvoie l'affichage textuel d'une case et de son contenu.
+	 * @param g  la vue utilisée
+	 * @param x  l'abscisse de la case
+	 * @param y  l'ordonnée de la case
+	 * @return  l'affichage textuel de la case et de son contenu
+	 * @see #printGame(GlobalViewer)
+	 */
 	private static String caseToString(GlobalViewer g,int x,int y) {
 		StringBuilder str = new StringBuilder(3);
 		Case c = g.getBoard().getCase(x,y);
@@ -155,7 +174,7 @@ public class Interface extends PlayerControler {
 		str.append(inside?'[':' ');
 		Pawn p = g.getPawnAt(c);
 		if (p!=null)
-			str.append(pawnToChar(p,g));
+			str.append(pawnToChar(g,p));
 		else if (c.isEscape())
 			str.append('x');
 		else
@@ -164,7 +183,13 @@ public class Interface extends PlayerControler {
 		return str.toString();
 	}
 	
-	private static char pawnToChar(Pawn p,GlobalViewer g) {
+	/** Renvoie l'affichage textuel d'un pion.
+	 * @param g  la vue utilisée
+	 * @param p  le pion observé
+	 * @return  l'affichage textuel du pion
+	 * @see #printGame(GlobalViewer)
+	 */
+	private static char pawnToChar(GlobalViewer g,Pawn p) {
 		Soul s;
 		try {
 			s = g.getSoul(p);
@@ -184,7 +209,12 @@ public class Interface extends PlayerControler {
 		return '?';
 	}
 	
-	private static String pawnToString(Pawn p,GlobalViewer g) {
+	/** Renvoie la description textuelle d'un pion.
+	 * @param g  la vue utilisée
+	 * @param p  le pion observé
+	 * @return  la description textuelle de ce pion
+	 */
+	private static String pawnToString(GlobalViewer g,Pawn p) {
 		Soul s;
 		try {
 			s = g.getSoul(p);
@@ -203,7 +233,12 @@ public class Interface extends PlayerControler {
 			return "cavalier-fantome";
 		return "fantome inconnu";
 	}
-
+	
+	/** Renvoie la case décrite par le texte donné.
+	 * Par exemple <code>"a2"</code> désigne la case (1;2).
+	 * @param s  le texte à traiter
+	 * @return  la case correspondante, ou <code>null</code> si le texte n'a pas pu être interprété
+	 */
 	private Case coordonnates(String s) {
 		if (s==null)
 			return null;
@@ -237,6 +272,14 @@ public class Interface extends PlayerControler {
 		return this.getBoard().getCase(this.getBoard().getXMin()+x-1,this.getBoard().getYMin()+y-1);
 	}
 	
+	/** Renvoie le mot de l'alphabet correspondant à l'entier donné.
+	 * Par exemple <code>30</code> donne <code>"ad"</code>.
+	 * <br><br>
+	 * Cette fonction est principalement destinée à l'affichage des abscisses.
+	 * @param n  le nombre à traiter
+	 * @return  le mot correspondant
+	 * @throws IndexOutOfBoundsException  si le nombre est négatif ou nul
+	 */
 	private static String intToAlpha(int n) {
     if (n<=0)
       throw new IndexOutOfBoundsException(String.valueOf(n));

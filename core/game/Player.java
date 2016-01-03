@@ -8,7 +8,7 @@ import core.exceptions.*;
 import core.board.Case;
 import util.Property;
 
-/** Un <code>Player</code> est l'instance représentant un joueur au cours d'une {@link Game} de Ghost.
+/** Un <code>Player</code> est l'instance représentant un joueur au cours d'une {@link Game partie} de Ghost.
  * <br>
  * <code>Player</code> possède entre autre des méthodes permettant d'exécuter des opérations sur le jeu et les pion du joueur.
  * @see Game
