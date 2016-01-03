@@ -175,6 +175,8 @@ public class Player {
 	 * @see PlayerControler#getInitialPawns()
 	 */
 	List<Pawn> getInitialPawns() {
+		if (this.initPawns==null)
+			return null;
 		return new ArrayList<Pawn>(this.initPawns);
 	}
 	
@@ -183,6 +185,8 @@ public class Player {
 	 * @see PlayerControler#getInitialCases()
 	 */
 	Set<Case> getInitialCases() {
+		if (this.initCases==null)
+			return null;
 		return new TreeSet<Case>(this.initCases);
 	}
 	

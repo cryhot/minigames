@@ -7,7 +7,7 @@ import core.exceptions.*;
 
 /** Un <code>Pawn</code> représente un pion placé sur un plateau de Ghost.
  * Cette description du pion est dynamique (par exemple le pion évolue sur le plateau au cours de la partie).
- * Il est possible que plusieurs pions décrivent le même fantôme, cette possibilité étant utilisée à des fins de description de jeu à des moments donnés (ie captures).
+ * Il est possible que plusieurs pions décrivent le même fantôme, cette possibilité étant utilisée à des fins de description de jeu à des moments donnés (ie. captures).
  * <br><br>
  * Un pion a, à tout moment donné, un des 3 états suivants :
  * <ul>
@@ -17,7 +17,7 @@ import core.exceptions.*;
  * </ul>
  * @see Ghost
  */
-public final class Pawn {
+public class Pawn {
 	public final Ghost ghost;
 	Case location;
 	private boolean captured;
@@ -258,14 +258,14 @@ public final class Pawn {
 	}
 	
 	@Override
-	public boolean equals(Object o) {
-		if (o==null||!this.getClass().equals(o.getClass()))
+	public final boolean equals(Object o) {
+		if (o==null||!(o instanceof Pawn))
 			return false;
 		return this.ghost.equals(((Pawn)o).ghost);
 	}
 	
 	@Override
-	public int hashCode() {
+	public final int hashCode() {
 		return this.ghost.hashCode();
 	}
 	

@@ -11,14 +11,34 @@ import core.board.Board;
  * @see Game
  */
 public class GlobalViewer {
-	Level level;
+	private Game game;
+	private Level level;
 	
-	/** Définit le niveau observé.
-	 * @param l  le niveau observé
+	/** Définit le jeu observé.
+	 * @param g  le jeu observé
 	 * @see Game
 	 */
-	final void setLevel(Level l) {
-		this.level = l;
+	final void setGame(Game g) {
+		this.game = g;
+		this.synchronize();
+	}
+	
+	/** Désynchronise la version du niveau vue avec le modèle.
+	 * Si la version interne était déjà désynchronisée, elle est resynchonisée au cours de cette opération.
+	 * @return  la version désynchronisée, éditable à souhait.
+	 * @see GameCapture
+	 */
+	public final GameCapture desynchronize() {
+		this.synchronize();
+		GameCapture levelCapt = new GameCapture(this.level);
+		this.level = levelCapt;
+		return levelCapt;
+	}
+	
+	/** Synchronise la version du niveau vue avec le modèle.
+	 */
+	public final void synchronize() {
+		this.level = this.game.getLevel();
 	}
 	
 	/** Renvoie le pion situé sur une case du plateau.
@@ -26,7 +46,16 @@ public class GlobalViewer {
 	 * @return  le pion situé sur cette case
 	 */
 	public Pawn getPawnAt(Case c) {
-		return this.level.getPawnAt(c);
+		return this.getLevel().getPawnAt(c);
+	}
+	
+	/** Renvoie le joueur possédant ce pion.
+	 * @param p  le pion observée
+	 * @return  l'ordre de passage du joueur en possession du pion
+	 * @see Player#getIndex()
+	 */
+	public int getPlayerIndex(Pawn p) {
+		return p.getOwner().getIndex();
 	}
 	
 	/** Renvoie l'âme d'un pion.
@@ -58,11 +87,18 @@ public class GlobalViewer {
 		return p.canMove(c);
 	}
 	
+	/** Renvoie le niveau actuellement observé par cet observateur de jeu.
+	 * @return  le niveau observé
+	 */
+	Level getLevel() {
+		return this.level;
+	}
+	
 	/** Renvoie le plateau de jeu utilisé dans cette partie.
 	 * @return  le plateau de jeu utilisé
 	 */
 	public Board getBoard() {
-		return this.level.board;
+		return this.getLevel().board;
 	}
 	
 }

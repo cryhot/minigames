@@ -18,7 +18,7 @@ import util.Property;
  * </ul>
  * @see Game
  */
-class Level {
+public class Level {
 	final Board board;
 	final List<Player> players;
 	final Set<Pawn> pawns;
@@ -38,7 +38,7 @@ class Level {
 	/** Renvoie tous les pions du jeu.
 	 * @return  l'ensemble des pions du jeu
 	 */
-	public Set<Pawn> getPawns(){
+	public Set<Pawn> getPawns() {
 		return new HashSet<Pawn>(this.pawns);
 	}
 	
@@ -56,7 +56,7 @@ class Level {
 	 */
 	public Pawn getPawnAt(final Case c) {
 		return new Property<Pawn>() {
-			protected boolean validate(Pawn p) { return c.equals(p.getCase()); }
+			protected boolean validate(Pawn p) { return c==null?false:c.equals(p.getCase()); }
 		}.find(this.pawns);
 	}
 	

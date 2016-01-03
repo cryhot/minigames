@@ -8,11 +8,14 @@ import java.util.NoSuchElementException;
 
 import core.game.*;
 import core.board.Case;
-
+import core.board.Paradigm;
 
 public class Interface extends PlayerControler {
+	private Case destination;
 	
+	@Override
 	protected List<Case> initialCases() {
+		GameCapture view = this.simulatePlacement();
 		List<Pawn> pawns = this.getInitialPawns();
 		List<Case> cases = new ArrayList<Case>();
 		Set<Case> initCases = this.getInitialCases();
@@ -21,9 +24,9 @@ public class Interface extends PlayerControler {
 			String errorCode = "";
 			Case c;
 			while(true) {
-				String s = this.printAndAsk(errorCode+"\n\n("+pawnToChar(p,this)+") Veuillez placer ce pion... (ex : a2)");
-				c = coordonnates(s);
-				if(c==null)
+				String s = this.printAndAsk(errorCode+"\n\n["+pawnToChar(p,this)+"] Veuillez placer ce pion ("+pawnToString(p,this)+") (ex : a2)");
+				c = coordonnates(s.trim());
+				if (c==null)
 					errorCode = "Votre format de coordonnees est incorrect.";
 				else if(!initCases.contains(c)) {
 					if (c.isInside())
@@ -37,18 +40,51 @@ public class Interface extends PlayerControler {
 					break;
 			} 
 			cases.add(c);
+			view.relocatePawn(p,c);
 		}
+		this.synchronize();
 		return cases;
 	}
 	
+	@Override
 	protected Pawn selectPawn() {
-		String s = printAndAsk("\n\nSelectionnez un pion a bouger (ex : a2)");
-		return this.getPawnAt(coordonnates(s));
+		String errorCode = "";
+		while (true) {
+			String s = printAndAsk(errorCode+"\n\nSelectionnez un pion a bouger (ex : a2)");
+			String[] ss = s.split("\\s+");
+			if (ss.length>0 && ss[0].length()==0) {
+				String[] ss2 = new String[ss.length-1];
+				for (int i=0;i<ss2.length;i++)
+					ss2[i]=ss[i+1];
+				ss = ss2;
+			}
+			Case c = ss.length<1?null:coordonnates(ss[0]);
+			this.destination = ss.length<2?null:coordonnates(ss[1]);
+			Pawn p = this.getPawnAt(c);
+			if (c==null || ss.length>2 || (ss.length>=2&&this.destination==null))
+				errorCode = "Votre format de coordonnees est incorrect.";
+			else if (p==null)
+				errorCode = "Il n'y a pas de pion sur cette case.";
+			else if (!this.belong(p))
+				errorCode = "Ce pion ne vous appartient pas, veuillez en selectionner un autre.";
+			else {
+				if (this.destination==null) {
+					s = printAndAsk("\n\n["+pawnToChar(p,this)+"] Selectionnez une destination pour ce "+pawnToString(p,this)+" (ex : a2)");
+					this.destination = coordonnates(s.trim());
+				}
+				if (this.destination==null)
+					errorCode = "Votre format de coordonnees est incorrect.";
+				else if (!this.canMove(p,this.destination))
+					errorCode = "Vous ne pouvez pas effectuer ce mouvement.";
+				else
+					return p;
+			}
+		}
 	}
 	
+	@Override
 	protected Case selectCase() {
-		String s = printAndAsk("\n\n(?) Selectionnez une destination (ex : a2)");
-		return coordonnates(s);
+		return this.destination;
 	}
 	
 	private String printAndAsk(String desc) {
@@ -66,7 +102,8 @@ public class Interface extends PlayerControler {
 	}
 	
 	private static void printGame(GlobalViewer g) {
-		printGameSquare(g);
+		if (g.getBoard().paradigm==Paradigm.SQUARE)
+			printGameSquare(g);
 	}
 	
 	private static void printGameSquare(GlobalViewer g) {
@@ -146,8 +183,30 @@ public class Interface extends PlayerControler {
 			return 'K';
 		return '?';
 	}
+	
+	private static String pawnToString(Pawn p,GlobalViewer g) {
+		Soul s;
+		try {
+			s = g.getSoul(p);
+		} catch(UnsupportedOperationException e) {
+			return "fantome";
+		}
+		if(s.equals(s.SOUL_GOOD)) 
+			return "gentil fantome";
+		if(s.equals(s.SOUL_SGOOD))
+			return "mechant fantome";
+		if(s.equals(s.SOUL_BAD))
+			return "gentil super-fantome";
+		if(s.equals(s.SOUL_SBAD))
+			return "mechant super-fantome";
+		if(s.equals(s.SOUL_KNIGHT))
+			return "cavalier-fantome";
+		return "fantome inconnu";
+	}
 
-	private Case coordonnates(String s){
+	private Case coordonnates(String s) {
+		if (s==null)
+			return null;
 		int x = 0;
 		int y = 0;
 		int hash1 = 1;

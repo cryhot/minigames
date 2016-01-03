@@ -41,18 +41,20 @@ public class Game {
 	}
 	
 	public void subscribe(PlayerControler pc,int player) {
+		pc.setGame(this);
 		this.level.players.get(player).setControler(pc);
 	}
 	
 	/** lance la partie de Ghost.
-	 * @return  le joueur gagnant la partie, ou <code>null</code> s'il y a match nul
+	 * @return  le joueur gagnant la partie, ou <code>-1</code> s'il y a match nul
 	 */
-	public Player play() {
+	public int play() {
 		if(this.started)
 			throw new GameStateException("le jeu a déjà commencé");
 		this.started = true;
 		initialize();
-		return playTurns();
+		Player winner = playTurns();
+		return winner!=null?winner.getIndex():-1;
 	}
 	
 	/** Avertit tous les joueurs pour placer leurs pions.

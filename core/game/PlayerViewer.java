@@ -1,5 +1,9 @@
 package core.game;
 
+import java.util.Set;
+import java.util.List;
+import java.util.Iterator;
+
 import core.board.Case;
 
 /** Observateur prenant le point de vue d'un joueur dans une {@link Game partie de Ghost}.
@@ -16,8 +20,32 @@ public class PlayerViewer extends GlobalViewer {
 	 * @see Game
 	 */
 	final void setPlayer(Player p) {
-		this.setLevel(p.level);
 		this.player = p;
+	}
+	
+	/** Simule le placement initial des pions des autres joueurs, au début du jeu.
+	 * @return  la version désynchronisée, éditable à souhait.
+	 * @see GlobalViewer#desynchronize()
+	 */
+	public GameCapture simulatePlacement() {
+		GameCapture capt = this.desynchronize();
+		for (Player player:this.getLevel().players) {
+			List<Pawn> initPawns = player.getInitialPawns();
+			if (initPawns!=null && !this.player.equals(player)) {
+				Iterator<Case>cases = player.getInitialCases().iterator();
+				for (Pawn p:initPawns)
+					capt.relocatePawn(p,cases.next());
+			}
+		}
+		return capt;
+	}
+	
+	/** Renvoie <code>true</code> si le pion appartient au joueur dont est pris le point de vue.
+	 * @param p  le pion observée
+	 * @return  <code>true</code> si le pion appartient au joueur.
+	 */
+	public boolean belong(Pawn p) {
+		return this.player.equals(p.getOwner());
 	}
 	
 	@Override

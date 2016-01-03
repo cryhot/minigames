@@ -8,7 +8,7 @@ import java.util.HashSet;
  * @param <E>  le type des éléments sur lesquels portent la propriété
  * @see #validate
  */
-public abstract class Property<E>{
+public abstract class Property<E> {
 	
 	/** Méthode à redéfinir, exprimant le critère de séléction d'un élément.
 	 * Cette méthode doit être :
@@ -25,9 +25,9 @@ public abstract class Property<E>{
 	 * @param c  la collection d'éléments sur laquelle porte la requête
 	 * @return  l'ensemble des éléments vérifiant cette propriété
 	 */
-	public final HashSet<E> select(Collection<E> c) {
-		HashSet<E> elements  = new HashSet<E>();
-		for(E e : c)
+	public final <T extends E> HashSet<T> select(Collection<T> c) {
+		HashSet<T> elements  = new HashSet<T>();
+		for(T e : c)
 			if(validate(e))
 				elements.add(e);
 		return elements;
@@ -37,8 +37,8 @@ public abstract class Property<E>{
 	 * @param c  la collection d'éléments sur laquelle porte la requête
 	 * @return  le premier des éléments trouvés vérifiant cette propriété, ou <code>null</code> si aucun élément n'est trouvé
 	 */
-	public final E find(Collection<E> c) {
-		for(E e : c)
+	public final <T extends E> T find(Collection<T> c) {
+		for(T e : c)
 			if(this.validate(e))
 				return e;
 		return null;
@@ -48,7 +48,7 @@ public abstract class Property<E>{
 	 * @param c  la collection d'éléments sur laquelle porte la requête
 	 * @return  le nombre d'éléments vérifiant cette propriété
 	 */
-	public final int count(Collection<E> c){
+	public final int count(Collection<? extends E> c){
 		int n = 0;
 		for(E e : c)
 			if(validate(e))
@@ -60,7 +60,7 @@ public abstract class Property<E>{
 	 * @param c  la collection d'éléments sur laquelle porte la requête
 	 * @return  <code>true</code> si un élément est trouvé, <code>false</code> sinon
 	 */
-	public final boolean exists(Collection<E> c) {
+	public final boolean exists(Collection<? extends E> c) {
 		for(E e : c)
 			if(this.validate(e))
 				return true;
