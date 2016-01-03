@@ -1,6 +1,6 @@
 package core.stage;
 
-import java.util.Set;
+import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.List;
 import java.util.ArrayList;
@@ -51,10 +51,10 @@ public class BoardSquare extends StageBoard {
 	}
 	
 	@Override
-	protected Set<Case> initialCases(int player) {
+	protected SortedSet<Case> initialCases(int player) {
 		if (player<0||player>=2)
 			throw new IndexOutOfBoundsException(Integer.toString(player));
-		Set<Case> cases = new TreeSet<Case>();
+		SortedSet<Case> cases = new TreeSet<Case>();
 		for (int y=player*(this.size-2);y<=player*(this.size-2)+1;y++)
 			for (int x=1;x<this.size-1;x++)
 				cases.add(this.getCase(x,y));

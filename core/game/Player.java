@@ -1,6 +1,7 @@
 package core.game;
 
 import java.util.Set;
+import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.List;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class Player {
 	final Level level;
 	PlayerControler controler;
 	private List<Pawn> initPawns;
-	private Set<Case> initCases;
+	private SortedSet<Case> initCases;
 	
 	/** Construit un  nouveau joueur.
 	 * @param l  le niveau de jeu auquel appartient le joueur
@@ -51,7 +52,7 @@ public class Player {
 	 * @param pawns  les pions à placer, dans l'ordre
 	 * @param cases  les cases où placer les pions;
 	 */
-	void setInitialConfig(List<Pawn> pawns,Set<Case> cases) {
+	void setInitialConfig(List<Pawn> pawns,SortedSet<Case> cases) {
 		this.initPawns = pawns;
 		this.initCases = cases;
 	}
@@ -184,7 +185,7 @@ public class Player {
 	 * @return  l'ensemble des cases de départ, ou <code>null</code> si le placement a déjà été exécuté.
 	 * @see PlayerControler#getInitialCases()
 	 */
-	Set<Case> getInitialCases() {
+	SortedSet<Case> getInitialCases() {
 		if (this.initCases==null)
 			return null;
 		return new TreeSet<Case>(this.initCases);

@@ -44,32 +44,6 @@ public class GlobalViewer {
 		this.level = this.game.getLevel();
 	}
 	
-	/** Renvoie le pion situé sur une case du plateau.
-	 * @param c  la case observée
-	 * @return  le pion situé sur cette case
-	 */
-	// public Pawn getPawnAt(Case c) {
-		// return this.getLevel().getPawnAt(c);
-	// }
-	
-	/** Renvoie le joueur possédant ce pion.
-	 * @param p  le pion observée
-	 * @return  le joueur en possession du pion
-	 * @see Player#getIndex()
-	 */
-	// public Player getPlayer(Pawn p) {
-		// return p.getOwner();
-	// }
-	
-	/** Renvoie le joueur possédant ce pion.
-	 * @param p  le pion observée
-	 * @return  le joueur en possession du pion
-	 * @see Player#getIndex()
-	 */
-	// public List<Player> getPlayers() {
-		// return new ArrayList<Player>(this.getLevel().players);
-	// }
-	
 	/** Renvoie l'âme d'un pion.
 	 * @param p  le pion observée
 	 * @return  l'âme de ce pion

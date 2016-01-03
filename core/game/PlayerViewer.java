@@ -40,14 +40,6 @@ public class PlayerViewer extends GlobalViewer {
 		return capt;
 	}
 	
-	/** Renvoie <code>true</code> si le pion appartient au joueur dont est pris le point de vue.
-	 * @param p  le pion observée
-	 * @return  <code>true</code> si le pion appartient au joueur.
-	 */
-	// public boolean belong(Pawn p) {
-		// return this.player.equals(p.getOwner());
-	// }
-	
 	@Override
 	public Soul getSoul(Pawn p) {
 		for (Pawn p2:this.getOriginalLevel().pawns)

@@ -1,6 +1,6 @@
 package core.game;
 
-import java.util.Set;
+import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.List;
 import java.util.Iterator;
@@ -23,7 +23,7 @@ public abstract class PlayerControler extends PlayerViewer {
 	 * @see Player#placePawn(Pawn,Case)
 	 */
 	final void placePawns() {
-		Set<Case> initCases = this.getInitialCases();
+		SortedSet<Case> initCases = this.getInitialCases();
 		List<Pawn> initPawns = this.getInitialPawns();
 		while (true) {
 			List<Case> cases = this.initialCases();
@@ -88,7 +88,7 @@ public abstract class PlayerControler extends PlayerViewer {
 	/** Renvoie l'ensemble des cases de départ où placer les pions au début du jeu.
 	 * @return  l'ensemble des cases de départ, ou <code>null</code> si le placement a déjà été exécuté.
 	 */
-	public Set<Case> getInitialCases() {
+	public SortedSet<Case> getInitialCases() {
 		return this.player.getInitialCases();
 	}
 	

@@ -1,6 +1,6 @@
 package core.game;
 
-import java.util.Set;
+import java.util.SortedSet;
 import java.util.List;
 
 import core.board.*;
@@ -31,7 +31,7 @@ public abstract class StageBoard extends Board {
 	 * @return  l'ensemble des cases initiales
 	 * @throws IndexOutOfBoundsException  si l'index du joueur est invalide
 	 */
-	protected abstract Set<Case> initialCases(int player);
+	protected abstract SortedSet<Case> initialCases(int player);
 	
 	/** Renvoie l'ensemble des âmes des pions à distribuer parmi les cases initiales pour un joueur donné.
 	 * @param player  l'index du joueur spécifié

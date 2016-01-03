@@ -7,15 +7,20 @@ import core.stage.*;
 public class Tranche1 {
 	
 	public static void main(String... args) {
-		
-		StageBoard plateau = new BoardSquare(6);
-		Game game = new Game(plateau);
+		Game game = new Game( new BoardSquare() );
 		PlayerControler j1 = new userinterface.textualInterface.Interface();
 		PlayerControler j2 = new userinterface.textualInterface.Interface();
 		game.subscribe(j1,0);
 		game.subscribe(j2,1);
-		game.play();
-		
+		int winner = game.play();
+		System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+		System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+		System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+		if (winner>=0)
+			System.out.println(" FELICITATION, LE JOUEUR "+(winner+1)+" A GAGNE !");
+		else
+			System.out.println(" MATCH NUL ! TOUT LE MONDE A PERDU !");
+		System.out.println();
 	}
 	
 }

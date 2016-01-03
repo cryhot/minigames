@@ -96,6 +96,8 @@ public class Interface extends PlayerControler {
 		System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 		System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 		System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+		System.out.println(" JOUEUR "+(this.getPlayer().getIndex()+1));
+		System.out.println();
 		printGame(this);
 		System.out.print("\n ");
 		System.out.println(desc);
