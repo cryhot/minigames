@@ -5,17 +5,41 @@ import java.io.*;
 import java.util.*;
 
 import core.game.*;
+import core.stage.*;
 
-
-public class Reader {
+public class Reader extends Game{
+	
+	BufferedReader bis;
+	
+	public Reader(){
+		
+		super(new BoardSquare());
+		this.bis = read();
+		this.subscribe( new InterfaceReader(0) ,0);
+		this.subscribe( new InterfaceReader(1) ,1);
+	}
+	
+	
+	
+	public BufferedReader read(){
+		try{
+			BufferedReader bis = new BufferedReader(new FileReader(new File("Reader.txt")));
+			return bis;
+			
+		}
+		catch(FileNotFoundException e){
+			return null;
+		}
+	}
+	
+	
 	
 	public ArrayList<Soul> getInitialPosition(int n){
 		ArrayList<Character> getPosition = new ArrayList<Character>();
 		ArrayList<Soul> initialisedPosition = new ArrayList<Soul>();
 		String s;
 		char c;
-		try{
-			BufferedReader bis = new BufferedReader(new FileReader(new File("Reader.txt")));
+		try{		
 			if(n==1){
 				getPosition.add('1');
 				s =bis.readLine();
@@ -63,10 +87,9 @@ public class Reader {
 		catch(Exception e){
 			return null;
 		}
-		
 	}
 	
-	public ArrayList<String> getMoveOfReader(){
+	public ArrayList<String> getMoveOfReader(int n){
 		
 		ArrayList<String> coordonnates = new ArrayList<String>();
 		ArrayList<Character> getByte = new ArrayList<Character>();
@@ -78,35 +101,38 @@ public class Reader {
 			while(!s.equals("# Move")){
 				s = bis.readLine();
 			}
-			while((char)(bis.read())=='-'){
+			if(n==1){
 				c =(char)(bis.read());
-			}
-			while(!((char)(bis.read())=='2')){
-				c =(char)(bis.read());
-				if((c>='0'&&c<='9')||(c>='a'&& c<='z')){
-					getByte.add(c);
+				while(!(c=='-')){
+					c =(char)(bis.read());
+				}
+				while(!(c=='2')){
+					c =(char)(bis.read());
+					if((c>='0'&&c<='9')||(c>='a'&& c<='z')){
+						getByte.add(c);
+					}
 				}
 			}
-			boolean end = false;
-			while(!end){
-				try{
+			if(n==2){
+				c = (char)(bis.read());
+				while(!(c=='2')){
 					c =(char)(bis.read());
-					if((c>='0'&&c<='9')||(c>='a'&& c<='z'))
-						getByte.add(c);
+				}
+				boolean end = false;
+				while(!end){
+					try{
+						c =(char)(bis.read());
+						if((c>='0'&&c<='9')||(c>='a'&& c<='z'))
+							getByte.add(c);
+						
+					}
+					catch(Exception e){
+						end = true;
+					}
 					
 				}
-				catch(Exception e){
-					end = true;
-				}
-				
 			}
 			for(int i=0;i<getByte.size();i+=2){
-				if(i==0){
-					coordonnates.add("1");
-				}
-				if(i==(getByte.size()/2)){
-					coordonnates.add("2");
-				}
 				String str = (Character.toString(getByte.get(i))).concat(Character.toString(getByte.get(i+1)));
 				coordonnates.add(str);						
 			}
@@ -119,11 +145,11 @@ public class Reader {
 	}
 	
 	
+}	
 	
 	
 	
 	
 	
 	
-	
-}
+
