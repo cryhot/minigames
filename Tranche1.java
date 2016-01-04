@@ -7,7 +7,7 @@ import core.stage.*;
 public class Tranche1 {
 	
 	public static void main(String... args) {
-		Game game = new Game( new BoardCross() );
+		Game game = new Game( new BoardSquare() );
 		PlayerControler j1 = new userinterface.textualInterface.Interface();
 		PlayerControler j2 = new userinterface.textualInterface.Interface();
 		game.subscribe(j1,0);
