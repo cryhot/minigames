@@ -10,8 +10,11 @@ import core.stage.*;
 public class Reader extends Game{
 	
 	BufferedReader bis;
-	protected ArrayList<String> coordonnates1 = getMoveOfReader(1);
-	protected ArrayList<String> coordonnates2 = getMoveOfReader(2);
+	protected ArrayList<String> coordonnates = getMoveOfReader;
+	protected ArrayList<Soul> player1 = ;
+	protected ArrayList<Soul> player2 = ;
+
+	
 	
 	public Reader(){
 		
@@ -35,6 +38,45 @@ public class Reader extends Game{
 	}
 	
 	
+	public ArrayList<Character> getPosition1(){
+		ArrayList<Character> getPosition = new ArrayList<Character>();
+		getPosition.add('1');
+		s =bis.readLine();
+		while(!s.equals("# Player1")){
+			s = bis.readLine();
+		}
+		c = (char)(bis.read());
+		while(c!='#'){
+		if(c=='G'||c=='B')
+			getPosition.add(c);
+		c = (char)(bis.read());
+		}
+		for(int i=getPosition.size();i>(getPosition.size()/2);i--){
+			getPosition.add(getPosition.get(getPosition.size()-1));
+			getPosition.remove(getPosition.size()-1);
+		}
+	}
+	
+	public ArrayList<Character> getPosition2(){
+		ArrayList<Character> getPosition = new ArrayList<Character>();
+		getPosition.add('2');
+		s =bis.readLine();
+		while(!s.equals("# Player2")){
+			s = bis.readLine();
+		}
+		c = (char)(bis.read());
+		while(c!='#'){
+		if(c=='G'||c=='B')
+			getPosition.add(c);
+		c = (char)(bis.read());
+		}
+		for(int i=getPosition.size();i>(getPosition.size()/2);i--){
+			getPosition.add(0,getPosition.get(getPosition.size()-1));
+			getPosition.remove(getPosition.size()-1);
+		}
+		
+	}
+	
 	
 	public ArrayList<Soul> getInitialPosition(int n){
 		ArrayList<Character> getPosition = new ArrayList<Character>();
@@ -43,39 +85,11 @@ public class Reader extends Game{
 		char c;
 		try{		
 			if(n==1){
-				getPosition.add('1');
-				s =bis.readLine();
-				while(!s.equals("# Player1")){
-					s = bis.readLine();
-				}
-				c = (char)(bis.read());
-				while(c!='#'){
-				if(c=='G'||c=='B')
-					getPosition.add(c);
-				c = (char)(bis.read());
-				}
-				for(int i=getPosition.size();i>(getPosition.size()/2);i--){
-					getPosition.add(getPosition.get(getPosition.size()-1));
-					getPosition.remove(getPosition.size()-1);
-				}
+				getPosition1 = 
 				
 			}
 			if(n==2){
-				getPosition.add('2');
-				s =bis.readLine();
-				while(!s.equals("# Player2")){
-					s = bis.readLine();
-				}
-				c = (char)(bis.read());
-				while(c!='#'){
-				if(c=='G'||c=='B')
-					getPosition.add(c);
-				c = (char)(bis.read());
-				}
-				for(int i=getPosition.size();i>(getPosition.size()/2);i--){
-					getPosition.add(0,getPosition.get(getPosition.size()-1));
-					getPosition.remove(getPosition.size()-1);
-				}
+				
 			}
 			
 			for(char character : getPosition){
