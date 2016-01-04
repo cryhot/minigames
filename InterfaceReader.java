@@ -17,24 +17,26 @@ public class InterfaceReader extends PlayerControler{
 	}
 	
 	protected ArrayList<Case> initialCases(){
-		
-		ArrayList<Soul> a1 = reader.getInitialPosition(1);
-		ArrayList<Soul> a2 = reader.getInitialPosition(2);
+		ArrayList<Soul> a = new ArrayList<Soul>();
+		if(player==0)
+			a = reader.getInitialPosition(1);
+		if(player==1)
+			a = reader.getInitialPosition(2);
 		List<Pawn> pawns = this.getInitialPawns();
 		ArrayList<Case> cases = new ArrayList<Case>();
 		SortedSet<Case> initCases = this.getInitialCases();
 		for(Pawn p : pawns){
 			cases.add(null);
 		}
-		Iterator<Soul> it1 = a1.iterator();
-		Iterator<Soul> it2 = a2.iterator();
+		Iterator<Soul> it = a.iterator();
+	
 		for(Case c : initCases ) {
-			if(player==0){
-				if(it1.hasNext()){
-					Soul soul1 = it1.next();
+			
+				if(it.hasNext()){
+					Soul soul = it.next();
 					for(int i=0;i<pawns.size();i++){
-						Soul s1 = this.getSoul(pawns.get(i));
-						if(s1.equals(soul1)){
+						Soul s = this.getSoul(pawns.get(i));
+						if(s.equals(soul)){
 							cases.remove(i);
 							cases.add(i,c);
 							pawns.remove(i);
@@ -43,23 +45,8 @@ public class InterfaceReader extends PlayerControler{
 						}
 					}	
 				}
-			}
-			else if(player==1){
-				if(it2.hasNext()){
-					Soul soul2 = it2.next();
-					for(int i=0;i<pawns.size();i++){
-						Soul s2 = this.getSoul(pawns.get(i));
-						if(s2.equals(soul2)){
-							cases.remove(i);
-							cases.add(i,c);
-							pawns.remove(i);
-							pawns.add(i,null);
-							break;
-						}
-					}				
-				}
-			}
 		}
+			
 		return cases;
 	}
 	
@@ -129,10 +116,6 @@ public class InterfaceReader extends PlayerControler{
 		}
 		return this.getBoard().getCase(this.getBoard().getXMin()+x-1,this.getBoard().getYMin()+y-1);
 	}
-	
-	
-	
-	
 	
 	
 	
