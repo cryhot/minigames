@@ -1,0 +1,11 @@
+# Player1
+G G B G
+B B G B
+
+# Player2
+G G G G
+B B B B
+
+# Move
+1 - a2,a3 - a5,a4
+2 - c2,c3 - c5,c4
