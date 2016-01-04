@@ -97,30 +97,31 @@ public class Reader extends Game{
 		ArrayList<Character> getByte = new ArrayList<Character>();
 		String s;
 		char c;
+		boolean end = false;
 		try{
-			BufferedReader bis = new BufferedReader(new FileReader(new File("Reader.txt")));
-			s =bis.readLine();
+			
+			s =this.bis.readLine();
 			while(!s.equals("# Move")){
 				s = bis.readLine();
 			}
 			if(n==1){
 				c =(char)(bis.read());
-				while(!(c=='-')){
+				while(!(c==':')){
 					c =(char)(bis.read());
 				}
-				while(!(c=='2')){
+				while(!end){
 					c =(char)(bis.read());
+					if(c==':'){
+						end = true;
+						break;
+					}				
 					if((c>='0'&&c<='9')||(c>='a'&& c<='z')){
 						getByte.add(c);
 					}
 				}
 			}
 			if(n==2){
-				c = (char)(bis.read());
-				while(!(c=='2')){
-					c =(char)(bis.read());
-				}
-				boolean end = false;
+				
 				while(!end){
 					try{
 						c =(char)(bis.read());

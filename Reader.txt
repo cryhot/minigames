@@ -7,5 +7,5 @@ G G G G
 B B B B
 
 # Move
-1 - a2,a3 - a5,a4
-2 - c2,c3 - c5,c4
+1 : a2,a3 - a5,a4
+2 : c2,c3 - c5,c4
