@@ -130,8 +130,10 @@ public class Interface extends PlayerControler {
 			System.out.println();
 		}
 		System.out.println();
-		if (g.getBoard().paradigm==Paradigm.SQUARE)
-			printGameSquare(g);
+		switch (g.getBoard().paradigm) {
+			case SQUARE:
+				printGameSquare(g); break;
+		}
 	}
 	
 	/** Affiche le jeu dans la console, comme un jeu de cases carrées.
