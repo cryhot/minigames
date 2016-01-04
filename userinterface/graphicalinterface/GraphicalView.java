@@ -1,11 +1,12 @@
 package userinterface.graphicalinterface;
 
 import java.util.Set;
+import java.util.List;
+import java.util.ArrayList;
 
 import userinterface.render.*;
-import core.game.GlobalViewer;
-import core.game.Player;
-import core.game.Pawn;
+import userinterface.image.*;
+import core.game.*;
 import core.board.Case;
 import core.board.Board;
 import core.board.Paradigm;
@@ -30,6 +31,7 @@ public class GraphicalView extends FramedCanvas {
 	private int tile_width,  tileBorder_width;
 	private int tile_height, tileBorder_height;
 	private int width, height;
+	private List<Color> playerColor;
 	
 	public GraphicalView(GlobalViewer viewer) {
 		super(50);
@@ -40,9 +42,10 @@ public class GraphicalView extends FramedCanvas {
 		this.grade();
 	}
 	
-	/** Evalue les dimentions du plateau et son apparence.
+	/** Evalue les dimentions du plateau, son apparence et les autres paramètres constants.
 	 */
 	private void grade() {
+		this.grade_playerColors();
 		this.grade_tiles();
 		this.grade_dimentions();
 		this.setPreferredSize(new Dimension(this.width,this.height));
@@ -76,6 +79,30 @@ public class GraphicalView extends FramedCanvas {
 				this.width  = this.tileBorder_width  + x*(this.tile_width +this.tileBorder_width );
 				this.height = this.tileBorder_height + y*(this.tile_height+this.tileBorder_height);
 				break;
+		}
+	}
+	
+	/** Evalue la couleur de chaque joueur.
+	 */
+	private void grade_playerColors() {
+		List<Player> players = this.viewer.getLevel().getPlayers();
+		this.playerColor = new ArrayList<Color>(players.size());
+		switch (players.size()) {
+			case 1:
+				this.playerColor.add(new Color(1f,1f,1f,0f));
+				break;
+			case 2:
+				this.playerColor.add(new Color(1f,1f,1f,0f));
+				this.playerColor.add(new Color(0f,0f,0f,.97f));
+				break;
+			case 3:
+				this.playerColor.add(new Color(1f,0f,0f,1f));
+				this.playerColor.add(new Color(0f,1f,0f,1f));
+				this.playerColor.add(new Color(0f,0f,1f,1f));
+				break;
+			default:
+				for (Player p:players)
+					this.playerColor.add(new java.awt.Color( (int)(Math.random()*3)*80, (int)(Math.random()*3)*80, (int)(Math.random()*3)*80 ));
 		}
 	}
 	
@@ -131,8 +158,30 @@ public class GraphicalView extends FramedCanvas {
 	}
 	
 	private void paintPawn(Graphics g,Pawn p,int x,int y) {
-		this.drawImage(g,this.spriteSheet.GHOST(),x,y);
-		this.drawImage(g,this.spriteSheet.GHOST_EYES(),x,y);
+		this.drawImage(g,this.spriteSheet.GHOST(this.playerColor.get(p.getOwner().getIndex())),x,y);
+		this.drawImage(g,this.spriteSheet.GHOST_EYES(this.getSoul(p)),x,y);
+	}
+	
+	/** Renvoie l'image animée de l'âme du fantôme.
+	 */
+	private AnimatedSprite getSoul(Pawn p) {
+		Soul s;
+		try {
+			s = this.viewer.getSoul(p);
+		} catch(UnsupportedOperationException e) {
+			return null;
+		}
+		if(s.equals(s.SOUL_GOOD)) 
+			return this.spriteSheet.SOUL_GOOD;
+		if(s.equals(s.SOUL_SGOOD))
+			return this.spriteSheet.SOUL_SGOOD;
+		if(s.equals(s.SOUL_BAD))
+			return this.spriteSheet.SOUL_BAD;
+		if(s.equals(s.SOUL_SBAD))
+			return this.spriteSheet.SOUL_SBAD;
+		if(s.equals(s.SOUL_KNIGHT))
+			return this.spriteSheet.SOUL_KNIGHT;
+		return this.spriteSheet.SOUL_UNKNOWN;
 	}
 	
 	/** Calcule les coordonnées en pixels d'une case donnée.
