@@ -10,13 +10,15 @@ import core.stage.*;
 public class Reader extends Game{
 	
 	BufferedReader bis;
+	protected ArrayList<String> coordonnates1 = getMoveOfReader(1);
+	protected ArrayList<String> coordonnates2 = getMoveOfReader(2);
 	
 	public Reader(){
 		
 		super(new BoardSquare());
 		this.bis = read();
-		this.subscribe( new InterfaceReader(0) ,0);
-		this.subscribe( new InterfaceReader(1) ,1);
+		this.subscribe( new InterfaceReader(this,0) ,0);
+		this.subscribe( new InterfaceReader(this,1) ,1);
 	}
 	
 	
@@ -143,6 +145,8 @@ public class Reader extends Game{
 		}
 		
 	}
+	
+	
 	
 	
 }	

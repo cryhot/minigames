@@ -6,9 +6,7 @@ import core.board.Case;
 
 public class InterfaceReader extends PlayerControler{
 	
-	private Reader reader = new Reader();
-	private ArrayList<String> coordonnates1 = reader.getMoveOfReader(1);
-	private ArrayList<String> coordonnates2 = reader.getMoveOfReader(2);	
+	private Reader reader;
 	private int position1 = 1;
 	private int position2 = 2;
 	private int player;
@@ -17,9 +15,6 @@ public class InterfaceReader extends PlayerControler{
 		this.reader = r;
 		this.player = n;
 	}
-	
-	
-	
 	
 	protected ArrayList<Case> initialCases(){
 		
@@ -67,12 +62,15 @@ public class InterfaceReader extends PlayerControler{
 		}
 		return cases;
 	}
+	
+	
+	
 
 	protected Case selectCase(){
 		if(player==0){
 			try{
 				position1++;
-				return coordonnates(coordonnates1.get(this.position1));
+				return coordonnates(reader.coordonnates1.get(this.position1));
 				
 			}
 			catch(Exception e){
@@ -84,7 +82,7 @@ public class InterfaceReader extends PlayerControler{
 			
 			try{
 				position2++;
-				return coordonnates(coordonnates2.get(this.position2));
+				return coordonnates(reader.coordonnates2.get(this.position2));
 			}
 			catch(Exception e){
 				return null;
