@@ -46,7 +46,7 @@ public class Reader extends Game {
 	
 	/** Charge les données en mémoire.
 	 * @param file  le fichier source
-	 * @throws IOException
+	 * @throws IOException  si le fichier est mal lu
 	 */
 	private void read(File file) throws IOException {
 		this.movements = new LinkedList<Case>();

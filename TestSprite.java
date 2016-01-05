@@ -1,12 +1,17 @@
 import userinterface.image.*;
 import userinterface.render.*;
 
+/** Programme de test pour les sprites animés.
+ * Ce fichier à été laissé intentionellement dans le package final.
+ * @see userinterface.image
+ * @see userinterface.render
+ */
 @SuppressWarnings("serial")
 public class TestSprite extends javax.swing.JFrame {
 	static SpriteSheet sp;
 	static {
 		System.out.println("Starting...");
-		sp = new SpriteSheet(new java.io.File("C:/JR/Programmation/Java/Ghosts/sprites design/sprites"));
+		sp = new SpriteSheet(new java.io.File("resources/sprites"));
 		System.out.println(sp); 
 	}
 	

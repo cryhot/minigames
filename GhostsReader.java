@@ -7,6 +7,9 @@ import userinterface.graphicalinterface.GraphicalView;
 
 import javax.swing.JFrame;
 
+/** Programme annexe permettant de jouer automatiquement un fichier texte.
+ * @see #main(String[])
+ */
 public class GhostsReader {
 	
 	public static void play(File file) {
@@ -28,6 +31,10 @@ public class GhostsReader {
 		play(new File("Reader.txt"));
 	}
 	
+	/** Lance une partie en mode lecture sur le fichier spécifié en argument.
+	 * Si aucun argument n'est donné, lit le fichier par défaut.
+	 * @param args  les arguments
+	 */
 	public static void main(String[] args) {
 		if (args.length>=1)
 			play(new File(args[0]));

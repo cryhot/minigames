@@ -7,6 +7,9 @@ import core.stage.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+/** Programme pricipal de Ghosts.
+ * @see #main(String[])
+ */
 public class Main{
 	
 	
@@ -56,7 +59,9 @@ public class Main{
 		return null;
 	}
 	
-	/** Mode Normal */
+	/** Mode Normal
+	 * @param board  le plateau utilisé
+	 */
 	public static void tranche1(StageBoard board){
 		Game game = new Game( board );
 		PlayerControler j1 = new userinterface.textualinterface.Interface();
@@ -76,7 +81,9 @@ public class Main{
 		System.out.println();
 	}
 	
-	/** Mode Triche */
+	/** Mode Triche
+	 * @param board  le plateau utilisé
+	 */
 	public static void tranche2(StageBoard board){
 		Game game = new Game( board );
 		PlayerControler j1 = new userinterface.textualinterface.Interface(new AdminViewer(game)); // mode triche
@@ -94,7 +101,9 @@ public class Main{
 		System.out.println();
 	}
 	
-	/** Mode GUI Triche */
+	/** Mode GUI Triche
+	 * @param board  le plateau utilisé
+	 */
 	public static void tranche3(StageBoard board){
 		Game game = new Game( board );
 		PlayerControler j1 = new userinterface.textualinterface.Interface();
