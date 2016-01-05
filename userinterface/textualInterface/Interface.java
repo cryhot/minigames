@@ -14,6 +14,20 @@ import util.Property;
 
 public class Interface extends PlayerControler {
 	private Case destination;
+	private GlobalViewer viewer;
+	
+	/** Construit un nouveau controleur de joueur à entrée textuelle.
+	 */
+	public Interface() {
+		this.viewer = this;
+	}
+	
+	/** Construit un nouveau controleur de joueur à entrée textuelle.
+	 * @param viewer  l'observateur de jeu qui remplacera ce controleur pour l'affichage du plateau.
+	 */
+	public Interface(GlobalViewer viewer) {
+		this.viewer = viewer;
+	}
 	
 	@Override
 	protected List<Case> initialCases() {
@@ -99,7 +113,7 @@ public class Interface extends PlayerControler {
 		System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 		System.out.println(" JOUEUR "+(this.getPlayer().getIndex()+1));
 		System.out.println();
-		printGame(this);
+		printGame(this.viewer);
 		System.out.print("\n ");
 		System.out.println(desc);
 		System.out.print(">>> ");

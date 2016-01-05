@@ -8,12 +8,15 @@ import java.util.Iterator;
 import core.game.*;
 import core.board.Case;
 
-/** Controleur de jeu utilisé par {@link Reader}.
+/** Controleur de joueur utilisé par {@link Reader}.
  * @see Reader
  */
 class InterfaceReader extends PlayerControler {
 	private Reader reader;
 	
+	/** Construit un nouveau controleur de joueur.
+	 * @param r  le lecteur de jeu originaire
+	 */
 	public InterfaceReader(Reader r){
 		this.reader = r;
 	}
@@ -57,7 +60,8 @@ class InterfaceReader extends PlayerControler {
 	}
 	
 	/** Instaure un temps de latence volontaire, simulant un joueur.
-	 * Sans cela, il serait impossible d'afficher à une vitesse corecte le déroulement du jeu.
+	 * Sans cela, il serait impossible d'afficher à une vitesse correcte le déroulement du jeu.
+	 * @param time  le temps, en seconde dans une échelle de temps standard
 	 */
 	private void waitABit(double time) {
 		try {

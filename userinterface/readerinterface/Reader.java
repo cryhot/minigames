@@ -8,12 +8,21 @@ import core.game.*;
 import core.board.Case;
 import core.stage.BoardSquare;
 
+/** Un jeu de Ghost standard créé et joué à partir d'un fichier source, de manière automatique.
+ * Le fichier source se doit d'être correctement rédigé, sinon des erreurs inatendues peuvent survenir.
+ * @see InterfaceReader
+ */
 public class Reader extends Game {
 	private int speed;
 	protected List<Soul> player1;
 	protected List<Soul> player2;
 	protected Queue<Case> movements;
 	
+	/** Construit un nouveau jeu en lecture.
+	 * @param file  le fichier source
+	 * @param speed  la "vitesse" d'1 seconde, en milliseconde, lors de la simulation.
+	 * @throws IllegalArgumentException  si la vitesse est négative
+	 */
 	public Reader(File file,int speed) {
 		super(new BoardSquare());
 		if (speed<0)
@@ -28,10 +37,17 @@ public class Reader extends Game {
 		}
 	}
 	
+	/** Construit un nouveau jeu en lecture.
+	 * @param file  le fichier source
+	 */
 	public Reader(File file) {
 		this(file,0);
 	}
 	
+	/** Charge les données en mémoire.
+	 * @param file  le fichier source
+	 * @throws IOException
+	 */
 	private void read(File file) throws IOException {
 		this.movements = new LinkedList<Case>();
 		this.player1 = new ArrayList<Soul>(8);
@@ -87,6 +103,11 @@ public class Reader extends Game {
 		}
 	}
 	
+	/** Renvoie la liste ordonnée des âmes à placer pour un joueur.
+	 * @param player  le joueur demandé
+	 * @return  la liste ordonnée des âmes à placer
+	 * @see InterfaceReader
+	 */
 	List<Soul> getInitialSoul(int player) {
 		switch (player) {
 			case 0: return player1;
@@ -95,6 +116,12 @@ public class Reader extends Game {
 		}
 	}
 	
+	/** Renvoie la prochaine case non traîtée par le jeu.
+	 * Comme les {@link InterfaceReader controleurs interne} du Reader appellent cette fonction à tour de rôle,
+	 * cela guaranti la bonne distribution des cases.
+	 * @return  la prochaine case
+	 * @see InterfaceReader
+	 */
 	Case getNextCase() {
 		return this.movements.remove();
 	}
@@ -103,6 +130,11 @@ public class Reader extends Game {
 		return this.speed;
 	}
 	
+	/** Renvoie la case décrite par le texte donné.
+	 * Par exemple <code>"a2"</code> désigne la case (1;2).
+	 * @param s  le texte à traiter
+	 * @return  la case correspondante, ou <code>null</code> si le texte n'a pas pu être interprété
+	 */
 	private Case coordonnates(String s) {
 		if (s==null)
 			return null;

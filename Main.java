@@ -4,6 +4,8 @@ import core.board.*;
 import core.movement.*;
 import core.stage.*;
 
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class Main{
 	
@@ -24,39 +26,37 @@ public class Main{
 		System.out.println("\n\tVeuillez choisir votre mode de jeu : ");
 		System.out.println("\to 1 : Mode Normal (Joueur vs Joueur)");
 		System.out.println("\to 2 : Mode Automatique");
-		System.out.println("\to 3 : Mode Extension(Pions modifiés !)");
-		System.out.println("\to 4 : Mode Normal + TRICHE !");
-		System.out.println("\to 5 : Mode Extension + TRICHE !");
-		
+		System.out.println("\to 3 : Mode Normal + TRICHE !");
+		System.out.println("\to 4 : Mode Normal + GUI TRICHE !");
 		
 		int n=sc.nextInt();
-		if(n==1){
-			StageBoard[] boards = new StageBoard[]{new BoardSquare(), new BoardCross(),new BoardSquare(4),};
-			System.out.println("\nQuel plateau voulez-vous utiliser ? :");
-			System.out.println("1 : Plateau Normal");
-			System.out.println("2 : Plateau Modifié");
-			System.out.println("3 : Mini Plateau");
-			n=sc.nextInt();
-			if(n>0&&n<=boards.length){
-				tranche1(boards[n-1]);
-			}
-			
-		}
-		if(n==2){
-			tranche2();
-		}
-		if(n==3){
-			tranche3();
-		}
-		if(n==4){
-			tranche4();
-		}
-		if(n==5){
-			tranche5();
-		}
+		if(n==1)
+			tranche1(askForBoard());
+		if(n==2)
+			GhostsReader.play();
+		if(n==3)
+			tranche2(askForBoard());
+		if(n==4)
+			tranche3(askForBoard());
 		
 	}
 	
+	// demande à l'utilisateur un plateau
+	public static StageBoard askForBoard() {
+		Scanner sc = new Scanner(System.in);
+		StageBoard[] boards = new StageBoard[]{new BoardSquare(), new BoardCross(),new BoardSquare(4),};
+		System.out.println("\nQuel plateau voulez-vous utiliser ? :");
+		System.out.println("1 : Plateau Normal");
+		System.out.println("2 : Plateau Modifié");
+		System.out.println("3 : Mini Plateau");
+		int n = sc.nextInt();
+		if(n>0&&n<=boards.length)
+			return boards[n-1];
+		System.exit(0);
+		return null;
+	}
+	
+	/** Mode Normal */
 	public static void tranche1(StageBoard board){
 		Game game = new Game( board );
 		PlayerControler j1 = new userinterface.textualinterface.Interface();
@@ -72,24 +72,54 @@ public class Main{
 		else
 			System.out.println(" MATCH NUL ! TOUT LE MONDE A PERDU !");
 		System.out.println();
-		
 	}
 	
-	public static void tranche2(){
-		
-		
+	/** Mode Triche */
+	public static void tranche2(StageBoard board){
+		Game game = new Game( board );
+		PlayerControler j1 = new userinterface.textualinterface.Interface(new AdminViewer(game)); // mode triche
+		PlayerControler j2 = new userinterface.textualinterface.Interface(new AdminViewer(game));
+		game.subscribe(j1,0);
+		game.subscribe(j2,1);
+		int winner = game.play();
+		System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+		System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+		System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+		if (winner>=0)
+			System.out.println(" FELICITATION, LE JOUEUR "+(winner+1)+" A GAGNE !");
+		else
+			System.out.println(" MATCH NUL ! TOUT LE MONDE A PERDU !");
+		System.out.println();
 	}
 	
-	public static void tranche3(){
-		
+	/** Mode GUI Triche */
+	public static void tranche3(StageBoard board){
+		Game game = new Game( board );
+		PlayerControler j1 = new userinterface.textualinterface.Interface();
+		PlayerControler j2 = new userinterface.textualinterface.Interface();
+		game.subscribe(j1,0);
+		game.subscribe(j2,1);
+		createGUI(game); // GUI
+		int winner = game.play();
+		System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+		System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+		System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+		if (winner>=0)
+			System.out.println(" FELICITATION, LE JOUEUR "+(winner+1)+" A GAGNE !");
+		else
+			System.out.println(" MATCH NUL ! TOUT LE MONDE A PERDU !");
+		System.out.println();
 	}
 	
-	public static void tranche4(){
-		
-	}
-	
-	public static void tranche5(){
-		
+	public static void createGUI(Game g) {
+		JPanel view = new userinterface.graphicalinterface.GraphicalView(new AdminViewer(g));
+		JFrame frame = new JFrame();
+		frame.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
+		frame.setTitle("Tranche3");
+		frame.setResizable(false);
+		frame.getContentPane().add(view);
+		frame.pack();
+		frame.setVisible(true);
 	}
 	
 	

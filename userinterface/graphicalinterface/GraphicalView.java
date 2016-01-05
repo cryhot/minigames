@@ -163,6 +163,8 @@ public class GraphicalView extends FramedCanvas {
 	}
 	
 	/** Renvoie l'image animée de l'âme du fantôme.
+	 * @param p  le pion dont est demandé l'âme
+	 * @return  l'image animée de l'âme du fantôme
 	 */
 	private AnimatedSprite getSoul(Pawn p) {
 		Soul s;
