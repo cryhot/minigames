@@ -114,14 +114,19 @@ public class Main{
 	}
 	
 	public static void createGUI(GlobalViewer viewer,String title) {
-		JPanel view = new userinterface.graphicalinterface.GraphicalView(viewer);
-		JFrame frame = new JFrame();
-		frame.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-		frame.setTitle(title);
-		frame.setResizable(false);
-		frame.getContentPane().add(view);
-		frame.pack();
-		frame.setVisible(true);
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				JPanel view = new userinterface.graphicalinterface.GraphicalView(viewer);
+				JFrame frame = new JFrame();
+				frame.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
+				frame.setTitle(title);
+				frame.setResizable(false);
+				frame.getContentPane().add(view);
+				frame.pack();
+				frame.setVisible(true);
+				frame.pack(); // quelques soucis de marge parfois
+			}
+		});
 	}
 	
 	

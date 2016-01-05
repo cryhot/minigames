@@ -38,7 +38,7 @@ public class GraphicalView extends FramedCanvas {
 		if (viewer==null)
 			throw new NullPointerException();
 		this.viewer = viewer;
-		this.spriteSheet = new SpriteSheet(new java.io.File("C:/JR/Programmation/Java/Ghosts/sprites design/sprites"));
+		this.spriteSheet = new SpriteSheet(new java.io.File("resources/sprites"));
 		this.grade();
 	}
 	
