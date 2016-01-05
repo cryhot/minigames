@@ -13,11 +13,11 @@ public class Main{
 		Scanner sc = new Scanner(System.in);
 		
 		System.out.println("_______________________________________________");
-		System.out.println("*	****  *  * **** ***** ******* *****       *");
-		System.out.println("*	*     *  * *  * *        *    *           *");
-		System.out.println("*	* *** **** *  * *****    *    *****       *");		
-		System.out.println("*	* *   *  * *  *     *    *        *       *");		
-		System.out.println("*	***   *  * **** *****    *    *****       *");		
+		System.out.println("*     ****  *  * **** ***** ******* *****     *");
+		System.out.println("*     *     *  * *  * *        *    *         *");
+		System.out.println("*     * *** **** *  * *****    *    *****     *");		
+		System.out.println("*     * *   *  * *  *     *    *        *     *");		
+		System.out.println("*     ***   *  * **** *****    *    *****     *");		
 		System.out.println("_______________________________________________");
 		
 		System.out.println("\tBonjour et bienvenue dans Ghosts !");
@@ -31,16 +31,14 @@ public class Main{
 		
 		int n=sc.nextInt();
 		if(n==1){
-			Board[] boards = new Board{new BoardSquare(), new BoardCross()};
+			StageBoard[] boards = new StageBoard[]{new BoardSquare(), new BoardCross(),new BoardSquare(4),};
 			System.out.println("\nQuel plateau voulez-vous utiliser ? :");
 			System.out.println("1 : Plateau Normal");
 			System.out.println("2 : Plateau Modifié");
+			System.out.println("3 : Mini Plateau");
 			n=sc.nextInt();
-			if(n==1){
-				tranche1(boards[0]);
-			}
-			if(n==2){
-				tranche1(boards[1]);
+			if(n>0&&n<=boards.length){
+				tranche1(boards[n-1]);
 			}
 			
 		}
@@ -59,10 +57,10 @@ public class Main{
 		
 	}
 	
-	public static void tranche1(Board board){
+	public static void tranche1(StageBoard board){
 		Game game = new Game( board );
-		PlayerControler j1 = new userinterface.textualInterface.Interface();
-		PlayerControler j2 = new userinterface.textualInterface.Interface();
+		PlayerControler j1 = new userinterface.textualinterface.Interface();
+		PlayerControler j2 = new userinterface.textualinterface.Interface();
 		game.subscribe(j1,0);
 		game.subscribe(j2,1);
 		int winner = game.play();

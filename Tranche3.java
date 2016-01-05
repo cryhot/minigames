@@ -10,8 +10,8 @@ public class Tranche3 {
 	
 	public static void main(String... args) {
 		Game game = new Game( new BoardSquare() );
-		PlayerControler j1 = new userinterface.textualInterface.Interface();
-		PlayerControler j2 = new userinterface.textualInterface.Interface();
+		PlayerControler j1 = new userinterface.textualinterface.Interface();
+		PlayerControler j2 = new userinterface.textualinterface.Interface();
 		game.subscribe(j1,0);
 		game.subscribe(j2,1);
 		

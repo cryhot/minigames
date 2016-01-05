@@ -1,4 +1,4 @@
-package userinterface.textualInterface;
+package userinterface.textualinterface;
 
 import java.util.Scanner;
 import java.util.List;

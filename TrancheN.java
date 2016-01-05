@@ -2,6 +2,7 @@ import java.io.File;
 
 import core.game.Game;
 import core.game.AdminViewer;
+import userinterface.readerinterface.Reader;
 import userinterface.graphicalinterface.GraphicalView;
 
 import javax.swing.JFrame;
