@@ -63,6 +63,8 @@ public class Main{
 		PlayerControler j2 = new userinterface.textualinterface.Interface();
 		game.subscribe(j1,0);
 		game.subscribe(j2,1);
+		createGUI(j1,"Player 1's View"); // GUI joueur 1
+		createGUI(j2,"Player 2's View"); // GUI joueur 2
 		int winner = game.play();
 		System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 		System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
@@ -99,7 +101,7 @@ public class Main{
 		PlayerControler j2 = new userinterface.textualinterface.Interface();
 		game.subscribe(j1,0);
 		game.subscribe(j2,1);
-		createGUI(game); // GUI
+		createGUI(new AdminViewer(game),"Game Master's View"); // GUI
 		int winner = game.play();
 		System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 		System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
@@ -111,11 +113,11 @@ public class Main{
 		System.out.println();
 	}
 	
-	public static void createGUI(Game g) {
-		JPanel view = new userinterface.graphicalinterface.GraphicalView(new AdminViewer(g));
+	public static void createGUI(GlobalViewer viewer,String title) {
+		JPanel view = new userinterface.graphicalinterface.GraphicalView(viewer);
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-		frame.setTitle("Tranche3");
+		frame.setTitle(title);
 		frame.setResizable(false);
 		frame.getContentPane().add(view);
 		frame.pack();

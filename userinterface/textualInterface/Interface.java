@@ -31,7 +31,11 @@ public class Interface extends PlayerControler {
 	
 	@Override
 	protected List<Case> initialCases() {
-		GameCapture view = this.simulatePlacement();
+		GameCapture view;
+		if (this.viewer==this)
+			view = this.simulatePlacement();
+		else
+			view = this.viewer.desynchronize();
 		List<Pawn> pawns = this.getInitialPawns();
 		List<Case> cases = new ArrayList<Case>();
 		SortedSet<Case> initCases = this.getInitialCases();
@@ -58,7 +62,7 @@ public class Interface extends PlayerControler {
 			cases.add(c);
 			view.relocatePawn(p,c);
 		}
-		this.synchronize();
+		this.viewer.synchronize();
 		return cases;
 	}
 	
