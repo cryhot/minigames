@@ -61,16 +61,21 @@ public final class Move implements Comparable<Move> {
 	}
 	
 	/** Compare l'objet spécifié avec ce déplacement.
-	 * La comparaison se fait par ordre lexicographique, sur les abscisses puis sur les ordonnées.
+	 * La comparaison se fait par ordre lexicographique, sur les ordonnées puis sur les abscisses.
 	 * @return  un entier négatif, nul ou positif si ce déplacement est respectivement plus petit, égal ou plus grand que l'objet spécifié
 	 */
 	@Override
 	public int compareTo(Move m) {
-		if (this.x!=m.x)
-			return this.x<m.x?-1:1;
 		if (this.y!=m.y)
 			return this.y<m.y?-1:1;
+		if (this.x!=m.x)
+			return this.x<m.x?-1:1;
 		return 0;
+	}
+	
+	@Override
+	public String toString() {
+		return super.toString()+"("+Integer.toString(this.x)+";"+Integer.toString(this.y)+")";
 	}
 	
 }

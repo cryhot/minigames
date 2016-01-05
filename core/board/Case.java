@@ -89,11 +89,11 @@ public final class Case implements Comparable<Case> {
 	
 	@Override
 	public int hashCode() {
-		return this.x*11+this.y*13;
+		return this.board.hashCode()+this.x*11+this.y*13;
 	}
 	
 	/** Compare l'objet spécifié avec cette case.
-	 * La comparaison se fait par ordre lexicographique, sur le {@link #board plateau}, sur les abscisses puis sur les ordonnées.
+	 * La comparaison se fait par ordre lexicographique, sur le {@link #board plateau}, sur les ordonnées puis sur les abscisses.
 	 * @return  un entier négatif, nul ou positif si cette case est respectivement plus petit, égal ou plus grand que l'objet spécifié
 	 */
 	@Override
@@ -101,11 +101,16 @@ public final class Case implements Comparable<Case> {
 		int diff = this.board.hashCode()-c.board.hashCode();
 		if (diff!=0)
 			return diff<0?-1:1;
-		if (this.x!=c.x)
-			return this.x<c.x?-1:1;
 		if (this.y!=c.y)
 			return this.y<c.y?-1:1;
+		if (this.x!=c.x)
+			return this.x<c.x?-1:1;
 		return 0;
+	}
+	
+	@Override
+	public String toString() {
+		return getClass().getName()+'@'+Integer.toHexString(this.board.hashCode())+"("+Integer.toString(this.x)+";"+Integer.toString(this.y)+")";
 	}
 	
 }

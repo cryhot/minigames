@@ -7,5 +7,42 @@ G G G G
 B B B B
 
 # Move
-1 : a2,a3 - a5,a4
-2 : c2,c3 - c5,c4
+P1 - e2 f2
+P2 - e5 e4
+P1 - d2 e2
+P2 - b5 a5
+P1 - f2 f3
+P2 - c5 c4
+P1 - b2 b3
+P2 - a5 a4
+P1 - e2 d2
+P2 - d5 d4
+P1 - e1 e2
+P2 - e6 e5
+P1 - c2 c3
+P2 - c4 c3
+P1 - b3 c3
+P2 - a4 a3
+P1 - d1 e1
+P2 - a3 a2
+P1 - c3 b3
+P2 - c6 c5
+P1 - b3 b4
+P2 - e5 f5
+P1 - b4 a4
+P2 - c5 b5
+P1 - e2 f2
+P2 - d4 d3
+P1 - d2 d3
+P2 - d6 d5
+P1 - e1 e2
+P2 - f5 f4
+P1 - d3 e3
+P2 - e4 e3
+P1 - f3 e3
+P2 - b6 a6
+P1 - e3 e4
+P2 - b5 a5
+P1 - a4 b4
+P2 - a2 a1
+P1 - b1 a1

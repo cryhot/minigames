@@ -93,7 +93,7 @@ public class GraphicalView extends FramedCanvas {
 				break;
 			case 2:
 				this.playerColor.add(new Color(1f,1f,1f,0f));
-				this.playerColor.add(new Color(0f,0f,0f,.97f));
+				this.playerColor.add(new Color(.1f,.1f,.1f,.95f));
 				break;
 			case 3:
 				this.playerColor.add(new Color(1f,0f,0f,1f));

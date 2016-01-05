@@ -1,131 +1,68 @@
-import java.util.*;
+
+
+import java.util.List;
+import java.util.ArrayList;
+import java.util.SortedSet;
+import java.util.Iterator;
 
 import core.game.*;
 import core.board.Case;
 
-
-public class InterfaceReader extends PlayerControler{
-	
+/** Controleur de jeu utilisé par {@link Reader}.
+ * @see Reader
+ */
+class InterfaceReader extends PlayerControler {
 	private Reader reader;
-	private int position1 = 1;
-	private int position2 = 2;
-	private int player;
 	
-	public InterfaceReader(Reader r, int n){
+	public InterfaceReader(Reader r){
 		this.reader = r;
-		this.player = n;
 	}
 	
-	protected ArrayList<Case> initialCases(){
-		ArrayList<Soul> a = new ArrayList<Soul>();
-		if(player==0)
-			a = reader.getInitialPosition(1);
-		if(player==1)
-			a = reader.getInitialPosition(2);
+	@Override
+	protected List<Case> initialCases() {
+		List<Soul> souls = this.reader.getInitialSoul(this.getPlayer().getIndex());
 		List<Pawn> pawns = this.getInitialPawns();
-		ArrayList<Case> cases = new ArrayList<Case>();
-		SortedSet<Case> initCases = this.getInitialCases();
-		for(Pawn p : pawns){
+		List<Case> cases = new ArrayList<Case>(pawns.size());
+		for (Pawn p : pawns){
 			cases.add(null);
 		}
-		Iterator<Soul> it = a.iterator();
-	
-		for(Case c : initCases ) {
-			
-				if(it.hasNext()){
-					Soul soul = it.next();
-					for(int i=0;i<pawns.size();i++){
-						Soul s = this.getSoul(pawns.get(i));
-						if(s.equals(soul)){
-							cases.remove(i);
-							cases.add(i,c);
-							pawns.remove(i);
-							pawns.add(i,null);
-							break;
-						}
-					}	
+		Iterator<Soul> it = souls.iterator(); // ordonne les cases selon l'ordre des soul
+		for(Case c : this.getInitialCases()) { // voir Case#compareTo(Case)
+			Soul s = it.next();
+			for(int i=0;i<pawns.size();i++) {
+				Pawn p = pawns.get(i);
+				if (p==null)
+					continue;
+				Soul soul = this.getSoul(p);
+				if (soul.equals(s)) {
+					cases.set(i,c);
+					pawns.set(i,null);
+					break;
 				}
+			}
 		}
-			
+		this.waitABit(2.2);
 		return cases;
 	}
 	
-	
-	
-
-	protected Case selectCase(){
-		if(player==0){
-			try{
-				position1++;
-				return coordonnates(reader.coordonnates1.get(this.position1));
-				
-			}
-			catch(Exception e){
-				return null;
-			}
-			
-		}
-		if(player==1){
-			
-			try{
-				position2++;
-				return coordonnates(reader.coordonnates2.get(this.position2));
-			}
-			catch(Exception e){
-				return null;
-			}
-			
-		}
-		return null;
+	@Override
+	protected Case selectCase() {
+		this.waitABit(0.9);
+		return this.reader.getNextCase();
 	}
 	
-	
+	@Override
 	protected Pawn selectPawn(){
 		return this.getLevel().getPawnAt(this.selectCase());
 	}
 	
-	private Case coordonnates(String s) {
-		if (s==null)
-			return null;
-		int x = 0;
-		int y = 0;
-		int hash1 = 1;
-		int hash2 = 0;
-		boolean figureFound = false;
-		for (int i=0;i<s.length();i++) {
-			char c = s.charAt(i);
-			if (c>='A' && c<='Z')
-				c += 'a'-'A';
-			if (c>='a' && c<='z' && !figureFound){
-				hash1 *= 26;
-				hash2 *= 26;
-				hash2 += c-'a';				
-			}
-			else if (c>='0' && c<='9'){
-				y= 10*y + (int)(c - '0');
-				figureFound = true;				
-			}
-			else{
-				return null;
-			}
-		}
-		hash1 = (hash1-1)/(25);
-		x = hash1+hash2;
-		if(x == 0 || y == 0){
-			return null;
-		}
-		return this.getBoard().getCase(this.getBoard().getXMin()+x-1,this.getBoard().getYMin()+y-1);
+	/** Instaure un temps de latence volontaire, simulant un joueur.
+	 * Sans cela, il serait impossible d'afficher à une vitesse corecte le déroulement du jeu.
+	 */
+	private void waitABit(double time) {
+		try {
+			Thread.sleep((int)(this.reader.getSpeed()*time));
+		} catch (InterruptedException e) {}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }

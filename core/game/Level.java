@@ -67,6 +67,13 @@ public class Level {
 		return new ArrayList<Player>(this.players);
 	}
 	
+	/** Renvoie le plateau utilisé par le jeu.
+	 * @return  le plateau utilisé par le jeu
+	 */
+	public Board getBoard() {
+		return this.board;
+	}
+	
 	/** Renvoie l'ordre de passage d'un joueur.
 	 * @param p  le joueur dont est demmandé l'ordre de passage
 	 * @return  l'ordre de passage, qui est numéroté à partir de 0

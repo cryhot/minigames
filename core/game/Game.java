@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 import core.exceptions.*;
+import core.board.Board;
 
 /** <code>Game</code> est une partie de jeu de Ghost à part entière.
  * Cette classe gère essentiellement le déroulement du jeu.
@@ -133,6 +134,13 @@ public class Game {
 	 */
 	Level getLevel() {
 		return this.level;
+	}
+	
+	/** Renvoie le plateau utilisé par le jeu.
+	 * @return  le plateau utilisé par le jeu
+	 */
+	public Board getBoard() {
+		return this.getLevel().getBoard();
 	}
 	
 	/** Renvoie <code>true</code> si le jeu a commencé.
